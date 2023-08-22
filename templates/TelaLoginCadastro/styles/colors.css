@@ -1,0 +1,79 @@
+:root {
+    --principal: #159A9C;
+    --secundaria: #002333;
+}
+
+.border-radius-inputs {
+    border-radius: 10px;
+}
+
+.fs-inputs {
+    font-size: 14px;
+}
+
+.border-radius-divs {
+    border-radius: 25px;
+}
+
+.border-primaria {
+    border: 4px solid;
+    border-color: var(--principal);
+}
+
+.bg-primaria {
+    background-color: var(--principal);
+}
+
+.c-secundaria {
+    color: var(--secundaria);
+}
+
+.btn-adp-primaria {
+    background-color: var(--principal);
+    color: white;
+    transition: 0.1s;
+}
+
+.btn-adp-primaria:hover {
+    color: white;
+    transition: 0.2s;
+    background-color: var(--secundaria)
+}
+
+.active {
+    background-color: var(--secundaria)
+}
+
+.section-auth {
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.section-auth:hover {
+    background-color: var(--secundaria);
+    transition: 0.2s;
+}
+
+.icon {
+    transition: 0.1s;
+}
+
+.icon:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+@media screen and (max-width: 420px) {
+
+    .register-camp,
+    .login-camp,
+    .top-bar {
+        width: 90% !important;
+    }
+
+    .register-camp,
+    .login-camp {
+        padding: 8% !important;
+    }
+}
