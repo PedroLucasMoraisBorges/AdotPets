@@ -1,0 +1,11 @@
+
+<form action="" method="post">
+    {%csrf_token%}
+    
+    {% for form in userForm %}
+        {{ form.label_tag }}
+        {{ form }}
+    {% endfor %}
+
+    <button type="submit">Cadastrar</button>
+</form>
