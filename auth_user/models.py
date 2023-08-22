@@ -1,13 +1,12 @@
 from django.db import models
 from .managres import*
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
-class User(models.Model):
+class User(AbstractUser):
     username = None
     email = models.EmailField(unique = True, blank = False)
     nome = models.CharField(max_length = 50)
-    telefone = models.CharField(max_length = 13)
-    telefone_fixo = models.CharField(max_length = 12, blank = True, null = True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome']
@@ -16,3 +15,6 @@ class User(models.Model):
 
     def __str__(self):
         return self.nome
+
+class Empresa(models.Model):
+    nome_fantasia = models.CharField(max_length=50)
