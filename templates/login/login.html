@@ -1,0 +1,54 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+
+
+
+<!--body-->
+{% block content %}
+<!--
+    {% if errors %}
+    <div class="alert alert-danger alert-dismissible">
+        <div>
+            {% for error in errors %}
+                <span>{{ error }}</span><br>
+            {% endfor %}
+        </div>
+
+        <button class="close" onclick="fechar()">x</button>
+    </div>
+    {% endif %}
+-->
+<div class="form-container">
+    <form method="post" id="login">
+        {%csrf_token%}
+            
+        <h1>Insira seus dados de login</h1>
+
+        <div class="input-container">
+            <input placeholder="E-mail" name="{{form.username.name}}" type="text"/>  
+            <i data-feather="mail"></i>
+        </div>                                                           
+
+        <div class="input-container">
+            <input placeholder="Senha" name="{{form.password.name}}" type="password" />
+            <i data-feather="key"></i>
+        </div>
+
+        <div class="options-container">
+            <div class="checkbox-container">
+            <input type="checkbox" name="remember_me" id="remember" />
+            <label for="remeber">Lembre-se de mim</label>
+            </div><a href="#">Esqueceu sua senha?</a>
+        </div>
+
+        <input type="submit" value="Avançar">
+    </form>
+  </div>
+  
+</div>
+{% endblock %}
