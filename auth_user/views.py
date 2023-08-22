@@ -8,6 +8,7 @@ class Login(View):
     def get(self, request):
             return render(request, 'login/login.html')
 
+
 class CadastrarUser(View):
     def get(self, request):
         userForm = CustomUserCreationForm()
@@ -38,4 +39,3 @@ class CadastrarUser(View):
                 'userForm': userForm,
             }
             return render(request, 'Cadastrar/cadastrar.html', context)
-      
