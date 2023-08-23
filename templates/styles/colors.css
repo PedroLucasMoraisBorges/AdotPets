@@ -3,6 +3,11 @@
     --secundaria: #002333;
 }
 
+.row-divider {
+    width: 100%;
+    height: 40px;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -29,6 +34,10 @@ input::-webkit-inner-spin-button {
 
 .bg-primaria {
     background-color: var(--principal);
+}
+
+.c-primaria {
+    color: var(--principal)
 }
 
 .c-secundaria {
@@ -82,5 +91,79 @@ input::-webkit-inner-spin-button {
     .register-camp,
     .login-camp {
         padding: 8% !important;
+    }
+}
+
+
+.nav-animation {
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-animation::before {
+    position: absolute;
+    content: " ";
+    display: block;
+    height: 5px;
+    width: 0;
+    background-color: white;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.2s;
+}
+
+.nav-animation:hover:before {
+    transition: 0.2s;
+    width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    .cards {
+        width: 33% !important;
+    }
+
+    .cards {
+        flex-grow: 1;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .cards {
+        width: 50% !important;
+    }
+
+    .cards:last-of-type {
+        flex-grow: 1;
+    }
+
+    .mobile {
+        font-size: 13px !important;
+    }
+
+    .logo-hidden {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .cards {
+        width: 100% !important;
+    }
+
+    .cards:last-of-type {
+        flex-grow: 1;
+    }
+
+    .mobile {
+        font-size: 13px !important;
+    }
+
+    .logo-hidden {
+        display: none;
+    }
+
+    .ms-5 {
+        margin-left: 10px !important;
     }
 }
