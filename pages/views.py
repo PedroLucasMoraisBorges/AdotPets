@@ -6,3 +6,7 @@ from .forms import *
 
 def landingPage(request):
     return render(request, 'landingPage.html')
+
+class homePage(View):
+    def get(self, request):
+        return render(request, 'adocao/home.html')
