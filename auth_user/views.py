@@ -12,12 +12,14 @@ class Login(View):
 class CadastrarUser(View):
     def get(self, request):
         userForm = CustomUserCreationForm()
+        defaultUserForm = DefaultUserForm()
         errors = []
-        for form in [userForm]:
+        for form in [userForm, defaultUserForm]:
             for field, field_errors in form.errors.items():
                 for error in field_errors:
                     errors.append(f"{field.title()}: {error}")
         context = {
+                'defaultUserForm' : defaultUserForm,
                 'userForm' : userForm,
                 'errors' : errors
         }
@@ -25,17 +27,23 @@ class CadastrarUser(View):
         return render(request, 'cadastros/cadastro.html', context)
     def post(self, request):
             userForm = CustomUserCreationForm(request.POST)
-            if userForm.is_valid():
+            defaultUserForm = DefaultUserForm(request.POST)
+            if userForm.is_valid() and defaultUserForm.is_valid():
                 email = userForm.cleaned_data.get('email')
-                if not email.endswith(('@gmail.com')):
-                    userForm.add_error('email', 'Por favor, insira um e-mail válido da instituição.')
+                if not email.endswith('@gmail.com'):
+                    userForm.add_error('email', 'Por favor, insira um e-mail válido')
                 else:
                     user = userForm.save(commit = False)
                     user.is_active = False
                     user.save()
+
+                    defaultUser = defaultUserForm.save(commit= False)
+                    defaultUser.fk_user = user
+                    defaultUser.save()
                     #self._send_email_verification(user)
-                    return HttpResponseRedirect('/cadastros/confirmar-email/')
+                    return HttpResponseRedirect('/home/')
             context = {
-                'userForm': userForm,
+                'defaultUserForm' : defaultUserForm,
+                'userForm' : userForm,
             }
-            return render(request, 'Cadastrar/cadastrar.html', context)
+            return render(request, 'cadastros/cadastro.html', context)

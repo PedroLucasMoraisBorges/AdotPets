@@ -11,10 +11,14 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nome']
 
-    object = UserManager()
+    objects = UserManager()
 
     def __str__(self):
         return self.nome
 
 class Empresa(models.Model):
     nome_fantasia = models.CharField(max_length=50)
+
+class defaultUser(models.Model):
+    fk_user = models.ForeignKey(User, related_name = 'defaultUser', on_delete = models.CASCADE)
+    telefone = models.CharField(unique= True, blank= False, max_length= 13)
