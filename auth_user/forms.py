@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
     nome = forms.CharField(
         required=True,
         label='Nome completo',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Email'}))
+        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
 
     class Meta:
         model = User

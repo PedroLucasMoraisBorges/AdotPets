@@ -15,7 +15,9 @@
 
 {% block content %}
 <body class="d-flex justify-content-center align-items-center min-vh-100 flex-column fs-inputs">
-
+    {% if error in errors %}
+        <p>{{ error }}</p>
+    {% endif %}
     <div class="d-flex border-radius-divs overflow-hidden top-bar" style="width: 375px; border-radius: 25px 25px 0 0;">
         <div class="w-50 text-center text-white bg-primaria d-flex justify-content-center align-items-center active section-auth"
             style="height: 65px;">Login</div>
@@ -34,7 +36,12 @@
         <form action="" method="post">
             {%csrf_token%}
             
-            <div class="input-field mb-2">
+            {% for campo in form %}
+                {{ campo.label_tag }}
+                {{ campo }}
+            {% endfor %}
+
+            <!-- <div class="input-field mb-2">
                 <label for="emailCamp" class="d-block mb-1">E-mail:</label>
                 <input class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" placeholder="E-mail" name="{{form.username.name}}" type="text"/>  
                 <i data-feather="mail"></i>
@@ -43,7 +50,7 @@
                 <label for="passwordCamp" class="d-block mb-1">Senha:</label>
                 <input class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" placeholder="Senha" name="{{form.password.name}}" type="password" />
                 <i data-feather="key"></i>
-            </div>
+            </div> -->
             <button type="submit" class="btn btn-adp-primaria w-100 mt-4 mb-4 py-2 border-radius-inputs">Entrar</button>
             <p class="mb-1">Outras formas de login:</p>
 
