@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth import login
-from auth_user.models import User
+from django.contrib.auth.models import User
+from auth_user.models import *
 
 def authenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):

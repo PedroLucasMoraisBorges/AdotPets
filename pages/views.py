@@ -5,6 +5,7 @@ from .forms import *
 from auth_user.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from .decorator import *
 # Create your views here.
 
 def landingPage(request):
