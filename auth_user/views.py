@@ -1,80 +1,47 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
-from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
-from django.contrib.auth import login, logout, update_session_auth_hash
-from django.views import View
+from django.http.response import HttpResponse
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.shortcuts import HttpResponseRedirect
 from .models import *
-from .forms import *
 
-# Create your views here.
-class Login(View):
+def Cadastro(request):
+    if request.method == 'GET':
+        return render(request, 'cadastros/cadastro.html')
+    else:
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('password1')
+        senha2 = request.POST.get('password2')
+        telefone = request.POST.get('telefone')
 
-    #@method_decorator(authenticated_user)
-    def get(self, request):
-        form = AuthenticationForm()
+        if senha == senha2:
+            user = User.objects.filter(email=email).first()
 
-        context = {
-            "form": form
-        }
-        return render(request, 'login/login.html', context)
-    
-    #@method_decorator(authenticated_user)
-    def post(self, request):
-        form = AuthenticationForm(request, data = request.POST)
-        
-        errors = []
-        for field, field_errors in form.errors.items():
-            for error in field_errors:
-                errors.append(f"{field.title()}: {error}")
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            remember_me = request.POST.get('remember_me')
-            if remember_me:
-                request.session['remember_me'] = True
+            if user:
+                return HttpResponse('user já cadastrado')
             else:
-                request.session.pop('remember_me', None)
-            return HttpResponseRedirect('/')
-        context = {
-            "form": form,
-            'errors': errors,
-        }
-        return render(request, 'login/login.html', context)
+                user = User.objects.create_user(username=email,email=email,password=senha,first_name=username)
+                user.save()
 
-class CadastrarUser(View):
-    def get(self, request):
-        userForm = CustomUserCreationForm()
-        defaultUserForm = DefaultUserForm()
-        errors = []
-        for form in [userForm, defaultUserForm]:
-            for field, field_errors in form.errors.items():
-                for error in field_errors:
-                    errors.append(f"{field.title()}: {error}")
-        context = {
-                'defaultUserForm' : defaultUserForm,
-                'userForm' : userForm,
-                'errors' : errors
-        }
+                defaultUser = DefaultUser.objects.create(telefone=telefone, fk_user=user)
+                defaultUser.save()
+                
+                user = authenticate(username=email, password=senha)
+                login(request, user)
+                return HttpResponseRedirect('/home/')
+            
 
-        return render(request, 'cadastros/cadastro.html', context)
-    def post(self, request):
-            userForm = CustomUserCreationForm(request.POST)
-            defaultUserForm = DefaultUserForm(request.POST)
-            if userForm.is_valid() and defaultUserForm.is_valid():
-                email = userForm.cleaned_data.get('email')
-                if not email.endswith('@gmail.com'):
-                    userForm.add_error('email', 'Por favor, insira um e-mail válido')
-                else:
-                    user = userForm.save(commit = False)
-                    user.is_active = False
-                    user.save()
 
-                    defaultUser = defaultUserForm.save(commit= False)
-                    defaultUser.fk_user = user
-                    defaultUser.save()
-                    #self._send_email_verification(user)
-                    return HttpResponseRedirect('/home/')
-            context = {
-                'defaultUserForm' : defaultUserForm,
-                'userForm' : userForm,
-            }
-            return render(request, 'cadastros/cadastro.html', context)
+def Login(request):
+    if request.method == 'GET':
+        return render(request, 'login/login.html')
+    else:
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        user = authenticate(username=email, password=senha)
+
+        if user:
+            login(request, user)
+            return HttpResponseRedirect('/home/')

@@ -39,6 +39,6 @@ class DefaultUserForm(forms.ModelForm):
         widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Telefone'}))
     
     class Meta:
-        model = defaultUser
+        model = DefaultUser
         fields = '__all__'
         exclude = ('fk_user',)

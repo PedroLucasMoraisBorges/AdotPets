@@ -30,41 +30,36 @@
         <img src="{% static 'imgs/logo.png' %}" alt="Logo image" class="d-block mx-auto mb-1" style="width: 49%;">
         <form action="" method="post">
             {%csrf_token%}
-            
-            {% for form in userForm %}
-                {{ form.label_tag }}
-                {{ form }}
-            {% endfor %}
 
-            {% for form in defaultUserForm %}
-                {{form.label_tag}}
-                {{form}}
-            {% endfor %}
-            <!-- <div class="input-field">
+            <div class="input-field">
                 <label for="nameCamp" class="d-block mb-1">Nome:</label>
-                <input type="text" name="{{userForm.username.name}}" id="nameCamp" placeholder="Digite seu nome"
+                <input type="text" name="username" id="nameCamp" placeholder="Username"
                     class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm">
             </div>
+
             <div class="input-field">
                 <label for="emailCamp" class="d-block mb-1">E-mail:</label>
-                <input type="text" name="{{userForm.email.name}}" id="emailCamp" placeholder="Digite seu e-mail"
+                <input type="text" name="email" id="emailCamp" placeholder="Digite seu e-mail"
                     class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm">
             </div>
+
             <div class="input-field">
                 <label for="cellphoneCamp" class="d-block mb-1">Telefone:</label>
-                <input type="number" name="{{defaultUserForm.telefone.name}}" id="cellphoneCamp" placeholder="Digite seu telefone"
+                <input type="number" name="telefone" id="cellphoneCamp" placeholder="Digite seu telefone"
                     class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm">
-            </div>
+
             <div class="input-field">
                 <label for="passwordCamp" class="d-block mb-1">Senha:</label>
-                <input type="password" name="{{userForm.password1.name}}" id="passwordCamp" placeholder="Digite sua senha"
+                <input type="password" name="password1" id="passwordCamp" placeholder="Digite sua senha"
                     class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm">
             </div>
+            
             <div class="input-field">
                 <label for="passwordCamp" class="d-block mb-1">Confirme a senha:</label>
-                <input type="password" name="{{userForm.password2.name}}" id="passwordCamp" placeholder="Digite sua senha"
+                <input type="password" name="password2" id="passwordCamp" placeholder="Digite sua senha"
                     class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm">
-            </div> -->
+            </div>
+
             <button type="submit" class="btn btn-adp-primaria w-100 mt-4 py-2 border-radius-inputs">Cadastrar</button>
         </form>
     </div>

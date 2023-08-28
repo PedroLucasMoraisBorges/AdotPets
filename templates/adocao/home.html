@@ -8,7 +8,6 @@
 
 {% block content %}
 <body style="font-size: 15px;">
-
     <div class="d-flex justify-content-between fw-bold text-white bg-primaria align-items-center px-4 py-3 mobile"
         style="font-size: 20px;">
         <div class="logo-section d-flex align-items-center">
@@ -21,6 +20,8 @@
             <li class="nav-option ms-5 nav-animation">Sobre nós</li>
         </nav>
     </div>
+
+    <h1>{{ defaultUser.fk_user.first_name }}</h1>
 
     <main class="mx-auto mt-5 mb-5" style="width: 85%">
         <h1 class="fs-2 fw-bold mb-5">Pets disponíveis</h1>
