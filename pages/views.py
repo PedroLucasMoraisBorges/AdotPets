@@ -6,6 +6,7 @@ from auth_user.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .decorator import *
+from PIL import Image
 # Create your views here.
 
 def landingPage(request):
@@ -23,3 +24,11 @@ class homePage(View):
             return render(request, 'adocao/home.html', context)
         else:
             print("vv")
+
+def adicionarPet(request):
+    if request.POST:
+        form = cadastrarPet(request.POST, request.FILES)
+        print(request.FILES)
+        if form.is_valid():
+            form.save()
+    return render(request, 'cadastros/cadastroPet.html', {'form' : cadastrarPet(request.POST, request.FILES)})
