@@ -23,3 +23,21 @@ class homePage(View):
             return render(request, 'adocao/home.html', context)
         else:
             print("vv")
+
+class adicionarPet(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        form = CadastrarPetForm()
+        context = {
+            'form':form
+        }
+        return render(request, 'cadastros/cadastroPet.html', context)
+    def post(self, request):
+        form = CadastrarPetForm(request.POST, request.FILES)
+        print(request.FILES)
+        if form.is_valid():
+            pet = form.save(commit=False)
+            pet.fk_user = request.user
+            pet.save()
+        return render(request, 'cadastros/cadastroPet.html', {'form' : CadastrarPetForm(request.POST, request.FILES)})
+        
