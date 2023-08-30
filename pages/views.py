@@ -28,16 +28,28 @@ class adicionarPet(View):
     @method_decorator(login_required)
     def get(self, request):
         form = CadastrarPetForm()
+        imgForm = CadastroImagemForm()
         context = {
-            'form':form
+            'form':form,
+            'imgForm':imgForm
         }
         return render(request, 'cadastros/cadastroPet.html', context)
     def post(self, request):
         form = CadastrarPetForm(request.POST, request.FILES)
-        print(request.FILES)
-        if form.is_valid():
+        imgForm = CadastroImagemForm(request.POST, request.FILES)
+
+        if form.is_valid() and imgForm.is_valid():
             pet = form.save(commit=False)
             pet.fk_user = request.user
             pet.save()
-        return render(request, 'cadastros/cadastroPet.html', {'form' : CadastrarPetForm(request.POST, request.FILES)})
+
+            img = imgForm.save(commit=False)
+            img.fk_pet = pet
+            img.save()
+
+        context = {
+            'form':form,
+            'imgForm':imgForm
+        }
+        return render(request, 'cadastros/cadastroPet.html', context)
         
