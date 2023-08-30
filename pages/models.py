@@ -8,8 +8,7 @@ class Pet(models.Model):
     desc = models.CharField(max_length=200)
     pref = models.CharField(max_length=200)
     sexo = models.CharField(max_length=10)
-    imagem = models.FileField(upload_to='media/imgPet')
 
-# class ImagemPet(models.Model):
-#     fk_pet = models.ForeignKey(Pet, related_name = 'imagem_pet', on_delete = models.CASCADE)
-#     imagem = models.ImageField(upload_to='imgPet')
+class ImagemPet(models.Model):
+    fk_pet = models.ForeignKey(Pet, related_name = 'imagem_pet', on_delete = models.CASCADE)
+    imagem = models.FileField(upload_to='media/imgPet')
