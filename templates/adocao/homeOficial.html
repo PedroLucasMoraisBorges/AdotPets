@@ -1,0 +1,137 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+
+<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+
+{% endblock head %}
+
+{% block content %}
+
+<div>
+    <div class="page-container">
+        <header>
+            <div class="top-section">
+                <div class="logo"></div>
+                <div class="nav-container">
+                    <nav class="nav-options">
+                        <li class="nav-option">Função1</li>
+                        <li class="nav-option">Função2</li>
+                        <li class="nav-option">Função3</li>
+                        <li class="nav-option nav-option-active">Função4</li>
+                    </nav>
+                </div>
+            </div>
+            <section class="header-section">
+                <img src="{% static 'imgs/irregularBall.svg' %}" alt="irregular ball" class="irregular-ball">
+                <h1>Lorem ipsum dolor sit.
+                    <span class="colorized-text">Nunc Vuputate Liberum.</span>
+                </h1>
+                <p>Horem ipsum dolor sit amet,
+                    consectetur adipiscing elit.
+                    <span class="colorized-text">Lorem ipsum dolor sit amet.</span>
+                </p>
+            </section>
+        </header>
+
+        <main>
+            <div class="mid-form">
+                <h2>Lorem ipsum dolor</h2>
+                <p>Lorem ipsum dolor sit</p>
+                <select name="" id="">
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="William">William</option>
+                </select>
+                <button>Lorem Ipsum</button>
+            </div>
+
+            <div class="mid-sections">
+                <section class="mid-1">
+                    <img src="{% static 'imgs/irregularBall.svg' %}"  class="irregular-ball" alt="irregular ball">
+                    <h2>Lorem ipsum 
+                        <span class="colorized-text">dolor sit.</span>
+                    </h2>
+                    <p>Norem ipsum dolor amet, consectetur
+                        <span class="colorized-text">Nunc vulputate libero et velinterdum, mattis.</span>
+                        <span class="colorized-text">Nunc vulputate.</span>
+                    </p>
+                </section>
+                <section class="mid-2">
+                    <article class="article-1">
+                        <h3>Lorem ipsum
+                            <span class="colorized-text">dolor sit</span>
+                        </h3>
+                        <p>Lorem ipsum dolor sit amet consectetur. 
+                        Screletisque <span class="colorized-text">pulvinar nunc pulvinar erat</span></p>
+                        <p><span class="colorized-text">Lorem ipsum dolor sit</span></p>
+                        <img src="{% static 'imgs/irregularBall.svg' %}" alt="irregular ball" class="irregular-ball">
+                    </article>
+                    <article class="article-2">
+                        <h3>Lorem ipsum
+                            <span class="colorized-text">dolor sit amet</span>
+                        </h3>
+                        <div class="img-and-info">
+                            <img src="{% static 'imgs/rectangle_stand.svg' %}" alt="irregular ball" class="rectangle-stand">
+                            <div class="information">
+                                <p>Lorem ipsum dolor sit amet consectetur. Maecenas nibh et tellus mattis ultricies. Tincidunt odio risus magna leo leo. Volutpat quis tortor tempor cursus id ultrices. At duis.</p>
+                                <p><strong>Lorem</strong></p>
+                                <p>Lorem</p>
+                            </div>
+                        </div>
+                        <ul class="carrousel-indicators">
+                            <li class="carrousel-indicator indicator-active"></li>
+                            <li class="carrousel-indicator"></li>
+                            <li class="carrousel-indicator"></li>
+                            <li class="carrousel-indicator"></li>
+                            < class="carrousel-indicator"></ li>
+                        </ul>
+                    </article>
+                </section>
+                <section class="mid-3">
+                    <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes" class="background-shapes">
+                    <h3>Lorem ipsum aolor ait amet consectetur</h3>
+                    <button>Lorem Ipsum Dolor</button>
+                    <div class="whiteHolder">
+                    </div>
+                </section>
+                <footer>
+                    <div class="logo"></div>
+                    <div class="footer-information">
+                        <div class="info-section">
+                            <h4><span class="colorized-text">
+                                Lorem ipsum
+                            </span></h4>
+                            <p>Lorem ipsum</p>
+                            <p>Mi</p>
+                            <p>Lorem</p>
+                            <p>Lorem ipsum</p>
+                        </div>
+                        <div class="info-section">
+                            <h4><span class="colorized-text">
+                                Lorem ipsum
+                            </span></h4>
+                            <p>Lorem ipsum dolor sit</p>
+                            <p>Lorem Ipsum dolor sit armet</p>
+                        </div>
+                        <div class="info-section">
+                            <h4><span class="colorized-text">
+                                Lorem
+                            </span></h4>
+                            <img src="{% static 'imgs/facebookIcon.svg' %}" alt="facebook logo">
+                            <img src="{% static 'imgs/instagramIcon.svg' %}" alt="facebook logo">
+                        </div>
+                    </div>
+                </footer>
+                <div class="copyDown">Lorem ipsum dolor sit amet consectetur. <span class="copy">Lorem Lorem</span></div>
+            </div>
+        </main>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}

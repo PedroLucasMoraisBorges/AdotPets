@@ -20,7 +20,7 @@ class homePage(View):
             context = {
                 'defaultUser' : defaultUser
             }
-            return render(request, 'adocao/home.html', context)
+            return render(request, 'adocao/homeOficial.html', context)
         else:
             print("vv")
 
