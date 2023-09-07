@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='ImagemPet',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('imagem', models.FileField(upload_to='media/imgPet')),
+                ('imagem', models.ImageField(upload_to='media/imgPet')),
                 ('fk_pet', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='imagem_pet', to='pages.pet')),
             ],
         ),
