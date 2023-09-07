@@ -6,14 +6,11 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="{% url 'uploadPet' %}" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% for field in form %}
         <label>{{field.label_tag}}</label>
         <p>{{field}}</p>
-        {% if field.errors %}
-            <p class="error">{{ field.errors }}</p>
-        {% endif %}
     {% endfor %}
 
     {{ imgForm.management_form }}
@@ -36,7 +33,9 @@
 <script type="text/javascript">
     $(function() {
         $('.ImagemFormset').formset({
-            prefix: '{{ imgForm.prefix }}'
+            prefix: '{{ imgForm.prefix }}',
+            addText: 'Adicionar foto',
+            removeText: 'Remover',
         });
     })
 </script>
