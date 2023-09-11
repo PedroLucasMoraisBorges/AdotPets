@@ -13,17 +13,29 @@ from datetime import date
 # Create your views here.
 
 def landingPage(request):
-    return render(request, 'landingPage.html')
+    return render(request, 'homeOficial.html')
 
 class homePage(View):
     @method_decorator(login_required)
     def get(self, request):
+        pet_list = Pet.objects.all()
+        pets = []
+        for pet in pet_list:
+            imgs = ImagemPet.objects.filter(fk_pet = pet)
+
+            pets.append(
+                {
+                    'pet' : pet,
+                    'imgs': imgs,
+                }
+            )
         if request.user.is_authenticated:
             defaultUser = DefaultUser.objects.get(fk_user = request.user)
             context = {
-                'defaultUser' : defaultUser
+                'defaultUser' : defaultUser,
+                'pets' : pets
             }
-            return render(request, 'adocao/homeOficial.html', context)
+            return render(request, 'adocao/home.html', context)
         else:
             print("vv")
 
