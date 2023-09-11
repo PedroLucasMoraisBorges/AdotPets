@@ -1,68 +1,73 @@
-{% extends '../componentes/base.html' %}
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
-<style>
-    body {
-        font-size: 14px;
-    }
-</style>
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>Adota PET</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+    <link rel="stylesheet" href="{% static 'css/login_style.css'%}">
+</head>
 
-
-
-
-{% block content %}
-<body class="d-flex justify-content-center align-items-center min-vh-100 flex-column fs-inputs">
-    {% if error in errors %}
-        <p>{{ error }}</p>
-    {% endif %}
-    <div class="d-flex border-radius-divs overflow-hidden top-bar" style="width: 375px; border-radius: 25px 25px 0 0;">
-        <div class="w-50 text-center text-white bg-primaria d-flex justify-content-center align-items-center active section-auth"
-            style="height: 65px;">Login</div>
-        <a href="{% url 'cadastroUser' %}" class="w-50 text-decoration-none d-block" style="height: 65x;">
-            <div class=" text-center text-white bg-primaria d-flex justify-content-center align-items-center
-            section-auth h-100">Cadastro
+<body>
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    <lord-icon src="https://cdn.lordicon.com/zagjqhhk.json" trigger="loop" delay="1000"
+        colors="outline:#121331,primary:#b26836,secondary:#646e78,tertiary:#2ca58d" style="width:100px;height:100px">
+    </lord-icon>
+    <!-- partial:index.partial.html -->
+    <h2>Seja bem-vindo ao Adota<span class="s-name">Pet</span></h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h1>Crie sua <span class="f-name">Conta</span></h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span class="info">Ou use seu e-mail para se registrar:</span>
+                <input type="text" placeholder="Nome Completo" />
+                <input type="email" placeholder="E-mail" />
+                <input type="password" placeholder="Senha" />
+                <input type="password" placeholder="Confirme sua Senha" />
+                <button type="submit">Cadastre-se</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Efetue seu <span class="f-name">Login!</span> </h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span class="info">Ou use sua Conta:</span>
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Senha" />
+                <a href="#">Esqueceu a senha?</a>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Faça seu <span class="f-name">login!</span></h1>
+                    <div class="text">
+                        <p>Clique no botão abaixo e venha fazer seu login</p>
+                    </div>
+                    <button class="ghost" id="signIn" type="submit">Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Olá, <span class="f-name">tudo bem!</span></h1>
+                    <div class="text">
+                        <p>Gostaria de adorar um pet? Então venha criar uma conta</p>
+                    </div>
+                    <button class="ghost" id="signUp" type="submit">Cadastre-se</button>
+                </div>
             </div>
-        </a>
+        </div>
     </div>
-
-    <div class="login-camp border-primaria pt-4 border-radius-divs"
-        style="width: 375px; border-radius: 0 0 25px 25px; border-top: none; padding: 3.5rem"
-        style="border-radius: 0 0 25px 25px;">
-
-        <img src="{% static 'imgs/logo.png' %}" alt="Logo image" class="d-block mx-auto mb-1" style="width: 49%;">
-        <form action="" method="post">
-            {%csrf_token%}
-            
-            <!-- {% for campo in form %}
-                {{ form.errors }}
-                {{ campo.label_tag }}
-                {{ campo }}
-            {% endfor %} -->
-
-            <div class="input-field mb-2">
-                <label for="emailCamp" class="d-block mb-1">E-mail:</label>
-                <input class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" placeholder="E-mail" name="email" type="text"/>  
-            </div>
-            <div class="input-field mt-1">
-                <label for="passwordCamp" class="d-block mb-1">Senha:</label>
-                <input class="px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" placeholder="Senha" name="senha" type="password" />
-            </div>
-
-            <button type="submit" class="btn btn-adp-primaria w-100 mt-4 mb-4 py-2 border-radius-inputs">Entrar</button>
-            <p class="mb-1">Outras formas de login:</p>
-
-            <div class="alternative-logins d-flex justify-content-between mt-2">
-                <img src="{% static 'imgs/Google Icon.png' %}" alt="google icon" style="width: 19%;" class="icon">
-                <img src="{% static 'imgs/Apple Icon.png' %}" alt="apple icon" style="width: 19%;" class="icon">
-                <img src="{% static 'imgs/Facebook Icon.png' %}" alt="facebook icon" style="width: 19%;" class="icon">
-            </div>
-        </form>
-    </div>
+    <script src="{% static 'js/script.js'%}"></script>
 </body>
-
-{% endblock %}
 
 </html>
