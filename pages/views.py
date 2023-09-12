@@ -3,25 +3,40 @@ from django.views import View
 from django.urls import reverse
 from .models import *
 from .forms import *
+from auth_user.models import LogEntrada, LogSaida
 from auth_user.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .decorator import *
 from django.forms.models import inlineformset_factory
+from datetime import date
 # Create your views here.
 
 def landingPage(request):
-    return render(request, 'landingPage.html')
+    return render(request, 'homeOficial.html')
 
 class homePage(View):
     @method_decorator(login_required)
     def get(self, request):
+        pet_list = Pet.objects.all()
+        pets = []
+        for pet in pet_list:
+            imgs = ImagemPet.objects.filter(fk_pet = pet)
+
+            pets.append(
+                {
+                    'pet' : pet,
+                    'imgs': imgs,
+                }
+            )
         if request.user.is_authenticated:
+            
             defaultUser = DefaultUser.objects.get(fk_user = request.user)
             context = {
-                'defaultUser' : defaultUser
+                'defaultUser' : defaultUser,
+                'pets' : pets
             }
-            return render(request, 'adocao/homeOficial.html', context)
+            return render(request, 'adocao/home.html', context)
         else:
             print("vv")
 
@@ -44,11 +59,14 @@ class adicionarPet(View):
         form = CadastrarPetForm(request.POST)
         CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1) 
         imgForm = CadastrarPetFormset(request.POST, request.FILES)
+        dt_ent = date.today()
 
         if form.is_valid() and imgForm.is_valid():
             pet = form.save(commit=False)
             pet.fk_user = request.user
             pet.save()
+
+            log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
 
             imgForm.instance = pet
             imgForm.save()
