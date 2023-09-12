@@ -27,25 +27,30 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use seu e-mail para se registrar:</span>
-                <input type="text" placeholder="Nome Completo" />
-                <input type="email" placeholder="E-mail" />
-                <input type="password" placeholder="Senha" />
-                <input type="password" placeholder="Confirme sua Senha" />
-                <button type="submit">Cadastre-se</button>
+                <input name="username" type="text" placeholder="Nome Completo" />
+                <input name="email" type="email" placeholder="E-mail" />
+                <input name="password1" type="password" placeholder="Senha" />
+                <input name="password2" type="password" placeholder="Confirme sua Senha" />
+                <label for="empresa">Empresa</label>
+                <input type="radio" id="empresa" value="E" name="userType">
+                <label for="cliente">Cliente</label>
+                <input type="radio" id="cliente" value="C" name="userType">
+                <button name="cad" type="submit">Cadastre-se</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form method="post">
+                {% csrf_token %}
                 <h1>Efetue seu <span class="f-name">Login!</span> </h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use sua Conta:</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Senha" />
+                <input type="email" name="email" placeholder="Email" />
+                <input type="password" name="senha" placeholder="Senha" />
                 <a href="#">Esqueceu a senha?</a>
-                <button type="submit">Login</button>
+                <button name="login" type="submit">Login</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -55,14 +60,14 @@
                     <div class="text">
                         <p>Clique no botão abaixo e venha fazer seu login</p>
                     </div>
-                    <button class="ghost" id="signIn" type="submit">Login</button>
+                    <button class="ghost" id="signIn">Login</button>
                 </div>
                 <div class="overlay-panel overlay-right">
                     <h1>Olá, <span class="f-name">tudo bem!</span></h1>
                     <div class="text">
                         <p>Gostaria de adorar um pet? Então venha criar uma conta</p>
                     </div>
-                    <button class="ghost" id="signUp" type="submit">Cadastre-se</button>
+                    <button class="ghost" id="signUp">Cadastre-se</button>
                 </div>
             </div>
         </div>

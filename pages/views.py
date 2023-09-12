@@ -19,6 +19,7 @@ class homePage(View):
     @method_decorator(login_required)
     def get(self, request):
         if request.user.is_authenticated:
+            
             defaultUser = DefaultUser.objects.get(fk_user = request.user)
             context = {
                 'defaultUser' : defaultUser
