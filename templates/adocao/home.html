@@ -22,7 +22,6 @@
     {% for img in pet.imgs %}
         <img src="{{img.imagem.url}}" alt="">
     {% endfor %}
-    <p><a href="{% url 'editarPet' pet.pet.id %}">Editar</a></p>
 {% endfor %}
 
 {% endblock %}
