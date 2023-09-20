@@ -1,163 +1,27 @@
 {% extends '../componentes/base.html' %}
 {% load static %}
 
+
 {% block head %}
+<style>
+    img{
+        width: 25%;
+    }
+</style>
 {% endblock %}
 
-
-
 {% block content %}
-<body style="font-size: 15px;">
-    <div class="d-flex justify-content-between fw-bold text-white bg-primaria align-items-center px-4 py-3 mobile"
-        style="font-size: 20px;">
-        <div class="logo-section d-flex align-items-center">
-            <img src="{% static 'imgs/logo.svg' %}" class="me-4" alt="logo do site" style="width: 40px;">
-            <span class="logo-hidden">AdotePet</span>
-        </div>
-        <nav class="nav-list list-unstyled d-flex">
-            <li class="nav-option ms-5 nav-animation">Seja um doador</li>
-            <li class="nav-option ms-5 nav-animation">Como adotar</li>
-            <li class="nav-option ms-5 nav-animation">Sobre nós</li>
-        </nav>
-    </div>
+{% for pet in pets %}
+    <h1>PET</h1>
+    <p>{{ pet.pet.nome }}</p>
+    <p>{{ pet.pet.idade }}</p>
+    <p>{{ pet.pet.desc }}</p>
+    <p>{{ pet.pet.pref }}</p>
+    <p>{{ pet.pet.sexo }}</p>
+    <p>{{ pet.pet.raca }}</p>
+    {% for img in pet.imgs %}
+        <img src="{{img.imagem.url}}" alt="">
+    {% endfor %}
+{% endfor %}
 
-    <h1>{{ defaultUser.fk_user.password }}</h1>
-
-    <a href="{% url 'logout' %}">Sair</a>
-
-    <main class="mx-auto mt-5 mb-5" style="width: 85%">
-        <h1 class="fs-2 fw-bold mb-5">Pets disponíveis</h1>
-
-        <div class="grid-pets d-flex justify-content-between flex-wrap">
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/dogPhoto.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Bento</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/pet1.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Belinha</span>
-                            <span class="pet-sexo" id="petSexo">Femea <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/dogPhoto.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Bento</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/dogPhoto.jpg' %}." class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Bento</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/pet3.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Jayr</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/pet4.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Junio</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/dogPhoto.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Bento</span>
-                            <span class="pet-sexo" id="petSexo">Macho <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-25 cards mb-4">
-                <div class="pet-card shadow-sm border border-radius-divs overflow-hidden mx-auto" style="width: 75%;">
-                    <img src="{% static 'imgs/pet2.jpg' %}" class="d-block w-100" alt="foto de cachorro">
-                    <div class="card-inside px-4 py-3">
-                        <span class="endereco c-primaria" id="endereco" style="font-size: 13px;">Rua logradouro 3, Crato
-                            Ce.</span>
-                        <div class="pet-information d-flex justify-content-between mb-2">
-                            <span class="pet-name" id="petName">Juliana</span>
-                            <span class="pet-sexo" id="petSexo">Femea <img src="{% static 'imgs/HeartIcon.png' %}"></span>
-                        </div>
-                        <button class="mb-2 w-100 btn-adp-primaria py-1 shadow-sm border-radius-inputs"
-                            style="border: none">Quero adotar</button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </main>
-</body>
 {% endblock %}

@@ -36,9 +36,50 @@ class CustomUserCreationForm(UserCreationForm):
 class DefaultUserForm(forms.ModelForm):
     telefone = forms.CharField(
         label = 'Telefone',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Telefone'}))
+        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     
     class Meta:
         model = DefaultUser
+        fields = '__all__'
+        exclude = ('fk_user',)
+
+class EnderecoForm(forms.ModelForm):
+    cep = forms.IntegerField(
+        label = 'Cep',
+        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
+    )
+    cidade = forms.CharField(
+        label= 'Cidade',
+        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Cidade'})
+    )
+    rua = forms.CharField(
+        label= 'Rua',
+        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Informe a sua rua'})
+    )
+    numero = forms.IntegerField(
+        label='Número',
+        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
+    )
+
+    class Meta:
+        model = Endereco
+        fields = '__all__'
+        exclude = ('fk_user',)
+
+class EmpresaForm(forms.ModelForm):
+    nome_social = forms.CharField(
+        label='Nome Social',
+        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome Social'})
+    )
+    nome_fantasia = forms.CharField(
+        label='Nome Fantasia',
+        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome Fantasia'})
+    )
+    cnpj = forms.IntegerField(
+        label='Cnpj',
+        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '0000000000000'})
+    )
+    class Meta:
+        model = Empresa
         fields = '__all__'
         exclude = ('fk_user',)
