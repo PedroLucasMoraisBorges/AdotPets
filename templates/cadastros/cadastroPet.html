@@ -3,33 +3,64 @@
 
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'css/cadastroPet.css' %}">
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="{% url 'uploadPet' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-        <label>{{field.label_tag}}</label>
-        <p>{{field}}</p>
-        {% if field.errors %}
-            <p class="error">{{ field.errors }}</p>
-        {% endif %}
-    {% endfor %}
+<div class="form-section">
+    <form method="POST" action="{% url 'uploadPet' %}" enctype="multipart/form-data" id="petForm">
+        {% csrf_token %}
 
-    {{ imgForm.management_form }}
-    {% for field in imgForm %}
-        <div class="ImagemFormset">
-            <hr>
-            <p>{{field}}</p>
+        <div>
+            
+                <h1>Formulário de cadastro do pet</h1>
+                    <div class="first-part-container">
+                    {% for field in form %}
+                        {% if field.label != 'Sexo' and field.label != 'Idade'%}
+                        <label>{{field.label_tag}}</label>
+                        {{field}}
+                        {% if field.errors %}
+                            <p class="error">{{ field.errors }}</p>
+                        {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="lined-inputs">
+                        <div>
+                            <label>{{form.idade.label}}</label>
+                            {{form.idade}}
+                        </div>
+                        <div>
+                            <label>{{form.sexo.label}}</label>
+                            <div class="radio-buttons-containers">
+                                <div class="radio-buttons">
+                                    <button type="button" id="machoButton" class="radio-button">Macho</button>
+                                    <button type="button" id="femeaButton" class="radio-button">Fêmea</button>
+                                </div>
+                                {{form.sexo}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <button type="submit" class="submitButton">Cadastrar Pet</button>
         </div>
-    {% endfor %}
-    <button>Submit</button>
-</form>
+    
+        <div>
+            {{ imgForm.management_form }}
+            {% for field in imgForm %}
+                <div class="ImagemFormset">
+                    <hr>
+                    <p>{{field}}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
 
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/jquery.formset.js' %}"></script>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/check_radio.js' %}"></script>
 {% endblock %}
 
 {% block scripts %}
