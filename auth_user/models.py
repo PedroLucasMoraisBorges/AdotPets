@@ -40,3 +40,12 @@ class LogSaida(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'pet', on_delete= models.CASCADE)
     dt_saida = models.DateTimeField()
     qt_saida = models.IntegerField()
+
+#Tabela de pontos 
+
+class Pontos(models.Model):
+    user = models.ForeignKey(User, related_name='pontos' ,on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    spent = models.IntegerField()
+    updated = models.DateTimeField(auto_now=True)
+
