@@ -46,7 +46,7 @@ class adicionarPet(View):
     @method_decorator(login_required)
     def get(self, request):
         form = CadastrarPetForm()
-        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1) 
+        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = CadastrarPetFormset()
 
         context = {
@@ -57,7 +57,7 @@ class adicionarPet(View):
     
     def post(self, request):
         form = CadastrarPetForm(request.POST)
-        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1) 
+        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = CadastrarPetFormset(request.POST, request.FILES)
         dt_ent = date.today()
 

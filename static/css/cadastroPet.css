@@ -106,3 +106,7 @@ body{
     background-color: #649C80;
     color: white;
 }
+
+.hidden{
+    display: none;
+}

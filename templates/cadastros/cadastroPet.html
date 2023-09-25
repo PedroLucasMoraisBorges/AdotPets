@@ -65,10 +65,15 @@
 
 {% block scripts %}
 <script type="text/javascript">
-    $(function() {
+    $(async function() {
         $('.ImagemFormset').formset({
-            prefix: '{{ imgForm.prefix }}'
-        });
+            prefix: '{{ imgForm.prefix }}', addText: 'Adicionar'
+        })
+
+        let removeButton = await document.getElementsByClassName('delete-row')[0]
+        removeButton.remove()
     })
+
+
 </script>
 {% endblock %}
