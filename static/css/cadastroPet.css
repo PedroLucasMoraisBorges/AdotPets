@@ -122,11 +122,11 @@ body{
 .images-forms{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 2rem;
     height: 100%;
     box-sizing: border-box;
-    padding: 4rem;
+    padding: 6rem;
 }
 
 
@@ -137,7 +137,7 @@ body{
     box-sizing: border-box;
     align-items: center;
     position: relative;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
 }
 
@@ -172,13 +172,13 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    background-color: red;
+    background-color: #379a6996;
     color: white;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     text-align: center;
-    line-height: 35px;
-    font-size: 2rem;
+    line-height: 25px;
+    font-size: 1.4rem;
     text-decoration: none;
     border-bottom-left-radius: 10px;
     z-index: 100;
@@ -222,7 +222,10 @@ body{
     transition: 0.15s;
     background-color: #4cc789;
     color: white;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 4rem;
+    border-radius: 50%;
 }
