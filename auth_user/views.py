@@ -9,9 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from .forms import *
 
-
 class Logout(View):
-
     @method_decorator(login_required)
     def get(self, request):
         logout(request)
