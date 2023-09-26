@@ -108,19 +108,31 @@ body{
 }
 
 .hidden{
-    display: none;
+    visibility: hidden;
+    position: absolute;
 }
 
 .images-forms{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     height: 100%;
-}
-
-.images-forms div{
-    width: 50%;
-    height: 50%;
+    background-color: lightgreen;
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 3rem;
 }
 
+
+.dynamic-form{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.dynamic-form > .delete{
+    visibility: hidden;
+    position: absolute;
+}
