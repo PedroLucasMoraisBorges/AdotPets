@@ -11,6 +11,11 @@
 {% endblock %}
 
 {% block content %}
+
+
+{% include '../componentes/nav.html' %}
+{% include '../componentes/pesquisaPet.html' %}
+
 {% for pet in pets %}
     <h1>PET</h1>
     <p>{{ pet.pet.nome }}</p>

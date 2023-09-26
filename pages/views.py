@@ -18,7 +18,12 @@ def landingPage(request):
 class homePage(View):
     @method_decorator(login_required)
     def get(self, request):
-        pet_list = Pet.objects.all()
+        search = request.GET.get('search')
+        
+        if search:
+            pet_list = Pet.objects.filter(raca__icontains = search)
+        else:
+            pet_list = Pet.objects.all()
         pets = []
         for pet in pet_list:
             imgs = ImagemPet.objects.filter(fk_pet = pet)
