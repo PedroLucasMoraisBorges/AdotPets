@@ -35,7 +35,7 @@ class CadastrarPetForm(forms.ModelForm):
         fields = ['nome', 'desc', 'obs', 'idade', 'sexo','raca',]
 
 class CadastroImagemForm(forms.ModelForm):
-    imagem = forms.ImageField(required=True)
+    imagem = forms.ImageField(required=True, label=None)
     class Meta:
         model = ImagemPet
         fields = ['imagem',]

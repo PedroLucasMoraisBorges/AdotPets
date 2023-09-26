@@ -110,3 +110,17 @@ body{
 .hidden{
     display: none;
 }
+
+.images-forms{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+.images-forms div{
+    width: 50%;
+    height: 50%;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+

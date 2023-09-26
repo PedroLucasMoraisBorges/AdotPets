@@ -46,12 +46,14 @@
     
         <div>
             {{ imgForm.management_form }}
-            {% for field in imgForm %}
-                <div class="ImagemFormset">
-                    <hr>
-                    <p>{{field}}</p>
-                </div>
-            {% endfor %}
+            <div class="images-forms">
+                {% for field in imgForm %}
+                    <div class="ImagemFormset">
+                        <hr>
+                        <p>{{field}}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </form>
 </div>
