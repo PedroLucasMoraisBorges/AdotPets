@@ -201,6 +201,7 @@ input {
 
 .overlay-panel {
     position: absolute;
+    backdrop-filter: blur(4px) saturate(180%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -214,6 +215,9 @@ input {
     transition: transform 0.6s ease-in-out;
 }
 
+.text p {
+    font-size: 15px;
+}
 .overlay-left {
     transform: translateX(-20%);
 }
@@ -227,12 +231,9 @@ input {
     transform: translateX(0);
 }
 
-.text{
-    text-shadow:
-        -1px -1px 0px #FFF,
-        -1px 1px 0px #FFF,
-        1px -1px 0px #FFF,
-        1px 0px 0px #FFF;
+.cadast{
+    display: flex;
+    margin: 10px 0;
 }
 
 .container.right-panel-active .overlay-right {
