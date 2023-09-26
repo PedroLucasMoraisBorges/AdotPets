@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="form-section">
     <form method="POST" action="{% url 'uploadPet' %}" enctype="multipart/form-data" id="petForm">
         {% csrf_token %}
@@ -49,7 +50,10 @@
             <div class="images-forms">
                 {% for field in imgForm %}
                     <div class="ImagemFormset">
-                        <div class="img-preview-container"><button type="button" class="selectImageButton" id="0">+</button></div>
+                        <div class="img-preview-container">
+                                <img src="" alt="" id="image-0" class="preview-image">
+                        </div>
+                        <button type="button" class="selectImageButton" id="0">+</button>
                         <div class="hidden">{{field}}</div>
                     </div>
                 {% endfor %}
@@ -70,12 +74,24 @@
     function open(e){
         let id = e.target.getAttribute('id')
         stringId = 'id_imagem_pet-' + id + '-imagem'
-        document.getElementById(stringId).click()
+        imgInp = document.getElementById(stringId)
+        img = document.getElementById('image-' + id)
+        console.log(img)
+        imgInp.click()
+        imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            img.src = URL.createObjectURL(file)
+            img.classList.add('focus')
+        }
+}
     }
 
-    let selectButtons = document.querySelector('.selectImageButton')
-    selectButtons.addEventListener('click', open)
-    $(function() {
+    let selectButtons = null
+   
+
+
+    $(async function() {
         $('.ImagemFormset').formset({
             prefix: '{{ imgForm.prefix }}', addText: '<div>Adicionar</div>'
         })
@@ -86,12 +102,38 @@
                 if(index != 0){
                     button.setAttribute('id', index)
                     button.addEventListener('click', open)
+                    console.log(button)
                 }
+            })
+
+            let imagePre = document.querySelectorAll('.preview-image')
+            console.log(imagePre)
+            imagePre.forEach((image, index) => {
+                image.setAttribute('id', 'image-' + index)
             })
         }
 
         addButton = document.querySelector('.add-row')
         addButton.addEventListener('click', attButtons)
+
+        let deleteButton = await document.getElementsByClassName('delete')[0]
+        deleteButton.classList.add('hidden')
+
+        let dynamicForm = document.querySelector('.dynamic-form')
+        dynamicForm.addEventListener('click', clickAdd)
+
+        function clickAdd(e){
+            let firstInputImage = document.querySelector('#id_imagem_pet-0-imagem')
+            firstInputImage.click()
+            img = document.getElementById('image-0')
+            firstInputImage.onchange = evt => {
+            const [file] = firstInputImage.files
+            if (file) {
+            img.src = URL.createObjectURL(file)
+            img.classList.add('focus')
+            }
+        }
+        }
     })
 
 
