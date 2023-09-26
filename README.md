@@ -12,5 +12,5 @@ Aguarde a imagem do Docker ser construída.
 
 Após isso execute o seguinte código para a criação do Container:
 
-`venv/Scripts/activate.ps1
-docker compose up`
+`venv/Scripts/activate.ps1`
+`docker compose up`
