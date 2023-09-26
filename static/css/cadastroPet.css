@@ -15,7 +15,6 @@ body{
 #petForm{
     display: flex;
     width: 100%;
-    padding: 2rem 0rem;
 }
 
 #petForm h1{
@@ -112,27 +111,59 @@ body{
     position: absolute;
 }
 
+.media-form-container{
+    background-image: url(../imgs/background-pet.png);
+    background-position: top center;
+    background-size: cover;
+
+}
+
+
 .images-forms{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 2rem;
     height: 100%;
-    background-color: lightgreen;
     box-sizing: border-box;
-    padding: 3rem;
+    padding: 4rem;
 }
 
 
 .dynamic-form{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.663);
     display: flex;
     justify-content: center;
     box-sizing: border-box;
     align-items: center;
+    border-radius: 20px;
 }
 
 .dynamic-form > .delete{
     visibility: hidden;
     position: absolute;
+}
+
+.selectImageButton{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: scale(1.5);
+    background-color: white;
+    border: none;
+}
+
+.add-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.add-row > div{
+    background-color: #379a69;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 10px;
 }

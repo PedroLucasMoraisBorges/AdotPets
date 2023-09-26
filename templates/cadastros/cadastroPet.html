@@ -44,12 +44,12 @@
             <button type="submit" class="submitButton">Cadastrar Pet</button>
         </div>
     
-        <div>
+        <div class="media-form-container">
             {{ imgForm.management_form }}
             <div class="images-forms">
                 {% for field in imgForm %}
                     <div class="ImagemFormset">
-                        <div class="img-preview-container"><button type="button" class="selectImageButton">Selecionar</button></div>
+                        <div class="img-preview-container"><button type="button" class="selectImageButton" id="0">+</button></div>
                         <div class="hidden">{{field}}</div>
                     </div>
                 {% endfor %}
@@ -67,44 +67,32 @@
 
 {% block scripts %}
 <script type="text/javascript">
-    count = 1
-    var selectButtons =  document.getElementsByClassName('selectImageButton')
-    selectButtons[0].setAttribute('id', 0)
-    for(button of selectButtons){
-        button.addEventListener('click', () => {
-            open(button)
-        })
+    function open(e){
+        let id = e.target.getAttribute('id')
+        stringId = 'id_imagem_pet-' + id + '-imagem'
+        document.getElementById(stringId).click()
     }
-    $(async function() {
+
+    let selectButtons = document.querySelector('.selectImageButton')
+    selectButtons.addEventListener('click', open)
+    $(function() {
         $('.ImagemFormset').formset({
-            prefix: '{{ imgForm.prefix }}', addText: 'Adicionar'
+            prefix: '{{ imgForm.prefix }}', addText: '<div>Adicionar</div>'
         })
 
-
-
-        var addButton = await document.getElementsByClassName('add-row')[0]
-        addButton.addEventListener('click', attButton)
-        
-        var removeButton = await document.getElementsByClassName('delete-row')[0]
-        removeButton.remove()
-    })
-
-
-    function attButton(){
-        selectButtons = document.querySelectorAll('.selectImageButton')
-        selectButtons.forEach((element, index) => {
-            selectButtons[index].setAttribute('id', index)
-            selectButtons[index].addEventListener('click', () => {
-                open(selectButtons[index])
+        function attButtons(){
+            selectButtons = document.querySelectorAll('.selectImageButton')
+            selectButtons.forEach((button, index) => {
+                if(index != 0){
+                    button.setAttribute('id', index)
+                    button.addEventListener('click', open)
+                }
             })
-        });
-    }
+        }
 
-    function open(button){
-        id = 'id_imagem_pet-' + button.id + '-imagem'
-        document.getElementById(id).click()
-    }
-
+        addButton = document.querySelector('.add-row')
+        addButton.addEventListener('click', attButtons)
+    })
 
 
 </script>
