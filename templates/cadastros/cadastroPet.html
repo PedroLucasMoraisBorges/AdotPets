@@ -46,12 +46,14 @@
     
         <div>
             {{ imgForm.management_form }}
-            {% for field in imgForm %}
-                <div class="ImagemFormset">
-                    <hr>
-                    <p>{{field}}</p>
-                </div>
-            {% endfor %}
+            <div class="images-forms">
+                {% for field in imgForm %}
+                    <div class="ImagemFormset">
+                        <div class="img-preview-container"><button type="button" class="selectImageButton">Selecionar</button></div>
+                        <div class="hidden">{{field}}</div>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </form>
 </div>
@@ -65,10 +67,45 @@
 
 {% block scripts %}
 <script type="text/javascript">
-    $(function() {
+    count = 1
+    var selectButtons =  document.getElementsByClassName('selectImageButton')
+    selectButtons[0].setAttribute('id', 0)
+    for(button of selectButtons){
+        button.addEventListener('click', () => {
+            open(button)
+        })
+    }
+    $(async function() {
         $('.ImagemFormset').formset({
-            prefix: '{{ imgForm.prefix }}'
-        });
+            prefix: '{{ imgForm.prefix }}', addText: 'Adicionar'
+        })
+
+
+
+        var addButton = await document.getElementsByClassName('add-row')[0]
+        addButton.addEventListener('click', attButton)
+        
+        var removeButton = await document.getElementsByClassName('delete-row')[0]
+        removeButton.remove()
     })
+
+
+    function attButton(){
+        selectButtons = document.querySelectorAll('.selectImageButton')
+        selectButtons.forEach((element, index) => {
+            selectButtons[index].setAttribute('id', index)
+            selectButtons[index].addEventListener('click', () => {
+                open(selectButtons[index])
+            })
+        });
+    }
+
+    function open(button){
+        id = 'id_imagem_pet-' + button.id + '-imagem'
+        document.getElementById(id).click()
+    }
+
+
+
 </script>
 {% endblock %}
