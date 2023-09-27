@@ -8,4 +8,5 @@ urlpatterns = [
     path('cadastroPet/', views.adicionarPet.as_view(), name='uploadPet'),
     path('editarPet/<int:id>', views.editarPet.as_view(), name='editarPet'),
     path('meus_Pets/', views.meusPets.as_view(), name='meusPets'),
+    path('petsPerdidos/', views.petsPerdidos.as_view(), name='petsPerdidos'),
 ]
