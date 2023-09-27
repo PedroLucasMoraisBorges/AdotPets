@@ -73,6 +73,14 @@ body{
     padding: 0.70rem;
     margin-top: 3rem;
     border-radius: 15px;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.submitButton:hover{
+    background-color: white;
+    outline: solid 1px #379a69;
+    color: #4cc789;
 }
 
 .radio-inputs{
