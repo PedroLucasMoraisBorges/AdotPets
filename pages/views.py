@@ -67,14 +67,26 @@ class adicionarPet(View):
         dt_ent = date.today()
 
         if form.is_valid() and imgForm.is_valid():
-            pet = form.save(commit=False)
-            pet.fk_user = request.user
-            pet.save()
+            if request.POST.get('identificador') == "adocao":
+                pet = form.save(commit=False)
+                pet.fk_user = request.user
+                pet.save()
 
-            log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
+                imgForm.instance = pet
+                imgForm.save()
 
-            imgForm.instance = pet
-            imgForm.save()
+                log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
+            else:
+                pet = form.save(commit=False)
+                pet.fk_user = request.user
+                pet.save()
+
+                imgForm.instance = pet
+                imgForm.save()
+
+                log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
+                animaisPerdidos = AnimaisPerdidos.objects.create(fk_pet=pet)
+
 
             return redirect('/meus_Pets/')
         else:
@@ -123,8 +135,9 @@ class meusPets(View):
         for pet in Pet.objects.filter(fk_user = request.user):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
-                {'pet' : pet,
-                 'imgs': imgs}
+                {
+                    'pet' : pet,
+                    'imgs': imgs}
                 )
 
         context = {
@@ -132,3 +145,26 @@ class meusPets(View):
         }
 
         return render(request, 'adocao/pets.html', context)
+
+class petsPerdidos(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        search = request.GET.get('search')
+        if search:
+            pet_list = AnimaisPerdidos.objects.filter(fk_pet__raca__contains = search)
+        else:
+            pet_list = AnimaisPerdidos.objects.all()
+        
+        pets = []
+        for petPerdido in pet_list:
+            imgs = ImagemPet.objects.filter(fk_pet = petPerdido.fk_pet)
+            pets.append(
+                {
+                    'pet'  : petPerdido.fk_pet,
+                    'imgs' : imgs, 
+                }
+            )
+        context = {
+            'pets' : pets
+        }
+        return render(request, 'perdidos/petsPerdidos.html', context)

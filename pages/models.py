@@ -17,3 +17,6 @@ class Pet(models.Model):
 class ImagemPet(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name = 'imagem_pet', on_delete = models.CASCADE)
     imagem = models.ImageField(upload_to='imgPet/', blank=False)
+
+class AnimaisPerdidos(models.Model):
+    fk_pet = models.ForeignKey(Pet, related_name= 'animaisPerdidos', on_delete=models.CASCADE)
