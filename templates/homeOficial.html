@@ -20,14 +20,11 @@
                 <div class="object">
                     <div class="nav-container">
                         <nav class="nav-options">
-                            <li class="nav-option-active"><a href="#">Explorar</a></li>
-                            <li class="nav-option-active"><a href="#">Loja</a> </li>
-                            <li class="nav-option-active"><a href="#">Função3</a> </li>
-                            <li class="nav-option-active"><a href="#">Login</a></li>
+                            <li><a href="#">Explorar</a></li>
+                            <li><a href="#">Loja</a> </li>
+                            <li><a href="#">Função3</a> </li>
+                            <li class="nav-option-active"><a href="{% url 'login' %}">Login</a></li>
                         </nav>
-                    </div>
-                    <div class="link-cadastro">
-                        <a href="#">ou Cadastre-se</a>
                     </div>
                 </div>
             </div>
@@ -66,13 +63,14 @@
                 <section class="mid-1">
                     <div class="pg-post-1">
                         <img src="{% static 'imgs/cat-home-page.svg' %}" class="irregular-ball" alt="irregular ball">
-                        <div class="description-mid">
+                        <div class="description-mid-1">
                             <h2>Lorem ipsum
                                 <br>
                                 <span class="colorized-text-1">dolor sit.</span>
                             </h2>
-                            <p>Norem ipsum dolor amet, consectetur
-                                <span class="colorized-text-2">Nunc vulputate libero et velinterdum, mattis.</span>
+                            <p>Norem ipsum dolor amet, consectetur elit.
+
+                                <span class="colorized-text-2">Nunc vulputate libero et velinterdum,mattis.</span>
                                 <br>
                                 <span class="colorized-text-2">Nunc vulputate.</span>
                             </p>
@@ -82,13 +80,13 @@
                 <section class="mid-2">
                     <div class="pg-post-2">
                         <img src="{% static 'imgs/dog-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
-                        <div class="description-mid">
+                        <div class="description-mid-2">
                             <h2>Lorem ipsum
                                 <br>
                                 <span class="colorized-text-1">dolor sit</span>
                             </h2>
-                            <p>Lorem ipsum dolor sit amet consectetur. Screletisque
-                                <span class="colorized-text-2">pulvinar nunc pulvinar erat</span>
+                            <p>Lorem ipsum dolor sit amet consectetur. Scelerisque
+                                <span class="colorized-text-2">pulvinar nunc pulvinar erat.</span>
                                 <br>
                                 <span class="colorized-text-2">Lorem ipsum dolor sit</span>
                             </p>
@@ -112,9 +110,9 @@
                                 <p>Lorem</p>
                                 <div class="carrousel">
                                     <ul class="carrousel-indicators">
-                                        <li class="carrousel-indicator indicator-active"></li>
                                         <li class="carrousel-indicator"></li>
                                         <li class="carrousel-indicator"></li>
+                                        <li class="carrousel-indicator indicator-active "></li>
                                         <li class="carrousel-indicator"></li>
                                         <li class="carrousel-indicator"></li>
                                     </ul>
