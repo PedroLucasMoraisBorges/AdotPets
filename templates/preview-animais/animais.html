@@ -1,0 +1,151 @@
+{% extends 'componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/preview.css' %}">
+    <script src="{% static 'js/animais.js' %}"></script>
+    {% endblock head %}
+
+{% block content %}
+  <body>
+    <header>
+        <div class="page-container">
+            <header>
+                <div class="top-section">
+                    <div class="logo">
+                        <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
+                    </div>
+                    <div class="object">
+                        <div class="nav-container">
+                            <nav class="nav-options">
+                                <li class="nav-option-active"><a href="#">Explorar</a></li>
+                                <li class="nav-option-active"><a href="#">Loja</a> </li>
+                                <li class="nav-option-active"><a href="#">Encontrados</a> </li>
+                                <li class="nav-option-active"><a href="#">Login</a></li>
+                            </nav>
+                        </div>
+                        <div class="link-cadastro">
+                            <a href="#">ou Cadastre-se</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+    <main>
+        
+
+        <section class="slider">
+        
+        </section>
+        <section class="animais">
+            <p class="sectionTitle" id="backToTop">Pets para Adoção</p>
+      <section class="gridContainer">
+        <div class="mainContent">
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          <div class="categoryCard">
+            <img
+              src="karsten-winegeart-oU6KZTXhuvk-unsplash.jpg"
+              alt="mainCardImg"
+              class="mainCardImg"
+            />
+            <p class="mainCategoryCardTitle">Cachorro</p>
+            <button><a href="">Adotar</a></button>
+          </div>
+          
+        </div>
+        
+        </div><div></div>
+        </section>
+        <section class="mid-3">
+            <div class="mid-3-1">
+                <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes" class="background-shapes">
+                <div class="description-mid-3-1">
+                    <h3>Faça igual a eles vire um parceiro da AdotePet</h3>
+                    <button class="parceiro">Seja um Parceiro</button>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <div class="logo">
+            <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
+        </div>
+        <div class="footer-information">
+            <div class="info-section">
+                <h4><span class="colorized-text">
+                        Lorem ipsum
+                    </span></h4>
+                <p>Lorem ipsum</p>
+                <p>Mi</p>
+                <p>Lorem</p>
+                <p>Lorem ipsum</p>
+            </div>
+        </div>
+        <div class="footer-information">
+            <div class="info-section">
+                <h4><span class="colorized-text">
+                        Lorem ipsum
+                    </span></h4>
+                <p>Lorem ipsum dolor sit</p>
+                <p>Lorem Ipsum dolor sit armet</p>
+            </div>
+        </div>
+        <div class="footer-information">
+            <div class="info-section">
+                <h4><span class="colorized-text">
+                        Lorem
+                    </span></h4>
+                <img src="{% static 'imgs/facebookIcon.svg' %}" alt="facebook logo">
+                <img src="{% static 'imgs/instagramIcon.svg' %}" alt="facebook logo">
+            </div>
+        </div>
+    </footer>
+    <div class="copyDown">Lorem ipsum dolor sit amet consectetur. <span class="copy">Lorem Lorem</span></div>
+
+  {% endblock content %}
