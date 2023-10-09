@@ -1,8 +1,56 @@
+
+<style>
+    .paginator{
+        display: flex;
+        width: fit-content;
+        margin: auto;
+    }
+
+    .paginator-active{
+        background-color: lightgreen;
+        color: white;
+    }
+
+    .paginator-button{
+        width: 38px;
+        height: 38px;
+        line-height: 35px;
+        border-radius: 50%;
+        text-align: center;
+        margin-left: 0.5rem;
+        border: 1px solid lightgreen;
+        color: green;
+    }
+
+    .paginator .paginator-button:first-child{
+        margin-left: 0;
+    }
+
+    .paginator-link{
+        text-decoration: none;
+        color: black;
+    }
+
+</style>
+
 <div class="paginator">
     {% if page > 1 %}
-        <div><</div>
+        <a href="" class="paginator-link">
+            <div class="paginator-button"><</div>
+        </a>
+        <a href="" class="paginator-link">
+            <div class="paginator-button">{{prevPage}}</div>
+        </a>
     {% endif %}
+
+    <div class="paginator-button paginator-active">{{page}}</div>
+
     {% if page < pages %}
-        <div>></div>
+        <a href="" class="paginatot-link">
+            <div class="paginator-button">{{nextPage}}</div>
+        </a>
+        <a href="" class="paginator-link">
+            <div class="paginator-button">></div>
+        </a>
     {% endif %}
 </div>

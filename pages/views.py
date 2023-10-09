@@ -130,6 +130,8 @@ class editarPet(View):
 class meusPets(View):
     @method_decorator(login_required)
     def get(self, request,):
+        page = request.GET.get('page') if request.GET.get('page') != None else 1
+    
         pets = []
 
 
@@ -143,18 +145,23 @@ class meusPets(View):
 
 
         p = Paginator(pets, 8)
-        page = request.GET.get('page')
         pages = p.num_pages
         pet_page = p.get_page(page)
 
-        print(page)
+        if int(page) < 1 or int(page) > int(pages):
+            page = 1
+
+        nextPage = int(page) + 1
+        prevPage = int(pages) - 1
 
         context = {
             'pets' : pet_page,
-            'page' : page,
-            'pages': pages
+            'page' : int(page),
+            'nextPage' : nextPage, 
+            'prevPage' : prevPage,
+            'pages': int(pages),
         }
-
+        
         return render(request, 'adocao/pets.html', context)
 
 class petsPerdidos(View):
