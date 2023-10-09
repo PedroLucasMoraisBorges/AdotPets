@@ -5,6 +5,7 @@ from .models import *
 admin.site.register(DefaultUser)
 admin.site.register(Empresa)
 admin.site.register(Endereco)
+admin.site.register(Produto)
 admin.site.register(LogEntrada)
 admin.site.register(LogSaida)
 admin.site.register(Pontos)

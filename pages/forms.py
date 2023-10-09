@@ -39,3 +39,11 @@ class CadastroImagemForm(forms.ModelForm):
     class Meta:
         model = ImagemPet
         fields = ['imagem',]
+
+class CadastroProduto(forms.ModelForm):
+    nome_prod = forms.CharField(label='Nome do produto:', widget=forms.TextInput(attrs={'class':'input-produto-information', 'placeholder':'Digite o nome do produto aqui'}))
+    descricao = forms.CharField(label='Descrição:', widget=forms.TextInput(attrs={'class':'input-produto-information', 'placeholder':'Descrição do produto:'}))
+    valor = forms.DecimalField(label='Valor do produto:', widget=forms.DecimalField(attrs={'class':'input-produto-information', 'placeholder' : 'Valor do produto:'}))
+
+    class Meta:
+        model = CadastroProduto

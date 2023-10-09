@@ -20,3 +20,9 @@ class ImagemPet(models.Model):
 
 class AnimaisPerdidos(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'animaisPerdidos', on_delete=models.CASCADE)
+
+class Produto(models.Model):
+    nome = models.CharField(max_length=150)
+    desc = models.CharField(max_length=250)
+    valor = models.CharField(max_length=6, default= 0)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='produto')

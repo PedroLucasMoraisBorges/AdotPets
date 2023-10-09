@@ -1,0 +1,14 @@
+{% block content %}
+
+<h1>Produtos da Loja: {{produto.empresa.nome}}</h1>
+<br>
+
+{% for p in produto %}
+    <ul>
+        <li>Nome: {{ p.nome }}</li>
+        <li>Valor: {{ p.valor }}</li>    
+        <li>Descricao: {{ p.desc }}</li>
+    </ul>
+{% endfor %}
+
+{% endblock %}
