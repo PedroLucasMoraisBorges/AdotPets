@@ -3,26 +3,29 @@
 
 
 {% block head %}
-<style>
-    img{
-        width: 25%;
-    }
-</style>
+
+<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+
 {% endblock %}
 
 {% block content %}
-{% for pet in pets %}
-    <h1>PET</h1>
-    <p>{{ pet.pet.nome }}</p>
-    <p>{{ pet.pet.idade }}</p>
-    <p>{{ pet.pet.desc }}</p>
-    <p>{{ pet.pet.pref }}</p>
-    <p>{{ pet.pet.sexo }}</p>
-    <p>{{ pet.pet.raca }}</p>
-    {% for img in pet.imgs %}
-        <img src="{{img.imagem.url}}" alt="">
-    {% endfor %}
-    <p><a href="{% url 'editarPet' pet.pet.id %}">Editar</a></p>
-{% endfor %}
+
+
+<main class="pets-section">
+    <h1>Meus Pets</h1>
+    <article class="my-pets">
+        {% for pet in pets %}
+            <div class="pet-card">
+                <img src="{{pet.imgs.0.imagem.url}}" alt="">
+                <div class="info-container">
+                    <p><strong>{{pet.pet.nome}}</strong></p>
+                    <button>Conferir</button>
+                </div>
+            </div>
+        {% endfor %}
+    </article>
+    {% include 'componentes/paginator.html' %}
+</main>
+
 
 {% endblock %}

@@ -1,0 +1,66 @@
+:root {
+
+    --greenPrincipal: #649C80;
+    --greenSecondary: #A5EBC8;
+    --greenBackground: #EBF8F1;
+    --alternativeColor: #698778;
+
+}
+
+body{
+    background-color: var(--greenSecondary);
+}
+
+main{
+    background-color: white;
+    padding: 5rem;
+}
+
+h1{
+    margin-bottom: 4rem;
+}
+
+.pet-card{
+    width: 21%;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.129);
+}
+
+.pet-card img{
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.info-container{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.934);
+    width: 100%;
+}
+
+.info-container p {
+    margin-top: 0.5rem;
+}
+
+.pet-card button{
+    margin-bottom: 1.5rem;
+    background-color: var(--greenSecondary);
+    width: 150px;
+    border: none;
+    border-radius: 20px;
+    padding: 0.3rem 0;
+}
+
+
+.my-pets{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+}

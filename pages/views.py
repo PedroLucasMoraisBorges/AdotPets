@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from .decorator import *
 from django.forms.models import inlineformset_factory
 from datetime import date
+from django.core.paginator import Paginator
 # Create your views here.
 
 def landingPage(request):
@@ -132,7 +133,7 @@ class meusPets(View):
         pets = []
 
 
-        for pet in Pet.objects.filter(fk_user = request.user):
+        for pet in reversed(Pet.objects.filter(fk_user = request.user)):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
@@ -140,8 +141,18 @@ class meusPets(View):
                     'imgs': imgs}
                 )
 
+
+        p = Paginator(pets, 8)
+        page = request.GET.get('page')
+        pages = p.num_pages
+        pet_page = p.get_page(page)
+
+        print(page)
+
         context = {
-            'pets' : pets
+            'pets' : pet_page,
+            'page' : page,
+            'pages': pages
         }
 
         return render(request, 'adocao/pets.html', context)
