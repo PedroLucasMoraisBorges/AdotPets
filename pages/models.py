@@ -20,3 +20,4 @@ class ImagemPet(models.Model):
 
 class AnimaisPerdidos(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'animaisPerdidos', on_delete=models.CASCADE)
+
