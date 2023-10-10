@@ -131,11 +131,12 @@ class meusPets(View):
     @method_decorator(login_required)
     def get(self, request,):
         page = request.GET.get('page') if request.GET.get('page') != None else 1
+        petName = request.GET.get('petName') if request.GET.get('petName') != None else ''
     
         pets = []
 
 
-        for pet in reversed(Pet.objects.filter(fk_user = request.user)):
+        for pet in reversed(Pet.objects.filter(fk_user = request.user).filter(nome__istartswith=petName)):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
@@ -146,13 +147,13 @@ class meusPets(View):
 
         p = Paginator(pets, 8)
         pages = p.num_pages
-        pet_page = p.get_page(page)
 
         if int(page) < 1 or int(page) > int(pages):
             page = 1
 
+        pet_page = p.get_page(page)
         nextPage = int(page) + 1
-        prevPage = int(pages) - 1
+        prevPage = int(page) - 1
 
         context = {
             'pets' : pet_page,
@@ -160,6 +161,7 @@ class meusPets(View):
             'nextPage' : nextPage, 
             'prevPage' : prevPage,
             'pages': int(pages),
+            'petName' : petName,
         }
         
         return render(request, 'adocao/pets.html', context)

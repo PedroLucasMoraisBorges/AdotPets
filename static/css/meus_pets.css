@@ -14,46 +14,11 @@ body{
 main{
     background-color: white;
     padding: 5rem;
+    min-height: 100vh;
 }
 
 h1{
     margin-bottom: 4rem;
-}
-
-.pet-card{
-    width: 21%;
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 3rem;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.129);
-}
-
-.pet-card img{
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.info-container{
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.934);
-    width: 100%;
-}
-
-.info-container p {
-    margin-top: 0.5rem;
-}
-
-.pet-card button{
-    margin-bottom: 1.5rem;
-    background-color: var(--greenSecondary);
-    width: 150px;
-    border: none;
-    border-radius: 20px;
-    padding: 0.3rem 0;
 }
 
 
@@ -65,3 +30,26 @@ h1{
     width: 100%;
 }
 
+.search-pet-form{
+    margin-bottom: 2rem;
+}
+
+.search-pet-form input{
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    padding: 0.3rem 0.5rem;
+    width: 35%;
+}
+
+.search-pet-form button{
+    background-color: var(--greenPrincipal);
+    color: white;
+    border: None;
+    border-radius: 10px;
+    margin-left: 1.5rem;
+    padding: 0.3rem 1rem;
+}
+
+.pet-card{
+    width: 21%;
+}

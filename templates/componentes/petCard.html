@@ -1,0 +1,56 @@
+<style>
+    .pet-card{
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.129);
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .pet-card:hover{
+        transform: scale(1.05);
+    }
+
+    .pet-card img{
+        width: calc(100% + 2rem);
+        position: relative;
+        right: 1.2rem;
+        bottom: 1px;
+        height: 251px;
+        object-fit: cover;
+    }
+
+    .info-container{
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.934);
+        width: 100%;
+    }
+
+    .info-container p {
+        margin-top: 0.5rem;
+    }
+
+    .pet-card button{
+        margin-bottom: 1.5rem;
+        background-color: var(--greenSecondary);
+        width: 150px;
+        border: none;
+        border-radius: 20px;
+        padding: 0.3rem 0;
+    }
+</style>
+
+<!-- Você que tá usando esse componente, pelo amor de Deus, configura o tamanho dele, no momento o width dele pega a página toda, não seta aqui, seta no css da página que você tá desenvolvendo -->
+<!-- Dê uma olhadinha tambem na view de meusPets, para entender a implementação e como devem ser nomeadas as variáveis-->
+
+<div class="pet-card" id="pet-card-{{pet.pet.id}}">
+    <img src="{{pet.imgs.0.imagem.url}}" alt="">
+    <div class="info-container">
+        <p><strong>{{pet.pet.nome}}</strong></p>
+        <button>Conferir</button>
+    </div>
+</div>
