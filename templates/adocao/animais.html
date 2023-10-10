@@ -1,0 +1,63 @@
+{% extends 'componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/preview.css' %}">
+    <script src="{% static 'js/animais.js' %}"></script>
+{% endblock head %}
+
+{% block content %}
+  <body>
+        <div class="page-container">
+            {% include '../componentes/nav.html' %}
+    
+            <main>
+
+              {% include '../componentes/pesquisaPet.html' %}
+
+        
+              <section class="slider">
+        
+        
+              </section>
+        
+              <section class="animais">
+        
+                <p class="sectionTitle" id="backToTop">Pets para Adoção</p>
+      
+                <section class="gridContainer">
+        
+                  <div class="mainContent">
+
+                    {% for pet in pets %}
+                      <div class="categoryCard">
+                        
+                        <img src="{{ pet.imgs.0.imagem.url }}" alt="mainCardImg" class="mainCardImg"/>
+              
+                        <p class="mainCategoryCardTitle">{{ pet.pet.nome }}</p>
+              
+                        <button><a href="">Adotar</a></button>
+            
+                      </div>
+                    {% endfor %}
+        
+                  </div>
+                </div>
+        </section>
+        <section class="mid-3">
+            <div class="mid-3-1">
+                <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes" class="background-shapes">
+                <div class="description-mid-3-1">
+                    <h3>Faça igual a eles vire um parceiro da AdotePet</h3>
+                    <button class="parceiro">Seja um Parceiro</button>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    {% include '../componentes/footer.html' %}
+    </div>
+
+  {% endblock content %}

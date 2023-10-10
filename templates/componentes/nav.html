@@ -1,1 +1,21 @@
-<a href="{% url 'logout' %}">Sair</a>
+{% load static %}
+<div class="top-section">
+    <div class="logo">
+        <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
+    </div>
+    <div class="object">
+        <div class="nav-container">
+            <nav class="nav-options">
+                <li><a href="{% url 'home' %}">Explorar</a></li>
+                <li><a href="#">Loja</a> </li>
+                <li><a href="{% url 'petsPerdidos' %}">Animais perdidos</a> </li>
+                {% if User %}
+                    <li>{{User.first_name}}</li>
+                    <a href="{% url 'logout' %}">Sair</a>
+                {% else %}
+                    <li class="nav-option-active"><a href="{% url 'login' %}">Acessar Conta</a></li>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>

@@ -3,14 +3,12 @@
 
 
 {% block head %}
-<style>
-    img{
-        width: 25%;
-    }
-</style>
 {% endblock %}
 
 {% block content %}
+
+{% include '../componentes/nav.html' %}
+
 {% for pet in pets %}
     <h1>PET</h1>
     <p>{{ pet.pet.nome }}</p>
