@@ -16,6 +16,34 @@ Aplicação desenvovida para ser um facilitador na adoção de animais.
  * <strong><a href="#docker">Instalando o Docker</a></strong>
  * <strong><a href="#django">Como executar o programa no Django</a></strong>
  * <strong><a href="#screenshots">Screenshots</a></strong>
+
+<h1 id="description">:speech_balloon: Descrição</h1>
+
+**Trata-se do desenvolvimento de uma aplicação para facilitar a comunicação entre quem possui um animal para adoção com quem deseja adotar.**
+
+Há algumas regras que devem ser seguidas para que alguém possa publicar um animal ou para que alguém possa adotar um animal.
+
+**Regras para quem deseja publicar um animal para adoção:**
+ * Primeiramente a pessoa deve estar logada, caso contrário deve-se criar um perfil;
+ * A pessoa precisa fornecer os dados de contato;
+ * Não pode ter dois ou mais bloqueios de publicações;
+ 
+**Regras para quem deseja adotar um animal:**
+ * Primeiramente a pessoa deve estar logada, caso contrário deve-se criar um perfil;
+ * A pessoa precisa fornecer os dados de contato;
+ * Precisa fazer o pedido de adoção ao dono do animal.
+
+O sistema deve possuir alguma forma de controle de publicações onde haverá os usuários moderadores e os administradores, cada um desses terão poderes diferentes dentro do sistema.
+
+**Poderes do moderador:**
+ * Pode modificar descrições de postagens de outras pessoas;
+ * Pode bloquear uma postagem (Nesse caso o moderador deverá explicar o motivo e se for falsa comunicação o moderador perderá o poder);
+ * O moderador pode desbloquear postagens de outras pessoas.
+
+**Poderes do administrador:**
+O administrador possui todos os poderes do moderador, o mais seguro é haver apenas um administrador, que será o responsável por todos os moderadores, o único poder que o administrador tem a mais do que o moderador é a capacidade de tirar o poder de moderador.
+
+"*Os bloqueios são essenciais para o sistema para garantir que ninguém irá utilizar a plataforma para publicações fora de contexto, portanto, se dois bloqueios forem aplicados em um perfil o mesmo será bloqueado.*"
  
 <br>
 
