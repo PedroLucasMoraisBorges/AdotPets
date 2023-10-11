@@ -1,6 +1,6 @@
 <p>
  <img width="300" src="https://github.com/SrTorpedro/PI-SB-Animais/blob/main/static/imgs/logo.png?raw=true" />
- <h2 align="">AdotPet</h2>
+ <h2 align="">🐶 AdotPet 🐱</h2>
  <p align="">Uma plataforma facilitadora de adoção de animais!</p>
 
 # PI-SB-Animais
@@ -26,7 +26,7 @@ Aplicação desenvovida para ser um facilitador na adoção de animais.
 * <img alt="Python" src="https://img.shields.io/badge/-Python-green"> - Linguagem de programação utilizada no desenvolvimento Back-end.
 * <img alt="Django" src="https://img.shields.io/badge/-Django-green"> - Framework utilizado.
 
-## Instalando o Docker
+<h1 id="docker">:information_source: Instalando o Docker</h1>
 
 Execute o seguinte código no Terminal na pasta raíz do projeto:
 
@@ -41,7 +41,7 @@ Após isso execute o seguinte código para a criação do Container:
 `venv/Scripts/activate.ps1`
 `docker compose up`
 
-## Como executar o programa no Django
+<h1 id="django">:warning: Como executar o programa no Django</h1>
 
 **Iniciar venv.**
 
