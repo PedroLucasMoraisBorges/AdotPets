@@ -17,7 +17,7 @@ def landingPage(request):
     return render(request, 'homeOficial.html')
 
 class homePage(View):
-    @method_decorator(login_required)
+    #@method_decorator(login_required)
     def get(self, request):
         search = request.GET.get('search')
         
@@ -36,15 +36,15 @@ class homePage(View):
                 }
             )
         if request.user.is_authenticated:
-            
-            defaultUser = DefaultUser.objects.get(fk_user = request.user)
             context = {
-                'defaultUser' : defaultUser,
+                'User' : request.user,
                 'pets' : pets
             }
-            return render(request, 'adocao/home.html', context)
         else:
-            print("vv")
+            context = {
+                'pets' : pets
+            }
+        return render(request, 'adocao/animais.html', context)
 
 
             
@@ -56,6 +56,7 @@ class adicionarPet(View):
         imgForm = CadastrarPetFormset()
 
         context = {
+            'User':request.user,
             'form':form,
             'imgForm':imgForm
         }
@@ -108,6 +109,7 @@ class editarPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=0)
         imgForm = imgForm_factory(instance=pet)
         context = {
+            'User' : request.user,
             'form' : form,
             'imgForm' : imgForm,
             'action': reverse('editarPet', args=[id])
@@ -185,6 +187,7 @@ class petsPerdidos(View):
                 }
             )
         context = {
+            'User': request.user,
             'pets' : pets
         }
         return render(request, 'perdidos/petsPerdidos.html', context)
