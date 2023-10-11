@@ -19,3 +19,34 @@ Após isso execute o seguinte código para a criação do Container:
 
 `venv/Scripts/activate.ps1`
 `docker compose up`
+
+## Como executar o programa no Django
+
+**Iniciar venv.**
+
+`python -m venv venv .`
+
+**Ativar venv.**
+
+`venv/Scripts/Activate.ps1`
+
+**Desativar venv.**
+
+`deactivate`
+
+Com a venv ativada:
+
+**Instalação de dependências**
+
+`pip install django`
+`pip install pillow`
+`pip freeze > requeriments.txt`
+
+Agora para fazer as migrações no banco de dados:
+
+`python manage.py makemigrations`
+`python manage.py migrate`
+
+**Executar o projeto**
+
+`python manage.py runserver`
