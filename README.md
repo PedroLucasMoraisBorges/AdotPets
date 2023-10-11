@@ -2,6 +2,18 @@
  <img width="300" src="https://github.com/SrTorpedro/PI-SB-Animais/blob/main/static/imgs/logo.png?raw=true" />
  <h2 align="">AdotPet</h2>
  <p align="">Uma plataforma facilitadora de adoção de animais!</p>
+
+# :memo: Visão Geral
+
+Aplicação desenvovida para ser um facilitador na adoção de animais.
+
+
+ * <strong><a href="#description">Descrição completa do sistema</a></strong>
+ * <strong><a href="#tecnologias">Tecnologias utilizadas</a></strong>
+ * <strong><a href="#requisitos">Pré-requisitos</a></strong>
+ * <strong><a href="#docker">Instalando o Docker</a></strong>
+ * <strong><a href="#django">Como executar o programa no Django</a></strong>
+ * <strong><a href="#screenshots">Screenshots</a></strong>
  
 # PI-SB-Animais
 
