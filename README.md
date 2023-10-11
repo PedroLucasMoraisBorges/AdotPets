@@ -3,6 +3,8 @@
  <h2 align="">AdotPet</h2>
  <p align="">Uma plataforma facilitadora de adoção de animais!</p>
 
+# PI-SB-Animais
+
 # :memo: Visão Geral
 
 Aplicação desenvovida para ser um facilitador na adoção de animais.
@@ -15,7 +17,14 @@ Aplicação desenvovida para ser um facilitador na adoção de animais.
  * <strong><a href="#django">Como executar o programa no Django</a></strong>
  * <strong><a href="#screenshots">Screenshots</a></strong>
  
-# PI-SB-Animais
+<br>
+
+<h1 id="tecnologias">:rocket: Tecnologias utilizadas</h1>
+
+<br>
+
+* <img alt="Python" src="https://img.shields.io/badge/-Python-green"> - Linguagem de programação utilizada no desenvolvimento Back-end.
+* <img alt="Django" src="https://img.shields.io/badge/-Django-green"> - Framework utilizado.
 
 ## Instalando o Docker
 
