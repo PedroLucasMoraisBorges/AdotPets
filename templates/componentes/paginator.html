@@ -1,0 +1,65 @@
+
+<style>
+    :root {
+        --greenPrincipal: #649C80;
+        --greenSecondary: #A5EBC8;
+        --greenBackground: #EBF8F1;
+        --alternativeColor: #698778;
+    }
+    .paginator{
+        display: flex;
+        width: fit-content;
+        margin: auto;
+    }
+
+    #paginator-active{
+        background-color: var(--greenSecondary);
+        color: white;
+    }
+
+    .paginator-link{
+        width: 38px;
+        height: 38px;
+        line-height: 35px;
+        border-radius: 50%;
+        text-align: center;
+        margin-left: 0.5rem;
+        border: 1px solid var(--greenSecondary);
+        color: green;
+    }
+
+    .paginator .paginator-link:first-child{
+        margin-left: 0;
+    }
+
+    .paginator-link{
+        text-decoration: none;
+    }
+
+    .paginator-link:hover{
+        color: black;
+    }
+
+</style>
+
+<div class="paginator">
+    {% if page > 1 %}
+        <a href="{% url 'meusPets' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button"><</div>
+        </a>
+        <a href="{% url 'meusPets' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{prevPage}}</div>
+        </a>
+    {% endif %}
+
+    <div class="paginator-link" id="paginator-active">{{page}}</div>
+
+    {% if page < pages %}
+        <a href="{% url 'meusPets' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{nextPage}}</div>
+        </a>
+        <a href="{% url 'meusPets' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">></div>
+        </a>
+    {% endif %}
+</div>

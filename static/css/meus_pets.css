@@ -1,0 +1,55 @@
+:root {
+
+    --greenPrincipal: #649C80;
+    --greenSecondary: #A5EBC8;
+    --greenBackground: #EBF8F1;
+    --alternativeColor: #698778;
+
+}
+
+body{
+    background-color: var(--greenSecondary);
+}
+
+main{
+    background-color: white;
+    padding: 5rem;
+    min-height: 100vh;
+}
+
+h1{
+    margin-bottom: 4rem;
+}
+
+
+.my-pets{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.search-pet-form{
+    margin-bottom: 2rem;
+}
+
+.search-pet-form input{
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    padding: 0.3rem 0.5rem;
+    width: 35%;
+}
+
+.search-pet-form button{
+    background-color: var(--greenPrincipal);
+    color: white;
+    border: None;
+    border-radius: 10px;
+    margin-left: 1.5rem;
+    padding: 0.3rem 1rem;
+}
+
+.pet-card{
+    width: 21%;
+}

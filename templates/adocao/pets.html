@@ -3,24 +3,108 @@
 
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
 {% endblock %}
 
 {% block content %}
 
-{% include '../componentes/nav.html' %}
-
-{% for pet in pets %}
-    <h1>PET</h1>
-    <p>{{ pet.pet.nome }}</p>
-    <p>{{ pet.pet.idade }}</p>
-    <p>{{ pet.pet.desc }}</p>
-    <p>{{ pet.pet.pref }}</p>
-    <p>{{ pet.pet.sexo }}</p>
-    <p>{{ pet.pet.raca }}</p>
-    {% for img in pet.imgs %}
-        <img src="{{img.imagem.url}}" alt="">
-    {% endfor %}
-    <p><a href="{% url 'editarPet' pet.pet.id %}">Editar</a></p>
+{% for pet in pets%}
+    {% include 'componentes/petModal.html' %}
 {% endfor %}
+
+<main class="pets-section">
+    <h1>Meus Pets</h1>
+
+    <form action="{% url 'meusPets'%}" class="search-pet-form">
+        <input type="text" name="petName" placeholder="Digite o nome do Pet">
+        <button>Search</button>
+    </form>
+
+    <article class="my-pets">
+        {% for pet in pets %}
+            {% include 'componentes/petCard.html' %}
+        {% endfor %}
+    </article>
+    {% include 'componentes/paginator.html' %}
+</main>
+
+<script>
+    let carrouselInterval = null
+    let carrouselIndicators = null
+
+    let petCards = document.querySelectorAll('.pet-card')
+    petCards.forEach(card => {
+        card.addEventListener('click', openPetModal)
+    })
+
+    function triggerCarrousel(carrousel, indicators){
+        let i = 0
+        numImgs = carrousel.childElementCount
+        moveQuantity = 0;
+        indicators[0].classList.add('indicator-active')
+        if (numImgs > 1){
+            carrouselInterval = setInterval(() => {
+                i+=1
+                if (i > (numImgs - 1)){
+                    moveQuantity = 0
+                    i = 0
+                    carrousel.style.transform = 'translateX(-'+ moveQuantity +'%)'
+                    indicators.forEach(indicator=>{
+                        indicator.classList.remove('indicator-active')
+                    })
+                    indicators[0].classList.add('indicator-active')
+                }
+                else{
+                    moveQuantity += 100
+                    carrousel.style.transform = 'translateX(-'+ moveQuantity +'%)'
+                    indicators.forEach(indicator=>{
+                        indicator.classList.remove('indicator-active')
+                    })
+                    indicators[i].classList.add('indicator-active')
+                }
+
+            }, 4000);
+        }
+    }
+
+    function openPetModal(e){
+        id = e.currentTarget.getAttribute('id').replace('pet-card-', '')
+        let referenceForModal = 'modal-pet-' + id
+        let modal = document.getElementById(referenceForModal)
+        modal.classList.remove('hidden')
+        
+        let referenceForCarrousel = 'carrousel-' + id
+        let carrousel = document.getElementById(referenceForCarrousel)
+        let referenceForCarrouselIndicators = '.carrousel-indicator-' + id
+        carrouselIndicators = document.querySelectorAll(referenceForCarrouselIndicators)
+
+        triggerCarrousel(carrousel, carrouselIndicators)
+    }
+
+
+    let modals = document.querySelectorAll('.modal-pet-container')
+    modals.forEach(modal => {
+        modal.addEventListener('click', closeModal)
+    })
+
+    function closeModal(e){
+        clickedOutOfModal = e.target.classList.contains('modal-pet-container')
+        if (clickedOutOfModal == true){
+            e.currentTarget.classList.add('hidden')
+        }
+
+        target = e.currentTarget
+        id = e.currentTarget.getAttribute('id').replace('modal-pet-', '')
+        let referenceForCarrousel = 'carrousel-' + id
+        let carrousel = document.getElementById(referenceForCarrousel)
+
+        if(e.target.classList.contains('modal-pet-container')){
+            carrousel.style.transform = 'translateX(0%)'    
+            clearInterval(carrouselInterval)
+        }
+    }
+
+
+</script>
 
 {% endblock %}

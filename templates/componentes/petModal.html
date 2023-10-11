@@ -1,0 +1,199 @@
+<style>
+    .modal-pet-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        min-width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.696);
+        z-index: 10;
+    }
+
+    .modal-pet{
+        background-color: white;
+        display: flex;
+        width: 800px;
+        height: 550px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .hidden{
+        display: none;
+    }
+
+    .carrousel-container{
+        width: 52%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carrousel-content{
+        transition: 1s;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .pet-info-container{
+        width: 48%;
+        box-sizing: border-box;
+        padding: 1.3rem 1rem;
+    }
+
+    .modal-top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .pet-info{
+        background-color: var(--greenBackground);
+        border-radius: 10px;
+        box-sizing: border-box;
+        width: 90%;
+        margin: auto;
+        font-size: 15px;
+        padding: 1.2rem 1rem;
+    }
+
+    .pet-info ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pet-info li{
+        margin-bottom: 0.8rem;
+    }
+
+    .pet-info span{
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .info-header{
+        line-height: 15px;
+        color: grey;
+    }
+
+    .pet-modal-img{
+        width: 100%;
+        width: inherit;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .carrousel-indicators{
+        display: flex;
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 15;
+    }
+
+    .carrousel-indicator{
+        height: 25px;
+        border-radius: 50%;
+        width: 25px;
+        margin-left: 1rem;
+        background-color: lightgreen;
+    }
+
+    .carrousel-indicator:first-of-type{
+        margin-left: 0;
+    }
+
+    .indicator-active{
+        background-color: var(--greenPrincipal);
+    }
+
+    .ud-options{
+        display: block;
+        text-align: center;
+        height: fit-content;
+        width: 80%;
+        margin: auto;
+        margin-top: 0.8rem;
+    }
+
+    .ud-options button{
+        background-color: var(--greenSecondary);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        padding: 0.4rem 1rem;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .ud-options button:hover{
+        background-color: var(--greenPrincipal);
+        color: white;
+    }
+    
+
+</style>
+
+<div class="modal-pet-container hidden" id="modal-pet-{{pet.pet.id}}">
+    <div class="modal-pet">
+        <div class="carrousel-container">
+            <div class="carrousel-content" id="carrousel-{{pet.pet.id}}">
+                {% for img in pet.imgs %}
+                    <img src="{{img.imagem.url}}" alt="pet image" class="pet-modal-img">
+                {% endfor %}
+            </div>
+            <div class="carrousel-indicators">
+                {% for img in pet.imgs %}
+                    <div class="carrousel-indicator carrousel-indicator-{{pet.pet.id}}"></div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="pet-info-container">
+            <div class="modal-top">
+                <h3>{{pet.pet.nome}}</h3>
+                <div>x</div>
+            </div>
+            <div class="pet-info">
+                <ul>
+                    <li>
+                        <span class="info-header">Nome</span>
+                        <span class="info-content">{{pet.pet.nome}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Raça</span>
+                        <span class="info-content">{{pet.pet.raca}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Descrição</span>
+                        <span class="info-content">{{pet.pet.desc}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Sexo</span>
+                        <span class="info-content">{{pet.pet.sexo}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Idade</span>
+                        <span class="info-content">{{pet.pet.idade}} ano(s)</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Observações</span>
+                        <span class="info-content">{{pet.pet.obs}}</span>
+                    </li>
+                </ul>
+            </div>
+                <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
+                <a href="" class="ud-options"><button>Excluir Pet</button></a>
+        </div>
+    </div>
+</div>
+
