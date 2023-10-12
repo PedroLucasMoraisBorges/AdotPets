@@ -8,12 +8,13 @@
 }
 
 body{
-    background-color: var(--greenSecondary);
+    background-color: var(--greenBackground);
 }
 
 main{
-    background-color: white;
+    background-color: var(--greenBackground);
     padding: 5rem;
+    padding-top: 0;
     min-height: 100vh;
 }
 

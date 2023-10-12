@@ -30,6 +30,10 @@
         width: 52%;
         overflow: hidden;
         position: relative;
+        background-image: url(/static/imgs/dogplaceholder.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .carrousel-content{
@@ -140,6 +144,26 @@
         background-color: var(--greenPrincipal);
         color: white;
     }
+
+    .trigger-before{
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: block;
+        z-index: 20;
+        top: 0;
+        left: 0;
+    }
+
+    .trigger-after{
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: block;
+        z-index: 20;
+        top: 0;
+        right: 0;
+    }
     
 
 </style>
@@ -152,11 +176,14 @@
                     <img src="{{img.imagem.url}}" alt="pet image" class="pet-modal-img">
                 {% endfor %}
             </div>
+
             <div class="carrousel-indicators">
                 {% for img in pet.imgs %}
                     <div class="carrousel-indicator carrousel-indicator-{{pet.pet.id}}"></div>
                 {% endfor %}
             </div>
+            <div class="trigger-before" id="triggerBefore-{{pet.pet.id}}"></div>
+            <div class="trigger-after" id="triggerAfter-{{pet.pet.id}}"></div>
         </div>
         <div class="pet-info-container">
             <div class="modal-top">
