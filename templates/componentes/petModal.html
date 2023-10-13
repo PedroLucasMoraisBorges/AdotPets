@@ -1,3 +1,6 @@
+
+{% load static %}
+
 <style>
     .modal-pet-container{
         position: fixed;
@@ -149,21 +152,63 @@
         width: 50%;
         height: 100%;
         position: absolute;
-        display: block;
+        display: flex;
         z-index: 20;
         top: 0;
         left: 0;
+        transition: 0.2s;
+        background: linear-gradient(to right,  rgba(0, 0, 0, 0.145), transparent);
+        opacity: 0;
+        align-items: center;
     }
 
+    .trigger-before:hover{
+        opacity: 1;
+    }
+    
     .trigger-after{
         width: 50%;
         height: 100%;
         position: absolute;
-        display: block;
+        display: flex;
         z-index: 20;
         top: 0;
         right: 0;
+        background: linear-gradient(to left,  rgba(0, 0, 0, 0.145), transparent);
+        opacity: 0;
+        flex-direction: row-reverse;
+        align-items: center;
+        
     }
+
+    .trigger-after:hover{
+        opacity: 1;
+    }
+
+    .trigger-before, .trigger-after{
+        cursor: pointer;
+    }
+
+    .arrow-right, .arrow-left{
+        background-color: var(--greenPrincipal);
+        color: white;
+        width: 50px;
+        height: 50px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bolder;
+        border-radius: 50%;
+    }
+
+    .arrow-right{
+        margin-right: 2rem;
+    }
+
+    .arrow-left{
+        margin-left: 2rem;
+    }
+
     
 
 </style>
@@ -182,8 +227,8 @@
                     <div class="carrousel-indicator carrousel-indicator-{{pet.pet.id}}"></div>
                 {% endfor %}
             </div>
-            <div class="trigger-before" id="triggerBefore-{{pet.pet.id}}"></div>
-            <div class="trigger-after" id="triggerAfter-{{pet.pet.id}}"></div>
+            <div class="trigger-before" id="triggerBefore-{{pet.pet.id}}"><div class="arrow-left"><</div></div>
+            <div class="trigger-after" id="triggerAfter-{{pet.pet.id}}"><div class="arrow-right">></div></div>
         </div>
         <div class="pet-info-container">
             <div class="modal-top">

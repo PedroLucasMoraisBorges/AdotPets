@@ -52,7 +52,7 @@
         card.addEventListener('click', openPetModal)
     })
 
-    function triggerCarrousel(carrousel, indicators){
+    function triggerCarrousel(id, carrousel, indicators){
         iterator = 0
         numImgs = carrousel.childElementCount
         moveQuantity = 0;
@@ -76,20 +76,17 @@
                 })
                 indicators[iterator].classList.add('indicator-active')
             }
-            console.log(iterator)
-            console.log(moveQuantity)
         }
         function carrouselIntervalFunctionReverse(){
             iterator -= 1
             if (iterator < 0){
-                console.log('LIMITE')
-                moveQuantity = 0
-                iterator = 0
+                moveQuantity = (numImgs - 1) * 100
+                iterator = (numImgs - 1)
                 carrousel.style.transform = 'translateX(-'+ moveQuantity +'%)'
                 indicators.forEach(indicator=>{
                     indicator.classList.remove('indicator-active')
                 })
-                indicators[0].classList.add('indicator-active')
+                indicators[iterator].classList.add('indicator-active')
             }
             else{
                 carrousel.style.transform = 'translateX(-'+ (moveQuantity - 100) +'%)'
@@ -102,20 +99,18 @@
         }
         carrouselInterval = setInterval(carrouselIntervalFunction, 4000)
 
-        let nextImageTriggers = document.querySelectorAll('.trigger-after')
-        nextImageTriggers.forEach(trigger => {
-            trigger.addEventListener('click', nextImage)
-        })
-        let prevImageTriggers = document.querySelectorAll('.trigger-before')
-        prevImageTriggers.forEach(trigger => {
-            trigger.addEventListener('click', prevImage)
-        })
+        let nextImageTrigger = document.querySelector('#triggerAfter-' + id)
+        nextImageTrigger.addEventListener('click', nextImage)
+        let prevImageTriggers = document.querySelector('#triggerBefore-' + id)
+        prevImageTriggers.addEventListener('click', prevImage)
 
         function nextImage(e){
             clearInterval(carrouselInterval)
             carrouselInterval = setInterval(carrouselIntervalFunction, 4000)
             carrouselIntervalFunction()
             e.stopImmediatePropagation()
+            console.log(iterator)
+            console.log(moveQuantity)
         }
 
         function prevImage(e){
@@ -137,7 +132,7 @@
         let referenceForCarrouselIndicators = '.carrousel-indicator-' + id
         carrouselIndicators = document.querySelectorAll(referenceForCarrouselIndicators)
 
-        triggerCarrousel(carrousel, carrouselIndicators)
+        triggerCarrousel(id, carrousel, carrouselIndicators)
     }
 
 
