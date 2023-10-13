@@ -51,11 +51,14 @@ class homePage(View):
 class adicionarPet(View):
     @method_decorator(login_required)
     def get(self, request):
+        pet = request.GET.get('id')
         form = CadastrarPetForm()
         CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = CadastrarPetFormset()
 
+
         context = {
+            'btn':'Cadastrar Pet',
             'User':request.user,
             'form':form,
             'imgForm':imgForm
@@ -109,13 +112,14 @@ class editarPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=0)
         imgForm = imgForm_factory(instance=pet)
         context = {
+            'btn': "Editar Pet",
             'User' : request.user,
             'form' : form,
             'imgForm' : imgForm,
             'action': reverse('editarPet', args=[id])
         }
 
-        return render(request, 'configs/editarPet.html', context)
+        return render(request, 'cadastros/cadastroPet.html', context)
     def post(self, request, id):
         pet = Pet.objects.get(id=id)
 
@@ -158,6 +162,7 @@ class meusPets(View):
         prevPage = int(page) - 1
 
         context = {
+            'User' : request.user,
             'pets' : pet_page,
             'page' : int(page),
             'nextPage' : nextPage, 
