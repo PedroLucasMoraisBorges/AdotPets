@@ -42,6 +42,7 @@
 
 </style>
 
+{% if type == 'Meus Pets' %}
 <div class="paginator">
     {% if page > 1 %}
         <a href="{% url 'meusPets' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
@@ -63,3 +64,51 @@
         </a>
     {% endif %}
 </div>
+
+{% elif type == 'Adoção' %}
+<div class="paginator">
+    {% if page > 1 %}
+        <a href="{% url 'home' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button"><</div>
+        </a>
+        <a href="{% url 'home' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{prevPage}}</div>
+        </a>
+    {% endif %}
+
+    <div class="paginator-link" id="paginator-active">{{page}}</div>
+
+    {% if page < pages %}
+        <a href="{% url 'home' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{nextPage}}</div>
+        </a>
+        <a href="{% url 'home' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">></div>
+        </a>
+    {% endif %}
+</div>
+
+
+{% elif type == 'Perdido' %}
+<div class="paginator">
+    {% if page > 1 %}
+        <a href="{% url 'petsPerdidos' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button"><</div>
+        </a>
+        <a href="{% url 'petsPerdidos' %}?page={{prevPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{prevPage}}</div>
+        </a>
+    {% endif %}
+
+    <div class="paginator-link" id="paginator-active">{{page}}</div>
+
+    {% if page < pages %}
+        <a href="{% url 'petsPerdidos' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">{{nextPage}}</div>
+        </a>
+        <a href="{% url 'petsPerdidos' %}?page={{nextPage}}&petName={{petName}}" class="paginator-link">
+            <div class="paginator-button">></div>
+        </a>
+    {% endif %}
+</div>
+{% endif %}
