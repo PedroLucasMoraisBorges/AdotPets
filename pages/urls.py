@@ -9,4 +9,6 @@ urlpatterns = [
     path('editarPet/<int:id>', views.editarPet.as_view(), name='editarPet'),
     path('meus_Pets/', views.meusPets.as_view(), name='meusPets'),
     path('petsPerdidos/', views.petsPerdidos.as_view(), name='petsPerdidos'),
+    path('adotarPet/<int:petId>/<int:doadorId>', views.adotarPet.as_view(), name='adotarPet'),
+    path('favoritarPet/<int:petId>', views.favoritarPet.as_view(), name='favoritarPet'),
 ]
