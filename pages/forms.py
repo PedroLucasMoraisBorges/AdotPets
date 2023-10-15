@@ -40,10 +40,13 @@ class CadastroImagemForm(forms.ModelForm):
         model = ImagemPet
         fields = ['imagem',]
 
-class CadastroProduto(forms.ModelForm):
-    nome_prod = forms.CharField(label='Nome do produto:', widget=forms.TextInput(attrs={'class':'input-produto-information', 'placeholder':'Digite o nome do produto aqui'}))
-    descricao = forms.CharField(label='Descrição:', widget=forms.TextInput(attrs={'class':'input-produto-information', 'placeholder':'Descrição do produto:'}))
-    valor = forms.DecimalField(label='Valor do produto:', widget=forms.DecimalField(attrs={'class':'input-produto-information', 'placeholder' : 'Valor do produto:'}))
+class uploadProduto(forms.ModelForm):
+    nome = forms.TextInput()
+    desc = forms.TextInput()
+    valor = forms.TextInput()
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.values_list('nome', flat=True))
 
     class Meta:
-        model = CadastroProduto
+        model = Produto
+        fields = ['nome', 'desc', 'valor', 'empresa']
+

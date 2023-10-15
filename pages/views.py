@@ -170,20 +170,26 @@ class petsPerdidos(View):
         return render(request, 'perdidos/petsPerdidos.html', context)
     
 def cadastroProduto(request):
-    return render(request, 'cadastroProduto.html')
+    if request.POST:
+        teste = uploadProduto(request.POST)
+        if teste.is_valid():
+            teste.save()
+            print("É válido e foi salvo.")
+        return redirect(produtos)
+    return render(request, 'cadastros/cadastroProduto.html', {'form' : teste})
 
 def produtos(request):
     produtos = Produto.objects.all()
-    return render(request, 'produtos.html', {'produto': produtos})
+    return render(request, 'produtos/produtos.html', {'produto': produtos})
 
 def verProduto(request, id):
     var = Produto.objects.filter(id=id)
     if var != None:
-        return render(request, 'produto.html', {'produto' : var})
+        return render(request, 'produtos/produto.html', {'produto' : var})
     else:
         return HttpResponse("Esse produto não existe! Var = %s" %var)
 
 def verLoja(request, id):
     id_emp = Empresa.objects.get(pk=id)
     produtos = Produto.objects.filter(empresa=id_emp)
-    return render(request, 'loja.html', {'produto' : produtos, 'empresa' : id_emp})
+    return render(request, 'produtos/loja.html', {'produto' : produtos, 'empresa' : id_emp})
