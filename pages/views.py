@@ -193,3 +193,24 @@ def verLoja(request, id):
     id_emp = Empresa.objects.get(pk=id)
     produtos = Produto.objects.filter(empresa=id_emp)
     return render(request, 'produtos/loja.html', {'produto' : produtos, 'empresa' : id_emp})
+
+def cadastroProduto(request):
+    if request.method == 'POST':
+        teste = uploadProduto(request.POST)
+
+        if teste.is_valid():
+            teste.save()
+            print("É válido e foi salvo.")
+        return redirect(produtos)
+
+    return render(request, 'cadastroProduto.html', {'form' : uploadProduto})
+
+def editarProduto(request, id):
+    var = Produto.objects.get(id=id)
+    form = editProduto(request.POST or None, instance=var)
+    if form.is_valid():
+        form.save()
+        print("É válido e foi salvo.")
+        return redirect(produtos)
+
+    return render(request, 'editarProduto.html', {'produto' : var, 'form' : form})

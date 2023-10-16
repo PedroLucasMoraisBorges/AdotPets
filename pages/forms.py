@@ -39,14 +39,22 @@ class CadastroImagemForm(forms.ModelForm):
     class Meta:
         model = ImagemPet
         fields = ['imagem',]
-
+        
 class uploadProduto(forms.ModelForm):
-    nome = forms.TextInput()
-    desc = forms.TextInput()
-    valor = forms.TextInput()
-    empresa = forms.ModelChoiceField(queryset=Empresa.objects.values_list('nome', flat=True))
+    nome = forms.TextInput(attrs={'required': True})
+    desc = forms.TextInput(attrs={'required': True})
+    valor = forms.TextInput(attrs={'required': True})
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all())
 
     class Meta:
         model = Produto
         fields = ['nome', 'desc', 'valor', 'empresa']
 
+class editProduto(forms.ModelForm):
+    nome = forms.TextInput(attrs={'required': True})
+    desc = forms.TextInput(attrs={'required': True})
+    valor = forms.TextInput(attrs={'required': True})
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'desc', 'valor']
