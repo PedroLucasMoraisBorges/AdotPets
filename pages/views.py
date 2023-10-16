@@ -12,6 +12,7 @@ from django.forms.models import inlineformset_factory
 from datetime import date
 from django.core.paginator import Paginator
 from django.db.models import Q
+from .utilits import *
 # Create your views here.
 
 def paginator(request, pets):
@@ -43,8 +44,7 @@ class homePage(View):
 
         pets = []
 
-
-        for pet in reversed(Pet.objects.filter(~Q(fk_user=request.user)).filter(nome__istartswith=search)):
+        for pet in getPetsAdot(request.user, search):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
@@ -173,7 +173,7 @@ class meusPets(View):
         pets = []
 
 
-        for pet in reversed(Pet.objects.filter(fk_user = request.user).filter(nome__istartswith=search)):
+        for pet in getMyPets(request.user, search):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
@@ -199,26 +199,33 @@ class meusPets(View):
 class petsPerdidos(View):
     @method_decorator(login_required)
     def get(self, request):
-        search = request.GET.get('search')
-        if search:
-            pet_list = AnimaisPerdidos.objects.filter(fk_pet__raca__contains = search)
-        else:
-            pet_list = AnimaisPerdidos.objects.all()
-        
+        search = request.GET.get('Search') if request.GET.get('Search') != None else ''
+    
         pets = []
-        for petPerdido in pet_list:
-            imgs = ImagemPet.objects.filter(fk_pet = petPerdido.fk_pet)
+
+
+        for pet in getLostPets(request.user, search):
+            imgs = ImagemPet.objects.filter(fk_pet = pet.fk_pet)
             pets.append(
                 {
-                    'pet'  : petPerdido.fk_pet,
-                    'imgs' : imgs, 
-                }
-            )
+                    'pet' : pet,
+                    'imgs': imgs}
+                )
+        
+        pag = paginator(request, pets)
+        
         context = {
-            'User': request.user,
-            'pets' : pets
+            'User' : request.user,
+            'pets' : pag['pet_page'],
+            'page' : pag['page'],
+            'nextPage' : pag['nextPage'], 
+            'prevPage' : pag['prevPage'],
+            'pages': pag['pages'],
+            'petName' : search,
+            'type': 'Meus Pets'
         }
-        return render(request, 'perdidos/petsPerdidos.html', context)
+        
+        return render(request, 'adocao/pets.html', context)
 
 
 class adotarPet(View):

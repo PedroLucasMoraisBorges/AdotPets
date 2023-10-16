@@ -3,32 +3,44 @@
 
 
 {% block head %}
-<style>
-    img{
-        width: 25%;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
 {% endblock %}
 
 {% block content %}
 
-
-{% include '../componentes/nav.html' %}
-<h1>Pets Perdidos</h1>
-
-{% include '../componentes/pesquisaPet.html' %}
-
-{% for pet in pets %}
-    <h1>PET</h1>
-    <p>{{ pet.pet.nome }}</p>
-    <p>{{ pet.pet.idade }}</p>
-    <p>{{ pet.pet.desc }}</p>
-    <p>{{ pet.pet.pref }}</p>
-    <p>{{ pet.pet.sexo }}</p>
-    <p>{{ pet.pet.raca }}</p>
-    {% for img in pet.imgs %}
-        <img src="{{img.imagem.url}}" alt="">
-    {% endfor %}
+{% for pet in pets%}
+    {% include 'componentes/petModal.html' %}
 {% endfor %}
 
+{% include '../componentes/nav.html' %}
+
+<main class="pets-section">
+    <h1>Meus Pets</h1>
+
+    <form action="" class="search-pet-form">
+        <input type="text" name="Search" placeholder="Digite o nome do Pet">
+        <button>Search</button>
+    </form>
+
+    <article class="my-pets">
+        {% for pet in pets %}
+            {% include 'componentes/petCard.html' %}
+        {% endfor %}
+    </article>
+    {% include 'componentes/paginator.html' %}
+</main>
+
+<section class="mid-3">
+    <div class="mid-3-1">
+        <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes" class="background-shapes">
+        <div class="description-mid-3-1">
+            <h3>Faça igual a eles vire um parceiro da AdotePet</h3>
+            <button class="parceiro">Seja um Parceiro</button>
+        </div>
+    </div>
+</section>
+
+{% include '../componentes/footer.html' %}
+
+<script src="{% static 'js/modalPet.js' %}"></script>
 {% endblock %}
