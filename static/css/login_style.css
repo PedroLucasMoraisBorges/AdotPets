@@ -290,6 +290,15 @@ footer a {
     transition: 1s;
 }
 
+.error-camp{
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+.error-camp::placeholder{
+    color: red;
+}
+
 .hiddeable{
     transform: translateX(-100%);
 }

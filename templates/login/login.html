@@ -97,13 +97,19 @@
             if (pass1.value.length < 8 || pass2.value.length < 8 || pass1.value != pass2.value){
                 if(pass1.value != pass2.value){
                     errorMessage.innerHTML = 'Senhas não coincidem!'
+                    pass1.classList.add('error-camp')
+                    pass2.classList.add('error-camp')
                     console.log('opa')
                 }
                 else if(pass1.value.length < 8){
                     errorMessage.innerHTML = 'Senha não pode ter menos que 8 caracteres!'
                 }
-                
+
                 errorMessage.classList.remove('hiddeable')
+
+                setTimeout(() => {
+                    errorMessage.classList.add('hiddeable')
+                }, 10000)
 
                 e.preventDefault()
             }
