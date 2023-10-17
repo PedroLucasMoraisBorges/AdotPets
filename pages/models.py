@@ -21,6 +21,9 @@ class ImagemPet(models.Model):
 class AnimaisPerdidos(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'animaisPerdidos', on_delete=models.CASCADE)
 
+class AnimaisEncontrados(models.Model):
+    fk_pet = models.ForeignKey(Pet, related_name= 'animaisEncontrados', on_delete=models.CASCADE)
+
 class Requisicoes(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     fk_doador = models.ForeignKey(User, related_name='requisicoes_doador', on_delete= models.CASCADE)
