@@ -20,7 +20,7 @@
         background-color: white;
         display: flex;
         width: 800px;
-        height: 550px;
+        min-height: 550px;
         border-radius: 10px;
         overflow: hidden;
     }
@@ -58,7 +58,17 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem;
+        padding: 0 1.2rem;
     }
+
+    .modal-top h3{
+        font-weight: bolder;
+    }
+
+    #exit-modal-button{
+        width: 12%;
+    }
+
 
     .pet-info{
         background-color: var(--greenBackground);
@@ -108,10 +118,10 @@
     }
 
     .carrousel-indicator{
-        height: 25px;
+        height: 12px;
         border-radius: 50%;
-        width: 25px;
-        margin-left: 1rem;
+        width: 12px;
+        margin-left: 0.7rem;
         background-color: lightgreen;
     }
 
@@ -133,7 +143,7 @@
     }
 
     .ud-options button{
-        background-color: var(--greenSecondary);
+        background-color: var(--greenPrincipal);
         color: white;
         border: none;
         border-radius: 10px;
@@ -144,7 +154,7 @@
     }
 
     .ud-options button:hover{
-        background-color: var(--greenPrincipal);
+        background-color: var(--greenSecondary);
         color: white;
     }
 
@@ -233,10 +243,14 @@
         <div class="pet-info-container">
             <div class="modal-top">
                 <h3>{{pet.pet.nome}}</h3>
-                <div>x</div>
+                <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" id="exit-modal-button">
             </div>
             <div class="pet-info">
                 <ul>
+                    <li>
+                        <span class="info-header">Doador</span>
+                        <span class="info-content">{{pet.pet.fk_user.first_name}}</span>
+                    </li>
                     <li>
                         <span class="info-header">Nome</span>
                         <span class="info-content">{{pet.pet.nome}}</span>

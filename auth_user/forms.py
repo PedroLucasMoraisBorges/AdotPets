@@ -15,6 +15,8 @@ class CustomUserCreationForm(UserCreationForm):
         label='Nome completo',
         widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
 
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'minlength':'8'}))
+
     class Meta:
         model = User
         fields = ['nome', 'email', 'password1', 'password2']

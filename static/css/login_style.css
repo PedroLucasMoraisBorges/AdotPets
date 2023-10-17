@@ -279,3 +279,17 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+
+.display-error{
+    background-color: red;
+    padding: 2rem;
+    color: white;
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    transition: 1s;
+}
+
+.hiddeable{
+    transform: translateX(-100%);
+}
