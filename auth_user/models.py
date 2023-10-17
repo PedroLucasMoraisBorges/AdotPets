@@ -6,7 +6,7 @@ from pages.models import *
 # Create your models here.
 class DefaultUser(models.Model):
     fk_user = models.ForeignKey(User, related_name = 'defaultUser', on_delete = models.CASCADE)
-    telefone = models.CharField(unique= True, blank= False, max_length= 13)
+    telefone = models.CharField(unique= True, blank= False, max_length= 14)
 
 class Empresa(models.Model):
     fk_user = models.ForeignKey(User, related_name= 'empresa', on_delete= models.CASCADE)
