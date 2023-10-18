@@ -165,13 +165,15 @@ class editarPet(View):
             imgForm.save()
             return redirect('/meus_Pets/')
 
-class meusPets(View):
+class meuPerfil(View):
     @method_decorator(login_required)
     def get(self, request,):
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
     
         pets = []
+        pets_fav = []
 
+        user = getDefaultUser(request.user)
 
         for pet in getMyPets(request.user, search):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
@@ -180,18 +182,30 @@ class meusPets(View):
                     'pet' : pet,
                     'imgs': imgs}
                 )
+            
+        for favorito in getFavoritePets(request.user, search):
+            imgs = ImagemPet.objects.filter(fk_pet = favorito.fk_pet)
+            pet = favorito.fk_pet
+            pets_fav.append(
+                {
+                    'pet' : pet,
+                    'imgs': imgs}
+                )
         
-        pag = paginator(request, pets)
-        
+        pag = paginator(request, pets)  
+        pag_fav = paginator(request, pets_fav)   
+
         context = {
             'User' : request.user,
+            'info':user,
             'pets' : pag['pet_page'],
+            'pets_fav' :pag_fav['pet_page'],
             'page' : pag['page'],
             'nextPage' : pag['nextPage'], 
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
-            'type': 'Meus Pets'
+            'type': 'Meus Pets',
         }
         
         return render(request, 'adocao/pets.html', context)
@@ -205,6 +219,7 @@ class petsPerdidos(View):
 
 
         for pet in getLostPets(request.user, search):
+            pet = pet.fk_pet
             imgs = ImagemPet.objects.filter(fk_pet = pet.fk_pet)
             pets.append(
                 {
@@ -234,7 +249,6 @@ class adotarPet(View):
         pet = Pet.objects.get(id=petId)
         donatario = request.user
 
-        print(doador)
 
         Requisicoes.objects.create(fk_pet=pet, fk_doador=doador, fk_donatario=donatario)
         return redirect('/home/')

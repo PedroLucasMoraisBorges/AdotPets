@@ -64,7 +64,7 @@ class cadastroCliente(View):
         }
         return render(request, 'cadastros/cadastroCliente.html', context)
     def post(self, request):
-        clienteForm = DefaultUserForm(request.POST)
+        clienteForm = DefaultUserForm(request.POST, request.FILES)
         enderecoForm = EnderecoForm(request.POST)
 
         if clienteForm.is_valid() and enderecoForm.is_valid():
@@ -77,6 +77,8 @@ class cadastroCliente(View):
             endereco.save()
 
             return redirect('/home/')
+        
+        print(clienteForm.errors)
 
 class cadastroEmpresa(View):
     def get(self, request):

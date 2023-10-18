@@ -1,17 +1,33 @@
 from .models import *
-from auth_user import models
+from auth_user.models import *
 from django.db.models import Q
 
 def getPetsAdot(user, search):
-    pets = reversed(Pet.objects.filter(~Q(fk_user=user)).filter(Q(nome__istartswith=search) and Q(raca__istartswith=search) and Q(sexo__istartswith=search)))
+    pets = reversed(Pet.objects.filter(~Q(fk_user=user)).filter(Q(nome__istartswith=search) or Q(raca__istartswith=search) or Q(sexo__istartswith=search)))
     return pets
 
 def getMyPets(user, search):
-    pets = reversed(Pet.objects.filter(Q(fk_user=user)).filter(Q(nome__istartswith=search) and Q(raca__istartswith=search) and Q(sexo__istartswith=search)))
+    pets = Pet.objects.filter(Q(fk_user=user)).filter(Q(nome__istartswith=search) or Q(raca__istartswith=search) or Q(sexo__istartswith=search))
+    print(pets)
     return pets
 
 def getLostPets(user, search):
     pets = reversed(AnimaisPerdidos.objects.filter(~Q(fk_pet__fk_user=user)).filter(Q(fk_pet__nome__istartswith=search) and Q(fk_pet__raca__istartswith=search) and Q(fk_pet__sexo__istartswith=search)))
     return pets
 
+def getFavoritePets(user, search):
+    pets = reversed(Favoritos.objects.filter(Q(fk_donatario=user)).filter(Q(fk_pet__nome__istartswith=search) or Q(fk_pet__raca__istartswith=search) and Q(fk_pet__sexo__istartswith=search)))
+    return pets
+
+def getDefaultUser(user):
+    endereco = Endereco.objects.get(fk_user=user)
+    defaultUser = DefaultUser.objects.get(fk_user=user)
+
+    user_list = {
+        'user':user,
+        'defaultUser':defaultUser,
+        'endereco':endereco
+        }
+    
+    return user_list
     
