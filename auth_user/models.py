@@ -6,6 +6,7 @@ from pages.models import *
 # Create your models here.
 class DefaultUser(models.Model):
     fk_user = models.ForeignKey(User, related_name = 'defaultUser', on_delete = models.CASCADE)
+    profile_image = models.ImageField(upload_to='profile_image/', blank=True, null=True)
     telefone = models.CharField(unique= True, blank= False, max_length= 14)
 
 class Empresa(models.Model):

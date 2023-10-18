@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.forms.widgets import NumberInput
+from django.forms.widgets import NumberInput, FileInput
 from .models import *
 
 
@@ -39,6 +39,13 @@ class DefaultUserForm(forms.ModelForm):
     telefone = forms.CharField(
         label = 'Telefone',
         widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
+    
+    profile_image = forms.ImageField(
+        label='Imagem de perfil',
+        widget= FileInput(attrs={'accept':'.jpg, .png'}),
+        help_text='Tipos de documentos aceitos: .jpg, .png',
+        required=False
+    )
     
     class Meta:
         model = DefaultUser
