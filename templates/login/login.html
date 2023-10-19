@@ -103,6 +103,12 @@
                 }
                 else if(pass1.value.length < 8){
                     errorMessage.innerHTML = 'Senha não pode ter menos que 8 caracteres!'
+                    pass1.classList.add('error-camp')
+                    pass2.classList.add('error-camp')
+                }
+                else{
+                    pass1.classList.remove('error-camp')
+                    pass2.classList.remove('error-camp')
                 }
 
                 errorMessage.classList.remove('hiddeable')
