@@ -34,8 +34,22 @@ def paginator(request, pets):
         'pages':int(pages)
     }
 
-def landingPage(request):
-    return render(request, 'homeOficial.html', {'User':request.user})
+class landingPage(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            try:
+                defaultUser = DefaultUser.objects.get(fk_user=request.user)
+                return redirect('/home/')
+            except DefaultUser.DoesNotExist:
+                pass
+        
+            try:
+                empresa = Empresa.objects.get(fk_user=request.user)
+                return redirect('/home/')
+            except Empresa.DoesNotExist:
+                pass
+        else:
+            return render(request, 'homeOficial.html')
 
 class homePage(View):
     #@method_decorator(login_required)
@@ -44,7 +58,7 @@ class homePage(View):
 
         pets = []
 
-        for pet in getPetsAdot(request.user, search):
+        for pet in getPetsAdot(request, search):
             imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
@@ -212,16 +226,16 @@ class meuPerfil(View):
         return render(request, 'adocao/pets.html', context)
 
 class petsPerdidos(View):
-    @method_decorator(login_required)
     def get(self, request):
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
     
         pets = []
 
-
-        for pet in getLostPets(request.user, search):
-            pet = pet.fk_pet
-            imgs = ImagemPet.objects.filter(fk_pet = pet.fk_pet)
+        
+        for lostPet in getLostPets(request, search):
+            print(lostPet)
+            pet = lostPet.fk_pet
+            imgs = ImagemPet.objects.filter(fk_pet = pet)
             pets.append(
                 {
                     'pet' : pet,
@@ -229,19 +243,29 @@ class petsPerdidos(View):
                 )
         
         pag = paginator(request, pets)
+        if request.user.is_authenticated:
+            context = {
+                'User' : request.user,
+                'pets' : pag['pet_page'],
+                'page' : pag['page'],
+                'nextPage' : pag['nextPage'], 
+                'prevPage' : pag['prevPage'],
+                'pages': pag['pages'],
+                'petName' : search,
+                'type': 'Meus Pets'
+            }
+        else:
+            context = {
+                'pets' : pag['pet_page'],
+                'page' : pag['page'],
+                'nextPage' : pag['nextPage'], 
+                'prevPage' : pag['prevPage'],
+                'pages': pag['pages'],
+                'petName' : search,
+                'type': 'Meus Pets'
+            }
         
-        context = {
-            'User' : request.user,
-            'pets' : pag['pet_page'],
-            'page' : pag['page'],
-            'nextPage' : pag['nextPage'], 
-            'prevPage' : pag['prevPage'],
-            'pages': pag['pages'],
-            'petName' : search,
-            'type': 'Meus Pets'
-        }
-        
-        return render(request, 'adocao/pets.html', context)
+        return render(request, 'perdidos/petsPerdidos.html', context)
 
 
 class adotarPet(View):

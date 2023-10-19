@@ -2,8 +2,12 @@ from .models import *
 from auth_user.models import *
 from django.db.models import Q
 
-def getPetsAdot(user, search):
-    pets = reversed(Pet.objects.filter(~Q(fk_user=user)).filter(Q(nome__istartswith=search) or Q(raca__istartswith=search) or Q(sexo__istartswith=search)))
+def getPetsAdot(request, search):
+    if request.user.is_authenticated:
+        pets = reversed(Pet.objects.filter(~Q(fk_user=request.user)).filter(Q(nome__istartswith=search) or Q(raca__istartswith=search) or Q(sexo__istartswith=search)))
+    else:
+        pets = reversed(Pet.objects.filter().filter(Q(nome__istartswith=search) or Q(raca__istartswith=search) or Q(sexo__istartswith=search)))
+        
     return pets
 
 def getMyPets(user, search):
@@ -11,8 +15,11 @@ def getMyPets(user, search):
     print(pets)
     return pets
 
-def getLostPets(user, search):
-    pets = reversed(AnimaisPerdidos.objects.filter(~Q(fk_pet__fk_user=user)).filter(Q(fk_pet__nome__istartswith=search) and Q(fk_pet__raca__istartswith=search) and Q(fk_pet__sexo__istartswith=search)))
+def getLostPets(request, search):
+    if request.user.is_authenticated:
+        pets = reversed(AnimaisPerdidos.objects.filter(~Q(fk_pet__fk_user=request.user)).filter(Q(fk_pet__nome__istartswith=search) and Q(fk_pet__raca__istartswith=search) and Q(fk_pet__sexo__istartswith=search)))
+    else:
+        pets = reversed(AnimaisPerdidos.objects.filter().filter(Q(fk_pet__nome__istartswith=search) and Q(fk_pet__raca__istartswith=search) and Q(fk_pet__sexo__istartswith=search)))
     return pets
 
 def getFavoritePets(user, search):
