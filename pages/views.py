@@ -35,7 +35,7 @@ def paginator(request, pets):
     }
 
 def landingPage(request):
-    return render(request, 'homeOficial.html')
+    return render(request, 'homeOficial.html', {'User':request.user})
 
 class homePage(View):
     #@method_decorator(login_required)
