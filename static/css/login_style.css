@@ -102,11 +102,12 @@ form {
 }
 
 input {
-    background-color: #eee;
+    background-color: #ffffff;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+    border: solid 1px lightgray;
 }
 
 .container {
@@ -292,7 +293,6 @@ footer a {
 
 .error-camp{
     border: 1px solid red;
-    border-radius: 5px;
 }
 
 .error-camp::placeholder{
@@ -301,4 +301,8 @@ footer a {
 
 .hiddeable{
     transform: translateX(-100%);
+}
+
+.errors-header{
+    margin-bottom: 0.5rem;
 }

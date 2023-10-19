@@ -28,6 +28,9 @@ def Login(request):
             if user:
                 login(request, user)
                 return HttpResponseRedirect('/home/')
+            else:
+                context = {'backErrorMessage':"<div class='errors-header'>Erro de Login encontrado: </div><li>Informações de login incorretas!</li>"}
+                return render(request, 'login/login.html', context)
         else:
             username = request.POST.get('username')
             email = request.POST.get('email')
@@ -38,7 +41,8 @@ def Login(request):
                 user = User.objects.filter(email=email).first()
 
                 if user:
-                    return HttpResponse('user já cadastrado')
+                    context = {'backErrorMessage':"<div class='errors-header'>Erro de cadastro encontrado: </div><li>E-mail já está cadastrado!</li>"}
+                    return render(request, 'login/login.html', context)
                 else:
                     user = User.objects.create_user(username=email,email=email,password=senha,first_name=username)
                     user.save()
