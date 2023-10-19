@@ -27,18 +27,18 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use seu e-mail para se registrar:</span>
-                <input name="username" type="text" placeholder="Nome Completo" />
-                <input name="email" type="email" placeholder="E-mail" />
+                <input name="username" type="text" placeholder="Nome Completo" id="completeName"/>
+                <input name="email" type="email" placeholder="E-mail" id="emailCamp"/>
                 <input name="password1" type="password" placeholder="Senha" id="pass1"/>
                 <input name="password2" type="password" placeholder="Confirme sua Senha" id="pass2"/>
                 <div class="cadast">
                     <div class="empr">
                         <label for="empresa">Empresa</label>
-                        <input type="radio" id="empresa" value="E" name="userType">
+                        <input type="radio" id="empresa" value="E" name="userType" class="radios">
                     </div>
                     <div class="client">
                         <label for="cliente">Cliente</label>
-                        <input type="radio" id="cliente" value="C" name="userType">
+                        <input type="radio" id="cliente" value="C" name="userType" class="radios">
                     </div>
                 </div>
                 <button name="cad" type="submit" id="submitButton">Cadastre-se</button>
@@ -85,45 +85,7 @@
     </div>
     <script src="{% static 'js/script.js'%}"></script>
 
-    <script>
-        pass1 = document.getElementById('pass1')
-        pass2 = document.getElementById('pass2')
-        errorMessage = document.getElementById('errorMessage')
-        submitButton = document.getElementById('submitButton')
-
-        submitButton.addEventListener('click', handlePasswords)
-
-        function handlePasswords(e){
-            if (pass1.value.length < 8 || pass2.value.length < 8 || pass1.value != pass2.value){
-                if(pass1.value != pass2.value){
-                    errorMessage.innerHTML = 'Senhas não coincidem!'
-                    pass1.classList.add('error-camp')
-                    pass2.classList.add('error-camp')
-                    console.log('opa')
-                }
-                else if(pass1.value.length < 8){
-                    errorMessage.innerHTML = 'Senha não pode ter menos que 8 caracteres!'
-                    pass1.classList.add('error-camp')
-                    pass2.classList.add('error-camp')
-                }
-                else{
-                    pass1.classList.remove('error-camp')
-                    pass2.classList.remove('error-camp')
-                }
-
-                errorMessage.classList.remove('hiddeable')
-
-                setTimeout(() => {
-                    errorMessage.classList.add('hiddeable')
-                }, 10000)
-
-                e.preventDefault()
-            }
-        }
-
-
-
-    </script>
+    <script src="{% static 'js/registerValidation.js' %}"></script>
 
 </body>
 

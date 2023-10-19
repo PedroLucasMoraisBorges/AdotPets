@@ -302,3 +302,7 @@ footer a {
 .hiddeable{
     transform: translateX(-100%);
 }
+
+.errors-header{
+    margin-bottom: 0.5rem;
+}
