@@ -167,6 +167,7 @@ class editarPet(View):
 
 class meuPerfil(View):
     @method_decorator(login_required)
+    @method_decorator(defaultUserRequired)
     def get(self, request,):
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
     

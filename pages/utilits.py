@@ -23,10 +23,17 @@ def getDefaultUser(user):
     endereco = Endereco.objects.get(fk_user=user)
     defaultUser = DefaultUser.objects.get(fk_user=user)
 
+    pestCount = Pet.objects.filter(fk_user=user).count()
+    favoritesPets = Favoritos.objects.filter(fk_donatario=user).count()
+    adoptedPets = LogSaida.objects.filter(fk_donatario=user).count()
+
     user_list = {
         'user':user,
         'defaultUser':defaultUser,
-        'endereco':endereco
+        'endereco':endereco,
+        'petsCount':pestCount,
+        'favoritePets':favoritesPets,
+        'adoptedPets':adoptedPets
         }
     
     return user_list

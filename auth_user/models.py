@@ -33,14 +33,13 @@ class LogEntrada(models.Model):
     fk_doador = models.ForeignKey(User, related_name= 'doador_entrada', on_delete= models.CASCADE)
     raca = models.CharField(max_length=75)
     sexo = models.CharField(max_length=15)
-    dt_entrada = models.DateTimeField()
+    dt_entrada = models.DateTimeField(auto_now=True)
 
 class LogSaida(models.Model):
     fk_doador = models.ForeignKey(User, related_name= 'doador_saida', on_delete= models.CASCADE)
     fk_donatario = models.ForeignKey(User, related_name= 'donatario', on_delete= models.CASCADE)
     fk_pet = models.ForeignKey(Pet, related_name= 'pet', on_delete= models.CASCADE)
-    dt_saida = models.DateTimeField()
-    qt_saida = models.IntegerField()
+    dt_saida = models.DateTimeField(auto_now=True)
 
 #Tabela de pontos 
 
