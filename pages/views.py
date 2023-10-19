@@ -252,7 +252,7 @@ class petsPerdidos(View):
                 'prevPage' : pag['prevPage'],
                 'pages': pag['pages'],
                 'petName' : search,
-                'type': 'Meus Pets'
+                'type': 'Perdidos'
             }
         else:
             context = {
@@ -262,7 +262,7 @@ class petsPerdidos(View):
                 'prevPage' : pag['prevPage'],
                 'pages': pag['pages'],
                 'petName' : search,
-                'type': 'Meus Pets'
+                'type': 'Perdidos'
             }
         
         return render(request, 'perdidos/petsPerdidos.html', context)
@@ -270,13 +270,17 @@ class petsPerdidos(View):
 
 class adotarPet(View):
     def get(self, request, petId, doadorId):
-        doador = User.objects.get(id=doadorId)
-        pet = Pet.objects.get(id=petId)
-        donatario = request.user
+
+        if request.user.is_authenticated:
+            doador = User.objects.get(id=doadorId)
+            pet = Pet.objects.get(id=petId)
+            donatario = request.user
 
 
-        Requisicoes.objects.create(fk_pet=pet, fk_doador=doador, fk_donatario=donatario)
-        return redirect('/home/')
+            Requisicoes.objects.create(fk_pet=pet, fk_doador=doador, fk_donatario=donatario)
+            return redirect('/home/')
+        else:
+            return redirect('/login/')
     
 class favoritarPet(View):
     def get(self, request, petId):
