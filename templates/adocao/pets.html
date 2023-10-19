@@ -19,28 +19,35 @@
 
 {% include '../componentes/nav.html' %}
 
-{% if info.defaultUser.profile_image %}
+
+<!-- {% if info.defaultUser.profile_image %}
 <img src="{{info.defaultUser.profile_image.url}}" alt="">
 {% else %}
 <h3>Coloca um img com um svg de perfil genérico</h3>
-{% endif %}
-
-
-<div>
-    {{info.petsCount}}
-    {{info.favoritePets}}
-    {{info.adoptedPets}}
-</div>
-
-<div>
-    <p>{{info.user.email}}</p>
-    <p>{{info.endereco.cidade}}</p>
-    <p>{{info.endereco.rua}}</p>
-    <p>{{info.endereco.numero}}</p>
-    <p>{{info.defaultUser.telefone}}</p>
-</div>
+{% endif %} -->
 
 <main class="pets-section">
+    <section class="perfil-insight-information">
+        <img src="{% static 'imgs/backgroundPerfilPage.jpg' %}" alt="background img" class="background-perfil">
+        <div>
+            <img src="{% static 'imgs/dogPhoto.jpg' %}" alt="imagem do perfil do usuário" class="perfil-photo">
+            <h1 class="username">{{info.user.first_name}}</h1>
+            <span class="usertype">Cadastro de Pessoa</span>
+        </div>
+        <div class="insights-container">
+            <div class="perfil-insight">{{info.petsCount}} <span class="insight-label">Pets</span></div>
+            <div class="perfil-insight">{{info.adoptedPets}} <span class="insight-label">Adotados</span></div>
+            <div class="perfil-insight">{{info.favoritePets}} <span class="insight-label">Favoritos</span></div>
+        </div>
+    </section>
+    <div>
+        <p>{{info.user.email}}</p>
+        <p>{{info.endereco.cidade}}</p>
+        <p>{{info.endereco.rua}}</p>
+        <p>{{info.endereco.numero}}</p>
+        <p>{{info.defaultUser.telefone}}</p>
+    </div>
+
     <h1>Meus Pets</h1>
 
     <form action="" class="search-pet-form">
