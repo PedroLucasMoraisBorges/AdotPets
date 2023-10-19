@@ -16,7 +16,7 @@
         colors="outline:#121331,primary:#b26836,secondary:#646e78,tertiary:#2ca58d" style="width:100px;height:100px">
     </lord-icon>
     <!-- partial:index.partial.html -->
-    <h2>Seja bem-vindo ao Adota<span class="s-name">Pet</span></h2>
+    <h2>Seja bem-vindo ao Adote<span class="s-name">Pet</span></h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="" method="post">
@@ -53,10 +53,10 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use sua Conta:</span>
-                <input type="email" name="email" placeholder="Email" />
-                <input type="password" name="senha" placeholder="Senha" />
+                <input type="email" name="email" placeholder="Email" id="emailLoginCamp"/>
+                <input type="password" name="senha" placeholder="Senha" id="passwordLoginCamp"/>
                 <a href="#">Esqueceu a senha?</a>
-                <button name="login" type="submit">Login</button>
+                <button name="login" type="submit" id="submitLoginButton">Login</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -85,7 +85,8 @@
     </div>
     <script src="{% static 'js/script.js'%}"></script>
 
-    <script src="{% static 'js/registerValidation.js' %}"></script>
+
+    <script src="{% static 'js/loginRegisterValidation.js' %}" data-error="{{backErrorMessage}}"></script>
 
 </body>
 

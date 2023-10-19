@@ -1,25 +1,37 @@
+var data = document.currentScript.dataset
+let backErrorMessage = data.error
+console.log(backErrorMessage)
+
+
+
 completeName = document.getElementById('completeName')
 emailCamp = document.getElementById('emailCamp')
+emailLoginCamp = document.getElementById('emailLoginCamp')
 pass1 = document.getElementById('pass1')
 pass2 = document.getElementById('pass2')
+passLoginCamp = document.getElementById('passwordLoginCamp')
 errorMessage = document.getElementById('errorMessage')
 radios = document.querySelectorAll('.radios')
-submitButton = document.getElementById('submitButton')
-defaultErrorMessage = "<div class='errors-header'>Registro não pode ser concluido pois: </div>"
+submitRegisterButton = document.getElementById('submitButton')
+submitLoginButton = document.getElementById('submitLoginButton')
+defaultErrorMessage = backErrorMessage
 errorMessage.innerHTML = defaultErrorMessage
 
-submitButton.addEventListener('click', handleForm)
+if (backErrorMessage != ""){
+    errorMessage.classList.remove('hiddeable')
+}
 
-
-
+submitRegisterButton.addEventListener('click', handleRegisterForm)
+submitLoginButton.addEventListener('click', handleLoginForm)
 
 function triggerError(e){
     errorMessage.classList.remove('hiddeable')
     e.preventDefault()
 }
 
-function handleForm(e){
-    errorMessage.innerHTML = defaultErrorMessage
+function handleRegisterForm(e){
+    registerErrorMessage = "<div class='errors-header'>O registro não pôde ser concluído pois: </div>"
+    errorMessage.innerHTML = registerErrorMessage
     let count = 0
     errors = []
     if(completeName.value == ""){
@@ -66,6 +78,37 @@ function handleForm(e){
     })
     if(radioCheckeds < 1){
         errors.push('<li>Tipo de usuário não selecionado!</li>')
+        count += 1
+    }
+
+    if(count >= 1){
+        errors.forEach(error => {
+            errorMessage.innerHTML += error
+        })
+        triggerError(e)
+    }
+    else{
+        errorMessage.classList.add('hiddeable')
+    }
+}
+
+function handleLoginForm(e){
+    loginErrorMessage = "<div class='errors-header'>O Login não pôde ser concluído pois: </div>"
+    errorMessage.innerHTML = loginErrorMessage
+    let count = 0
+    errors = []
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (emailLoginCamp.value.match(validRegex)) {
+        emailLoginCamp.classList.remove('error-camp')
+    } 
+    else {
+        errors.push("<li>Formato de e-mail não válido!</li>")
+        emailLoginCamp.classList.add('error-camp')
+        count += 1
+    }
+    if(passLoginCamp.value == ""){
+        errors.push('<li>Campo de senha não pode estar vazio!</li>')
+        passLoginCamp.classList.add('error-camp')
         count += 1
     }
 
