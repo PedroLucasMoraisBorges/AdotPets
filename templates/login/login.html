@@ -16,7 +16,7 @@
         colors="outline:#121331,primary:#b26836,secondary:#646e78,tertiary:#2ca58d" style="width:100px;height:100px">
     </lord-icon>
     <!-- partial:index.partial.html -->
-    <h2>Seja bem-vindo ao Adota<span class="s-name">Pet</span></h2>
+    <h2>Seja bem-vindo ao Adote<span class="s-name">Pet</span></h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="" method="post">
@@ -27,18 +27,18 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use seu e-mail para se registrar:</span>
-                <input name="username" type="text" placeholder="Nome Completo" />
-                <input name="email" type="email" placeholder="E-mail" />
+                <input name="username" type="text" placeholder="Nome Completo" id="completeName"/>
+                <input name="email" type="email" placeholder="E-mail" id="emailCamp"/>
                 <input name="password1" type="password" placeholder="Senha" id="pass1"/>
                 <input name="password2" type="password" placeholder="Confirme sua Senha" id="pass2"/>
                 <div class="cadast">
                     <div class="empr">
                         <label for="empresa">Empresa</label>
-                        <input type="radio" id="empresa" value="E" name="userType">
+                        <input type="radio" id="empresa" value="E" name="userType" class="radios">
                     </div>
                     <div class="client">
                         <label for="cliente">Cliente</label>
-                        <input type="radio" id="cliente" value="C" name="userType">
+                        <input type="radio" id="cliente" value="C" name="userType" class="radios">
                     </div>
                 </div>
                 <button name="cad" type="submit" id="submitButton">Cadastre-se</button>
@@ -53,10 +53,10 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use sua Conta:</span>
-                <input type="email" name="email" placeholder="Email" />
-                <input type="password" name="senha" placeholder="Senha" />
+                <input type="email" name="email" placeholder="Email" id="emailLoginCamp"/>
+                <input type="password" name="senha" placeholder="Senha" id="passwordLoginCamp"/>
                 <a href="#">Esqueceu a senha?</a>
-                <button name="login" type="submit">Login</button>
+                <button name="login" type="submit" id="submitLoginButton">Login</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -85,45 +85,8 @@
     </div>
     <script src="{% static 'js/script.js'%}"></script>
 
-    <script>
-        pass1 = document.getElementById('pass1')
-        pass2 = document.getElementById('pass2')
-        errorMessage = document.getElementById('errorMessage')
-        submitButton = document.getElementById('submitButton')
 
-        submitButton.addEventListener('click', handlePasswords)
-
-        function handlePasswords(e){
-            if (pass1.value.length < 8 || pass2.value.length < 8 || pass1.value != pass2.value){
-                if(pass1.value != pass2.value){
-                    errorMessage.innerHTML = 'Senhas não coincidem!'
-                    pass1.classList.add('error-camp')
-                    pass2.classList.add('error-camp')
-                    console.log('opa')
-                }
-                else if(pass1.value.length < 8){
-                    errorMessage.innerHTML = 'Senha não pode ter menos que 8 caracteres!'
-                    pass1.classList.add('error-camp')
-                    pass2.classList.add('error-camp')
-                }
-                else{
-                    pass1.classList.remove('error-camp')
-                    pass2.classList.remove('error-camp')
-                }
-
-                errorMessage.classList.remove('hiddeable')
-
-                setTimeout(() => {
-                    errorMessage.classList.add('hiddeable')
-                }, 10000)
-
-                e.preventDefault()
-            }
-        }
-
-
-
-    </script>
+    <script src="{% static 'js/loginRegisterValidation.js' %}" data-error="{{backErrorMessage}}"></script>
 
 </body>
 
