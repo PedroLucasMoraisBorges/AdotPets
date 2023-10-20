@@ -22,8 +22,8 @@ def Login(request):
     else:
         if request.POST.get('cad') == None:
             email = request.POST.get('email')
-            senha = request.POST.get('senha')
-            user = authenticate(username=email, password=senha)
+            password = request.POST.get('senha')
+            user = authenticate(username=email, password=password)
 
             if user:
                 login(request, user)
@@ -34,102 +34,89 @@ def Login(request):
         else:
             username = request.POST.get('username')
             email = request.POST.get('email')
-            senha = request.POST.get('password1')
-            senha2 = request.POST.get('password2')
+            password = request.POST.get('password1')
+            password2 = request.POST.get('password2')
 
-            if senha == senha2:
+            if password == password2:
                 user = User.objects.filter(email=email).first()
 
                 if user:
                     context = {'backErrorMessage':"<div class='errors-header'>Erro de cadastro encontrado: </div><li>E-mail já está cadastrado!</li>"}
                     return render(request, 'login/login.html', context)
                 else:
-                    user = User.objects.create_user(username=email,email=email,password=senha,first_name=username)
+                    user = User.objects.create_user(username=email,email=email,password=password,first_name=username)
                     user.save()
                     
-                    user = authenticate(username=email, password=senha)
+                    user = authenticate(username=email, password=password)
                     login(request, user)
 
                     if request.POST.get('userType') == 'E':
-                        #Coloque pra completar o cad empresa
-                        return redirect('/cadastro/empresa/')
+                        return redirect('/cadastro/company/')
                     else:
-                        #Coloque o de cliente
                         return redirect('/cadastro/cliente/')
 
-class cadastroCliente(View):
+class registerCliente(View):
     def get(self, request):
-        clienteForm = DefaultUserForm()
-        enderecoForm = EnderecoForm()
+        clientForm = DefaultUserForm()
+        addressForm = AddressForm()
         profileImageForm = PofileImageForm()
 
         context = {
-            'clienteForm' : clienteForm,
-            'enderecoForm' : enderecoForm,
+            'clienteForm' : clientForm,
+            'addressForm' : addressForm,
             'profileImageForm':profileImageForm
         }
         return render(request, 'cadastros/cadastroCliente.html', context)
     def post(self, request):
-        clienteForm = DefaultUserForm(request.POST)
-        enderecoForm = EnderecoForm(request.POST)
+        clientForm = DefaultUserForm(request.POST)
+        addressForm = AddressForm(request.POST)
         profileImageForm = PofileImageForm(request.POST, request.FILES)
+        normalForms = [clientForm, addressForm, profileImageForm]
 
-        if clienteForm.is_valid() and enderecoForm.is_valid() and profileImageForm.is_valid():
-            cliente = clienteForm.save(commit=False)
-            cliente.fk_user = request.user
-            cliente.save()
-
-            profileImage = profileImageForm.save(commit=False)
-            profileImage.fk_user = request.user
-            profileImage.save()
-
-            endereco = enderecoForm.save(commit=False)
-            endereco.fk_user = request.user
-            endereco.save()
-
+        if all(form.is_valid() for form in normalForms):
+            for item in normalForms:
+                form = item.save(commit=False)
+                form.fk_user = request.user
+                form.save()
             return redirect('/home/')
         else:
-            print(clienteForm.errors)
             context = {
-            'clienteForm' : clienteForm,
-            'enderecoForm' : enderecoForm,
+            'clienteForm' : clientForm,
+            'addressForm' : addressForm,
             'profileImageForm':profileImageForm
             }
             return render(request, 'cadastros/cadastroCliente.html', context)
 
 
-class cadastroEmpresa(View):
+class registerCompany(View):
     def get(self, request):
-        empresaForm = EmpresaForm()
-        enderecoForm = EnderecoForm()
+        companyForm = CompanyForm()
+        addressForm = AddressForm()
         profileImageForm = PofileImageForm()
 
         context = {
-            'empresaForm' : empresaForm,
-            'enderecoForm' : enderecoForm,
+            'companyForm' : companyForm,
+            'addressForm' : addressForm,
             'profileImageForm':profileImageForm
         }
 
-        return render(request, 'cadastros/cadastroEmpresa.html', context)
+        return render(request, 'cadastros/cadastrocompany.html', context)
     def post(self, request):
-        empresaForm = EmpresaForm(request.POST)
-        enderecoForm = EnderecoForm(request.POST)
+        companyForm = CompanyForm(request.POST)
+        addressForm = AddressForm(request.POST)
         profileImageForm = PofileImageForm(request.POST, request.FILES)
+        normalForms = [companyForm, addressForm, profileImageForm]
 
-        if enderecoForm.is_valid() and empresaForm.is_valid():
-            empresa = empresaForm.save(commit=False)
-            empresa.fk_user = request.user
-            empresa.save()
-
-            endereco = enderecoForm.save(commit=False)
-            endereco.fk_user = request.user
-            endereco.save()
-
+        if all(form.is_valid() for form in normalForms):
+            for item in normalForms:
+                form = item.save(commit=False)
+                form.fk_user = request.user
+                form.save()
             return redirect('/')
         else:
             context = {
-            'empresaForm' : empresaForm,
-            'enderecoForm' : enderecoForm,
+            'companyForm' : companyForm,
+            'addressForm' : addressForm,
             'profileImageForm':profileImageForm
             }
-            return render(request, 'cadastros/cadastroEmpresa.html', context)
+            return render(request, 'cadastros/cadastrocompany.html', context)

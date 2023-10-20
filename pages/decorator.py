@@ -21,9 +21,9 @@ def defaultUserRequired(view_func):
             return HttpResponseRedirect('/')
     return wrapper_func
 
-def empresaRequired(view_func):
+def companyRequired(view_func):
     def wrapper_func(request, *args, **kwargs):
-        user = Empresa.objects.get(fk_user=request.user)
+        user = Company.objects.get(fk_user=request.user)
         if user is not None:
             return view_func(request, *args, **kwargs)
         else: 

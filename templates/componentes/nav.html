@@ -10,7 +10,7 @@
                 <li><a href="#">Loja</a> </li>
                 <li><a href="{% url 'petsPerdidos' %}">Animais perdidos</a> </li>
                 {% if User %}
-                    <a href="{% url 'meusPets' %}">
+                    <a href="{% url 'perfil' %}">
                         <li>{{User.first_name}}</li>
                     </a>
                     <a href="{% url 'logout' %}">Sair</a>

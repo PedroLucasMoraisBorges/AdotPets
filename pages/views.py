@@ -3,7 +3,7 @@ from django.views import View
 from django.urls import reverse
 from .models import *
 from .forms import *
-from auth_user.models import LogEntrada, LogSaida
+from auth_user.models import LogEntry, LogExit
 from auth_user.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -37,33 +37,27 @@ def paginator(request, pets):
 class landingPage(View):
     def get(self, request):
         if request.user.is_authenticated:
-            try:
-                defaultUser = DefaultUser.objects.get(fk_user=request.user)
+            if getUserType(request.user) == 'dafaultUser':
                 return redirect('/home/')
-            except DefaultUser.DoesNotExist:
-                pass
-        
-            try:
-                empresa = Empresa.objects.get(fk_user=request.user)
+            else:
                 return redirect('/home/')
-            except Empresa.DoesNotExist:
-                pass
         else:
             return render(request, 'homeOficial.html')
 
 class homePage(View):
-    #@method_decorator(login_required)
     def get(self, request):
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
 
         pets = []
 
         for pet in getPetsAdot(request, search):
-            imgs = ImagemPet.objects.filter(fk_pet = pet)
+            imgs = ImagePet.objects.filter(fk_pet = pet)
+            contacts = getUserContacts(request, pet)
             pets.append(
                 {
                     'pet' : pet,
-                    'imgs': imgs}
+                    'imgs': imgs,
+                    'contacts':contacts}
                 )
             
         pag = paginator(request, pets)
@@ -97,10 +91,10 @@ class homePage(View):
 class adicionarPet(View):
     @method_decorator(login_required)
     def get(self, request):
-        pet = request.GET.get('id')
-        form = CadastrarPetForm()
-        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1, max_num=4, min_num=0, validate_min=True) 
-        imgForm = CadastrarPetFormset()
+        form = RegisterPetForm()
+        print(form)
+        imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
+        imgForm = imgForm_factory()
 
 
         context = {
@@ -112,9 +106,9 @@ class adicionarPet(View):
         return render(request, 'cadastros/cadastroPet.html', context)
     
     def post(self, request):
-        form = CadastrarPetForm(request.POST)
-        CadastrarPetFormset = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=1, max_num=4, min_num=0, validate_min=True) 
-        imgForm = CadastrarPetFormset(request.POST, request.FILES)
+        form = RegisterPetForm(request.POST)
+        imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
+        imgForm = imgForm_factory(request.POST, request.FILES)
         dt_ent = date.today()
 
         if form.is_valid() and imgForm.is_valid():
@@ -126,7 +120,7 @@ class adicionarPet(View):
                 imgForm.instance = pet
                 imgForm.save()
 
-                log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
+                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex, dt_entry=dt_ent)
             else:
                 pet = form.save(commit=False)
                 pet.fk_user = request.user
@@ -135,11 +129,11 @@ class adicionarPet(View):
                 imgForm.instance = pet
                 imgForm.save()
 
-                log_entrada = LogEntrada.objects.create(fk_doador=request.user, raca=pet.raca, sexo=pet.sexo, dt_entrada=dt_ent)
-                animaisPerdidos = AnimaisPerdidos.objects.create(fk_pet=pet)
+                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex, dt_entrada=dt_ent)
+                lostPets = LostPets.objects.create(fk_pet=pet)
 
 
-            return redirect('/meus_Pets/')
+            return redirect('/perfil/')
         else:
             context = {
                 'form': form,
@@ -149,13 +143,13 @@ class adicionarPet(View):
             return render(request, 'cadastros/cadastroPet.html', context)
     
 
-class editarPet(View):
+class editPet(View):
     @method_decorator(login_required)
     def get(self, request, id):
         pet = Pet.objects.get(id=id)
-        form = CadastrarPetForm(instance=pet)
+        form = RegisterPetForm(instance=pet)
 
-        imgForm_factory = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm, extra=0)
+        imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=0)
         imgForm = imgForm_factory(instance=pet)
         context = {
             'btn': "Editar Pet",
@@ -169,8 +163,8 @@ class editarPet(View):
     def post(self, request, id):
         pet = Pet.objects.get(id=id)
 
-        form = CadastrarPetForm(request.POST, instance=pet)
-        imgForm_factory = inlineformset_factory(Pet, ImagemPet, form=CadastroImagemForm)
+        form = RegisterPetForm(request.POST, instance=pet)
+        imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet)
         imgForm = imgForm_factory(request.POST, request.FILES, instance=pet)
 
         if form.is_valid() and imgForm.is_valid():
@@ -191,16 +185,16 @@ class meuPerfil(View):
         user = getDefaultUser(request.user)
 
         for pet in getMyPets(request.user, search):
-            imgs = ImagemPet.objects.filter(fk_pet = pet)
+            imgs = ImagePet.objects.filter(fk_pet = pet)
             pets.append(
                 {
                     'pet' : pet,
                     'imgs': imgs}
                 )
             
-        for favorito in getFavoritePets(request.user, search):
-            imgs = ImagemPet.objects.filter(fk_pet = favorito.fk_pet)
-            pet = favorito.fk_pet
+        for favorite in getFavoritePets(request.user, search):
+            imgs = ImagePet.objects.filter(fk_pet = favorite.fk_pet)
+            pet = favorite.fk_pet
             pets_fav.append(
                 {
                     'pet' : pet,
@@ -223,7 +217,7 @@ class meuPerfil(View):
             'type': 'Meus Pets',
         }
         
-        return render(request, 'adocao/pets.html', context)
+        return render(request, 'perfil/perfil.html', context)
 
 class petsPerdidos(View):
     def get(self, request):
@@ -233,9 +227,8 @@ class petsPerdidos(View):
 
         
         for lostPet in getLostPets(request, search):
-            print(lostPet)
             pet = lostPet.fk_pet
-            imgs = ImagemPet.objects.filter(fk_pet = pet)
+            imgs = ImagePet.objects.filter(fk_pet = pet)
             pets.append(
                 {
                     'pet' : pet,
@@ -272,20 +265,20 @@ class adotarPet(View):
     def get(self, request, petId, doadorId):
 
         if request.user.is_authenticated:
-            doador = User.objects.get(id=doadorId)
+            donor = User.objects.get(id=doadorId)
             pet = Pet.objects.get(id=petId)
-            donatario = request.user
+            donee = request.user
 
 
-            Requisicoes.objects.create(fk_pet=pet, fk_doador=doador, fk_donatario=donatario)
+            Requests.objects.create(fk_pet=pet, fk_donor=donor, fk_donee=donee)
             return redirect('/home/')
         else:
             return redirect('/login/')
     
-class favoritarPet(View):
+class favoritePet(View):
     def get(self, request, petId):
         pet = Pet.objects.get(id=petId)
-        donatario = request.user
+        donee = request.user
 
-        Favoritos.objects.create(fk_pet=pet, fk_donatario=donatario)
+        Favorites.objects.create(fk_pet=pet, fk_donee=donee)
         return redirect('/home/')
