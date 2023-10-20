@@ -287,9 +287,8 @@
                 <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
                 <a href="{% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %}" class="ud-options"><button>Adotar</button></a>
 
-                {% elif type == 'Perdido' %}
-                <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
-                <a href="" class="ud-options"><button>Excluir Pet</button></a>
+                {% elif type == 'Perdidos' %}
+                <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Entrar em Contato</button></a>
                 {% endif %}
         </div>
     </div>
