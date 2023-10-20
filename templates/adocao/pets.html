@@ -29,7 +29,7 @@
 <main class="pets-section">
     <section class="perfil-insight-information">
         <img src="{% static 'imgs/backgroundPerfilPage.jpg' %}" alt="background img" class="background-perfil">
-        <div>
+        <div class="photo-container">
             <img src="{% static 'imgs/dogPhoto.jpg' %}" alt="imagem do perfil do usuário" class="perfil-photo">
             <h1 class="username">{{info.user.first_name}}</h1>
             <span class="usertype">Cadastro de Pessoa</span>
@@ -40,7 +40,7 @@
             <div class="perfil-insight">{{info.favoritePets}} <span class="insight-label">Favoritos</span></div>
         </div>
     </section>
-    <div>
+    <div class="perfil-information-container">
         <p>{{info.user.email}}</p>
         <p>{{info.endereco.cidade}}</p>
         <p>{{info.endereco.rua}}</p>

@@ -60,7 +60,7 @@ h1{
 .perfil-photo{
     width: 200px;
     height: 200px;
-    margin-top: 100px;
+    margin-top: -100px;
     border-radius: 50%;
     border: solid 5px white;
 }
@@ -72,12 +72,16 @@ h1{
 }
 
 .background-perfil{
-    position: absolute;
+    width: 100%;
     z-index: -1;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 20px;
 }
 
 .perfil-insight-information{
     position: relative;
+    z-index: 1;
     background: white;
     display: flex;
     width: 100%;
@@ -116,3 +120,4 @@ h1{
     font-family: Arial, Helvetica, sans-serif;
     color: #32292f5f;
 }
+
