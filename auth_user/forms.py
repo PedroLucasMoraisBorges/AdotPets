@@ -40,15 +40,21 @@ class DefaultUserForm(forms.ModelForm):
         label = 'Telefone',
         widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     
-    profile_image = forms.ImageField(
+    class Meta:
+        model = DefaultUser
+        fields = '__all__'
+        exclude = ('fk_user',)
+
+class PofileImageForm(forms.ModelForm):
+    img = forms.ImageField(
         label='Imagem de perfil',
         widget= FileInput(attrs={'accept':'.jpg, .png'}),
         help_text='Tipos de documentos aceitos: .jpg, .png',
         required=False
     )
-    
+
     class Meta:
-        model = DefaultUser
+        model = ProfileImage
         fields = '__all__'
         exclude = ('fk_user',)
 

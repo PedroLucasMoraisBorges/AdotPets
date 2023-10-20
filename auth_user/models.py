@@ -10,7 +10,7 @@ class DefaultUser(models.Model):
 
 class ProfileImage(models.Model):
     fk_user = models.ForeignKey(User, related_name = 'profileImage', on_delete = models.CASCADE)
-    profile_image = models.ImageField(upload_to='profile_image/', blank=True, null=True)
+    img = models.ImageField(upload_to='profile_image/', blank=True, null=True)
 
 class Empresa(models.Model):
     fk_user = models.ForeignKey(User, related_name= 'empresa', on_delete= models.CASCADE)

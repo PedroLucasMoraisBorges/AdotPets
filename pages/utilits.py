@@ -29,6 +29,7 @@ def getFavoritePets(user, search):
 def getDefaultUser(user):
     endereco = Endereco.objects.get(fk_user=user)
     defaultUser = DefaultUser.objects.get(fk_user=user)
+    profileImage = ProfileImage.objects.get(fk_user=user)
 
     pestCount = Pet.objects.filter(fk_user=user).count()
     favoritesPets = Favoritos.objects.filter(fk_donatario=user).count()
@@ -37,6 +38,7 @@ def getDefaultUser(user):
     user_list = {
         'user':user,
         'defaultUser':defaultUser,
+        'profileImage':profileImage,
         'endereco':endereco,
         'petsCount':pestCount,
         'favoritePets':favoritesPets,

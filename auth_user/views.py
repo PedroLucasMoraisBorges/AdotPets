@@ -61,43 +61,60 @@ class cadastroCliente(View):
     def get(self, request):
         clienteForm = DefaultUserForm()
         enderecoForm = EnderecoForm()
+        profileImageForm = PofileImageForm()
 
         context = {
             'clienteForm' : clienteForm,
-            'enderecoForm' : enderecoForm
+            'enderecoForm' : enderecoForm,
+            'profileImageForm':profileImageForm
         }
         return render(request, 'cadastros/cadastroCliente.html', context)
     def post(self, request):
-        clienteForm = DefaultUserForm(request.POST, request.FILES)
+        clienteForm = DefaultUserForm(request.POST)
         enderecoForm = EnderecoForm(request.POST)
+        profileImageForm = PofileImageForm(request.POST, request.FILES)
 
-        if clienteForm.is_valid() and enderecoForm.is_valid():
+        if clienteForm.is_valid() and enderecoForm.is_valid() and profileImageForm.is_valid():
             cliente = clienteForm.save(commit=False)
             cliente.fk_user = request.user
             cliente.save()
+
+            profileImage = profileImageForm.save(commit=False)
+            profileImage.fk_user = request.user
+            profileImage.save()
 
             endereco = enderecoForm.save(commit=False)
             endereco.fk_user = request.user
             endereco.save()
 
             return redirect('/home/')
-        
-        print(clienteForm.errors)
+        else:
+            print(clienteForm.errors)
+            context = {
+            'clienteForm' : clienteForm,
+            'enderecoForm' : enderecoForm,
+            'profileImageForm':profileImageForm
+            }
+            return render(request, 'cadastros/cadastroCliente.html', context)
+
 
 class cadastroEmpresa(View):
     def get(self, request):
         empresaForm = EmpresaForm()
         enderecoForm = EnderecoForm()
+        profileImageForm = PofileImageForm()
 
         context = {
             'empresaForm' : empresaForm,
-            'enderecoForm' : enderecoForm
+            'enderecoForm' : enderecoForm,
+            'profileImageForm':profileImageForm
         }
 
         return render(request, 'cadastros/cadastroEmpresa.html', context)
     def post(self, request):
         empresaForm = EmpresaForm(request.POST)
         enderecoForm = EnderecoForm(request.POST)
+        profileImageForm = PofileImageForm(request.POST, request.FILES)
 
         if enderecoForm.is_valid() and empresaForm.is_valid():
             empresa = empresaForm.save(commit=False)
@@ -109,3 +126,10 @@ class cadastroEmpresa(View):
             endereco.save()
 
             return redirect('/')
+        else:
+            context = {
+            'empresaForm' : empresaForm,
+            'enderecoForm' : enderecoForm,
+            'profileImageForm':profileImageForm
+            }
+            return render(request, 'cadastros/cadastroEmpresa.html', context)
