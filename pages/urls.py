@@ -3,12 +3,19 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    #LandingPage
     path('', views.landingPage.as_view(), name='landingPage'),
-    path('home/', views.homePage.as_view(), name='home'),
-    path('cadastroPet/', views.adicionarPet.as_view(), name='uploadPet'),
-    path('editarPet/<int:id>', views.editarPet.as_view(), name='editarPet'),
-    path('meus_Pets/', views.meuPerfil.as_view(), name='meusPets'),
+    
+    #Amostra de pets
     path('petsPerdidos/', views.petsPerdidos.as_view(), name='petsPerdidos'),
+    path('home/', views.homePage.as_view(), name='home'),
+
+    #perfil
+    path('perfil/', views.meuPerfil.as_view(), name='perfil'),
+    
+    #Interação com Pet
+    path('cadastroPet/', views.adicionarPet.as_view(), name='uploadPet'),
+    path('editarPet/<int:id>', views.editPet.as_view(), name='editarPet'),
     path('adotarPet/<int:petId>/<int:doadorId>', views.adotarPet.as_view(), name='adotarPet'),
-    path('favoritarPet/<int:petId>', views.favoritarPet.as_view(), name='favoritarPet'),
+    path('favoritarPet/<int:petId>', views.favoritePet.as_view(), name='favoritarPet'),
 ]

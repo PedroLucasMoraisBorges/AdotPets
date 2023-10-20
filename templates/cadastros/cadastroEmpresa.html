@@ -3,12 +3,12 @@
 
     {{profileImageForm}}
     
-    {% for field in empresaForm %}
+    {% for field in companyForm %}
         <label>{{ field.label_tag }}</label>
         <p>{{ field }}</p>
     {% endfor %}
 
-    {% for field in enderecoForm %}
+    {% for field in addressForm %}
         <label>{{ field.label_tag }}</label>
         <p>{{ field }}</p>
     {% endfor %}

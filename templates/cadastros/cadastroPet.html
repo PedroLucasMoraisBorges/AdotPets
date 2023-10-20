@@ -28,17 +28,17 @@
                     {% endfor %}
                     <div class="lined-inputs">
                         <div>
-                            <label>{{form.idade.label}}</label>
-                            {{form.idade}}
+                            <label>{{form.age.label}}</label>
+                            {{form.age}}
                         </div>
                         <div>
-                            <label>{{form.sexo.label}}</label>
+                            <label>{{form.sex.label}}</label>
                             <div class="radio-buttons-containers">
                                 <div class="radio-buttons">
                                     <button type="button" id="machoButton" class="radio-button">Macho</button>
                                     <button type="button" id="femeaButton" class="radio-button">Fêmea</button>
                                 </div>
-                                {{form.sexo}}
+                                {{form.sex}}
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
 <script type="text/javascript">
     function open(e){
         let id = e.target.getAttribute('id')
-        stringId = 'id_imagem_pet-' + id + '-imagem'
+        stringId = 'id_imagem_pet-' + id + '-img'
         imgInp = document.getElementById(stringId)
         img = document.getElementById('image-' + id)
         console.log(img)
@@ -131,7 +131,7 @@
         dynamicForm.addEventListener('click', clickAdd)
 
         function clickAdd(e){
-            let firstInputImage = document.querySelector('#id_imagem_pet-0-imagem')
+            let firstInputImage = document.querySelector('#id_imagem_pet-0-img')
             firstInputImage.click()
             img = document.getElementById('image-0')
             firstInputImage.onchange = evt => {

@@ -5,7 +5,7 @@ from .models import *
 
 
 choices = [('M', 'Masculino'), ('F', 'Feminino')]
-choicesRacas = [
+choicesBreed = [
     ('Pug', 'Pug'),
     ('Shih Tzu', 'Shih Tzu'),
     ('Buldogue', 'Buldogue'),
@@ -17,25 +17,25 @@ choicesRacas = [
     ('Golden Retriever', 'Golden Retriever'),
     ('Caramelo', 'Caramelo')]
 
-choicesSexo = [
+choicesSex = [
     ('Macho', 'Macho'),
     ('Fêmea', 'Fêmea')
 ]
 
-class CadastrarPetForm(forms.ModelForm):
-    nome = forms.CharField(label='Nome do seu Pet:', widget=forms.TextInput(attrs={'class':'input-pet-information', 'placeholder':'Digite o nome do pet aqui'}))
-    raca = forms.ChoiceField(label='Raça', choices=[('', 'Selecione a Raça')]+choicesRacas, widget=forms.Select(attrs={'class':'input-pet-information'}))
+class RegisterPetForm(forms.ModelForm):
+    name = forms.CharField(label='Nome do seu Pet:', widget=forms.TextInput(attrs={'class':'input-pet-information', 'placeholder':'Digite o nome do pet aqui'}))
+    breed = forms.ChoiceField(label='Raça', choices=[('', 'Selecione a Raça')]+choicesBreed, widget=forms.Select(attrs={'class':'input-pet-information'}))
     desc = forms.CharField(label='Descrição do animal:', widget=forms.TextInput(attrs={'class':'input-pet-information', 'placeholder': 'Digite a descrição do pet aqui'}))
-    idade = forms.IntegerField(label='Idade', widget=forms.NumberInput(attrs={'class':'input-pet-information input-idade', 'placeholder':'Idade em anos'}))
+    age = forms.IntegerField(label='Idade', widget=forms.NumberInput(attrs={'class':'input-pet-information input-idade', 'placeholder':'Idade em anos'}))
     obs = forms.CharField(label='Observações', widget=forms.TextInput(attrs={'class':'input-pet-information', 'placeholder':'Digite as observações aqui'}))
-    sexo = forms.ChoiceField(label='Sexo', choices=choicesSexo, widget=forms.RadioSelect(attrs={'class':'radio-inputs'}))
+    sex = forms.ChoiceField(label='Sexo', choices=choicesSex, widget=forms.RadioSelect(attrs={'class':'radio-inputs'}))
 
     class Meta:
         model = Pet
-        fields = ['nome', 'desc', 'obs', 'idade', 'sexo','raca',]
+        fields = ['name', 'desc', 'obs', 'age', 'sex','breed',]
 
-class CadastroImagemForm(forms.ModelForm):
-    imagem = forms.ImageField(required=True, label=None)
+class RegisterImgPet(forms.ModelForm):
+    img = forms.ImageField(required=True, label=None)
     class Meta:
-        model = ImagemPet
-        fields = ['imagem',]
+        model = ImagePet
+        fields = ['img',]

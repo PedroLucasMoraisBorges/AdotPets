@@ -7,8 +7,8 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(), name='logout'),
 
     #Cadastro
-    path('cadastro/cliente/', views.cadastroCliente.as_view(), name='cadastroCliente'),
-    path('cadastro/empresa/', views.cadastroEmpresa.as_view(), name='cadastroEmpresa')
+    path('cadastro/cliente/', views.registerCliente.as_view(), name='cadastroCliente'),
+    path('cadastro/company/', views.registerCompany.as_view(), name='cadastrocompany')
 
     #Edição
 ]

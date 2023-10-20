@@ -228,7 +228,7 @@
         <div class="carrousel-container">
             <div class="carrousel-content" id="carrousel-{{pet.pet.id}}">
                 {% for img in pet.imgs %}
-                    <img src="{{img.imagem.url}}" alt="pet image" class="pet-modal-img">
+                    <img src="{{img.img.url}}" alt="pet image" class="pet-modal-img">
                 {% endfor %}
             </div>
 
@@ -277,6 +277,9 @@
                     </li>
                 </ul>
             </div>
+                
+                <p>{{pet.contacts.email}}</p>
+                <p>{{pet.contacts.tel}}</p>
 
                 {% if type == 'Meus Pets' %}
                 <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
