@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap');
+
 :root {
 
     --greenPrincipal: #649C80;
@@ -54,3 +56,68 @@ h1{
 .pet-card{
     width: 21%;
 }
+
+.perfil-photo{
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    border-radius: 50%;
+    border: solid 5px white;
+}
+
+.username{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin-bottom: 0.5rem;
+}
+
+.background-perfil{
+    width: 100%;
+    z-index: -1;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.perfil-insight-information{
+    position: relative;
+    z-index: 1;
+    background: white;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 25px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.perfil-insight{
+    font-size: 1.5rem;
+    margin-right: 2rem;
+    text-align: center;
+    font-weight: bold;
+    width: 70px;
+}
+
+.perfil-insight:last-of-type{
+    margin-right: 0;
+}
+
+.insights-container{
+    display: flex;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+.usertype{
+    font-weight: bold;
+}
+
+.insight-label, .usertype{
+    display: block;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #32292f5f;
+}
+

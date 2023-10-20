@@ -1,5 +1,8 @@
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
+    {{profileImageForm}}
+    
     {% for field in clienteForm %}
         <div>
             <p>{{ field.label_tag }}</p>

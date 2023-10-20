@@ -6,8 +6,11 @@ from pages.models import *
 # Create your models here.
 class DefaultUser(models.Model):
     fk_user = models.ForeignKey(User, related_name = 'defaultUser', on_delete = models.CASCADE)
-    profile_image = models.ImageField(upload_to='profile_image/', blank=True, null=True)
     telefone = models.CharField(unique= True, blank= False, max_length= 14)
+
+class ProfileImage(models.Model):
+    fk_user = models.ForeignKey(User, related_name = 'profileImage', on_delete = models.CASCADE)
+    img = models.ImageField(upload_to='profile_image/', blank=True, null=True)
 
 class Empresa(models.Model):
     fk_user = models.ForeignKey(User, related_name= 'empresa', on_delete= models.CASCADE)
@@ -33,14 +36,13 @@ class LogEntrada(models.Model):
     fk_doador = models.ForeignKey(User, related_name= 'doador_entrada', on_delete= models.CASCADE)
     raca = models.CharField(max_length=75)
     sexo = models.CharField(max_length=15)
-    dt_entrada = models.DateTimeField()
+    dt_entrada = models.DateTimeField(auto_now=True)
 
 class LogSaida(models.Model):
     fk_doador = models.ForeignKey(User, related_name= 'doador_saida', on_delete= models.CASCADE)
     fk_donatario = models.ForeignKey(User, related_name= 'donatario', on_delete= models.CASCADE)
     fk_pet = models.ForeignKey(Pet, related_name= 'pet', on_delete= models.CASCADE)
-    dt_saida = models.DateTimeField()
-    qt_saida = models.IntegerField()
+    dt_saida = models.DateTimeField(auto_now=True)
 
 #Tabela de pontos 
 
