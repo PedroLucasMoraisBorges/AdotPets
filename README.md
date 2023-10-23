@@ -5,7 +5,7 @@
 
 # PI-SB-Animais
 
-# :memo: Visão TESTE
+# :memo: Visão Geral
 
 Aplicação desenvovida para ser um facilitador na adoção de animais.
 
