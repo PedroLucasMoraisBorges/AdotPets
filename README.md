@@ -55,6 +55,24 @@ O administrador possui todos os poderes do moderador, o mais seguro é haver ape
 * <img alt="Python" src="https://img.shields.io/badge/-Python-green"> - Linguagem de programação utilizada no desenvolvimento Back-end.
 * <img alt="Django" src="https://img.shields.io/badge/-Django-green"> - Framework utilizado.
 
+<br>
+
+<h1 id="Pré-requisitos">:rocket: Pré-requisitos</h1>
+
+*Cadastro: Os clientes precisarão se cadastrar fornecendo informações pessoais básicas, como nome, endereço, e-mail e número de telefone.
+
+*Idade mínima: Definir uma idade mínima para adoção é comum para garantir que os adotantes tenham a capacidade de cuidar do animal de forma responsável.
+
+*Condições de moradia: Alguns locais podem exigir que os adotantes tenham um ambiente adequado para um animal de estimação, como espaço suficiente e permissão do proprietário, se for um aluguel.
+
+*Verificação de antecedentes: Em casos mais rigorosos, pode ser necessária uma verificação de antecedentes para garantir que o adotante não tenha histórico de abuso ou negligência de animais.
+
+*Compromisso de cuidado: Os adotantes serão solicitados a assinar um compromisso de cuidar bem do animal, incluindo alimentação, cuidados médicos e bem-estar geral.
+
+*Treinamento: Dependendo do animal, os adotantes podem ser obrigados a passar por um treinamento sobre como cuidar do animal de estimação.
+
+<br>
+
 <h1 id="docker">:information_source: Instalando o Docker</h1>
 
 Execute o seguinte código no Terminal na pasta raíz do projeto:
