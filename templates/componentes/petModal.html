@@ -253,11 +253,11 @@
                     </li>
                     <li>
                         <span class="info-header">Nome</span>
-                        <span class="info-content">{{pet.pet.nome}}</span>
+                        <span class="info-content">{{pet.pet.name}}</span>
                     </li>
                     <li>
                         <span class="info-header">Raça</span>
-                        <span class="info-content">{{pet.pet.raca}}</span>
+                        <span class="info-content">{{pet.pet.breed}}</span>
                     </li>
                     <li>
                         <span class="info-header">Descrição</span>
@@ -265,11 +265,11 @@
                     </li>
                     <li>
                         <span class="info-header">Sexo</span>
-                        <span class="info-content">{{pet.pet.sexo}}</span>
+                        <span class="info-content">{{pet.pet.sex}}</span>
                     </li>
                     <li>
                         <span class="info-header">Idade</span>
-                        <span class="info-content">{{pet.pet.idade}} ano(s)</span>
+                        <span class="info-content">{{pet.pet.age}} ano(s)</span>
                     </li>
                     <li>
                         <span class="info-header">Observações</span>
@@ -284,9 +284,7 @@
                 {% if type == 'Meus Pets' %}
                 <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
                 <a href="" class="ud-options"><button>Excluir Pet</button></a>
-
                 {% elif type == 'Adoção' %}
-
                 <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
                 <a href="{% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %}" class="ud-options"><button>Adotar</button></a>
 

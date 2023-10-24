@@ -13,6 +13,7 @@ from datetime import date
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .utilits import *
+from auth_user.forms import *
 # Create your views here.
 
 def paginator(request, pets):
@@ -92,7 +93,6 @@ class adicionarPet(View):
     @method_decorator(login_required)
     def get(self, request):
         form = RegisterPetForm()
-        print(form)
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = imgForm_factory()
 
@@ -171,16 +171,22 @@ class editPet(View):
             pet = form.save()
             imgForm.instance = pet
             imgForm.save()
-            return redirect('/meus_Pets/')
+            return redirect('/perfil/')
 
 class meuPerfil(View):
     @method_decorator(login_required)
     @method_decorator(defaultUserRequired)
     def get(self, request,):
+        address = Address.objects.get(fk_user=request.user)
+        defaultUser = DefaultUser.objects.get(fk_user=request.user)
+        defaultUserForm = DefaultUserForm(instance=defaultUser)
+        addressForm = AddressForm(instance=address)
+
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
     
         pets = []
         pets_fav = []
+
 
         user = getDefaultUser(request.user)
 
@@ -215,6 +221,8 @@ class meuPerfil(View):
             'pages': pag['pages'],
             'petName' : search,
             'type': 'Meus Pets',
+            'addressForm':addressForm,
+            'defaultUserForm':defaultUserForm
         }
         
         return render(request, 'perfil/perfil.html', context)
