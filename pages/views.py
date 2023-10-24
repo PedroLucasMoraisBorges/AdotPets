@@ -152,7 +152,7 @@ class editPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=0)
         imgForm = imgForm_factory(instance=pet)
         context = {
-            'btn': "Editar Pet",
+            'btn': "Salvar",
             'User' : request.user,
             'form' : form,
             'imgForm' : imgForm,
@@ -179,8 +179,11 @@ class meuPerfil(View):
     def get(self, request,):
         address = Address.objects.get(fk_user=request.user)
         defaultUser = DefaultUser.objects.get(fk_user=request.user)
+        profileImage = ProfileImage.objects.get(fk_user=request.user)
+
         defaultUserForm = DefaultUserForm(instance=defaultUser)
         addressForm = AddressForm(instance=address)
+        profileImageForm = ProfileImageForm(instance=profileImage)
 
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
     
@@ -222,10 +225,34 @@ class meuPerfil(View):
             'petName' : search,
             'type': 'Meus Pets',
             'addressForm':addressForm,
-            'defaultUserForm':defaultUserForm
+            'defaultUserForm':defaultUserForm,
+            'profileImageForm':profileImageForm
         }
         
         return render(request, 'perfil/perfil.html', context)
+    def post(self, request):
+        address = Address.objects.get(fk_user=request.user)
+        defaultUser = DefaultUser.objects.get(fk_user=request.user)
+        profileImage = ProfileImage.objects.get(fk_user=request.user)
+
+        profileImageForm = ProfileImageForm(request.POST, request.FILES, instance=profileImage)
+        defaultUserForm = DefaultUserForm(request.POST, instance=defaultUser)
+        addressForm = AddressForm(request.POST, instance=address)
+
+        forms = [profileImageForm, defaultUserForm, addressForm]
+        print(defaultUserForm.errors)
+        if request.POST.get('editName') != None:
+            request.user.first_name = request.POST.get('name')
+            request.user.save()
+            return redirect('/perfil/')
+        if all(form.is_valid() for form in forms):
+            for item in forms:
+                if item.has_changed():
+                    item.save()
+        
+        return redirect('/perfil/')
+        
+
 
 class petsPerdidos(View):
     def get(self, request):

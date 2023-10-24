@@ -45,7 +45,7 @@ class DefaultUserForm(forms.ModelForm):
         fields = '__all__'
         exclude = ('fk_user',)
 
-class PofileImageForm(forms.ModelForm):
+class ProfileImageForm(forms.ModelForm):
     img = forms.ImageField(
         label='Imagem de perfil',
         widget= FileInput(attrs={'accept':'.jpg, .png','class':'none'}),
