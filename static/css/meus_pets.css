@@ -91,6 +91,7 @@ h1{
     align-items: center;
     text-align: center;
     padding: 2rem;
+    margin-bottom: 3rem;
 }
 
 .perfil-insight{
@@ -121,3 +122,50 @@ h1{
     color: #32292f5f;
 }
 
+.perfil-information-container{
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 25px;
+    padding: 1.5rem 0rem;
+}
+
+.perfil-information-container > div{
+    width: 100%;
+    padding: 0.5rem 1.5rem;
+    font-size: 17px;
+}
+
+.perfil-information-container div p{
+    margin: 0;
+}
+
+label{
+    margin-bottom: .2rem;
+    color: #32292fb4;
+}
+
+.card_edit{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem;
+    box-shadow: 0px 7px 15px #7393b334;
+    width: 100%;
+    border-radius: 16px;
+    padding: 1rem .5rem;
+}
+
+.btnEdit:hover{
+    cursor: pointer;
+    filter: brightness(0);
+}
+
+.buttons{
+    display: flex;
+}
+
+.none{
+    display: none;
+}

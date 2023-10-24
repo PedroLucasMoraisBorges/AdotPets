@@ -13,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
     nome = forms.CharField(
         required=True,
         label='Nome completo',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'minlength':'8'}))
 
@@ -38,17 +38,17 @@ class CustomUserCreationForm(UserCreationForm):
 class DefaultUserForm(forms.ModelForm):
     telephone = forms.CharField(
         label = 'telephone',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     
     class Meta:
         model = DefaultUser
         fields = '__all__'
         exclude = ('fk_user',)
 
-class PofileImageForm(forms.ModelForm):
+class ProfileImageForm(forms.ModelForm):
     img = forms.ImageField(
         label='Imagem de perfil',
-        widget= FileInput(attrs={'accept':'.jpg, .png'}),
+        widget= FileInput(attrs={'accept':'.jpg, .png','class':'none'}),
         help_text='Tipos de documentos aceitos: .jpg, .png',
         required=False
     )
@@ -61,19 +61,19 @@ class PofileImageForm(forms.ModelForm):
 class AddressForm(forms.ModelForm):
     cep = forms.IntegerField(
         label = 'Cep',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
     )
     city = forms.CharField(
         label= 'city',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'city'})
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'city'})
     )
     road = forms.CharField(
         label= 'Rua',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Informe a sua rua'})
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Informe a sua rua'})
     )
     number = forms.IntegerField(
         label='Número',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
     )
 
     class Meta:

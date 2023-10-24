@@ -20,7 +20,7 @@
 {% include '../componentes/nav.html' %}
 
 
-{{info.profileImage.img.url}}
+
 <!-- {% if info.defaultUser.profile_image %}
 <img src="{{info.defaultUser.profile_image.url}}" alt="">
 {% else %}
@@ -41,13 +41,115 @@
             <div class="perfil-insight">{{info.favoritePets}} <span class="insight-label">Favoritos</span></div>
         </div>
     </section>
-    <div class="perfil-information-container">
-        <p>{{info.user.email}}</p>
-        <p>{{info.address.city}}</p>
-        <p>{{info.address.road}}</p>
-        <p>{{info.address.number}}</p>
-        <p>{{info.defaultUser.telephone}}</p>
-    </div>
+    <form method="post" class="perfil-information-container">
+        {% csrf_token %}
+        <div>
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="name">Nome</label>
+                        <p>{{User.first_name}}</p>
+                        <input type="text" name="name" class="none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" id="name" value="{{User.first_name}}">
+                    </div>
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button name="editName" type="submit">OK</button>
+                </div>
+            </article>
+
+
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="id_telephone">Telefone</label>
+                        <p>{{info.defaultUser.telephone}}</p>
+                        {{defaultUserForm.telephone}}
+                    </div>
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button type="submit">OK</button>
+                </div>
+            </article>
+
+
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="id_cep">Cep</label>
+                        <p>{{info.address.cep}}</p>
+                        {{addressForm.cep}}
+                    </div>
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button type="submit">OK</button>
+                </div>
+            </article>
+        </div>
+
+        <div>
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="id_city">Cidade</label>
+                        <p>{{info.address.city}}</p>
+                        {{addressForm.city}}
+                    </div>
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button type="submit">OK</button>
+                </div>
+            </article>
+
+            
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="id_road">Rua</label>
+                        <p>{{info.address.road}}</p>
+                        {{addressForm.road}}
+                    </div>
+                    
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button type="submit">OK</button>
+                </div>
+            </article>
+
+
+            <article class="card_edit">
+                <div>
+                    <div>
+                        <label for="id_number">Número</label>
+                        <p>{{info.address.number}}</p>
+                        {{addressForm.number}}
+                    </div>
+                    
+                </div>
+
+                <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
+                <div class="buttons none">
+                    <p class="fechar" onclick="fechar()">X</p>
+                    <button type="submit">OK</button>
+                </div>
+            </article>
+        </div>
+    </form>
 
     <h1>Meus Pets</h1>
 
@@ -86,4 +188,41 @@
 {% include '../componentes/footer.html' %}
 
 <script src="{% static 'js/modalPet.js' %}"></script>
+
+<script>
+    var form = document.querySelector(".perfil-information-container")
+    
+    form.addEventListener("click",  function(event){
+        button = event.target
+        if(button.classList.contains("btnEdit")){
+            parente = button.parentNode
+            var inputElement = parente.querySelector('div div input');
+            var paragrafo = parente.querySelector('div div p');
+            var imgEdit = parente.querySelector('div img')
+            var buttons = parente.querySelector('div .buttons')
+
+            buttons.classList.remove('none')
+            imgEdit.classList.add('none')
+            paragrafo.classList.add('none')
+            inputElement.classList.remove('none')
+        }
+        else if(button.classList.contains("fechar")){
+            parente = button.parentNode.parentNode
+            var inputElement = parente.querySelector('div div input');
+            var paragrafo = parente.querySelector('div div p');
+            var imgEdit = parente.querySelector('div img')
+            var buttons = parente.querySelector('div .buttons')
+
+            buttons.classList.add('none')
+            imgEdit.classList.remove('none')
+            paragrafo.classList.remove('none')
+            inputElement.classList.add('none')
+        }
+    })
+
+
+    function fechar(elemento){
+        elemento.classList.add('none')
+    }
+</script>
 {% endblock %}

@@ -59,7 +59,7 @@ class registerCliente(View):
     def get(self, request):
         clientForm = DefaultUserForm()
         addressForm = AddressForm()
-        profileImageForm = PofileImageForm()
+        profileImageForm = ProfileImageForm()
 
         context = {
             'clienteForm' : clientForm,
@@ -70,7 +70,7 @@ class registerCliente(View):
     def post(self, request):
         clientForm = DefaultUserForm(request.POST)
         addressForm = AddressForm(request.POST)
-        profileImageForm = PofileImageForm(request.POST, request.FILES)
+        profileImageForm = ProfileImageForm(request.POST, request.FILES)
         normalForms = [clientForm, addressForm, profileImageForm]
 
         if all(form.is_valid() for form in normalForms):
@@ -92,7 +92,7 @@ class registerCompany(View):
     def get(self, request):
         companyForm = CompanyForm()
         addressForm = AddressForm()
-        profileImageForm = PofileImageForm()
+        profileImageForm = ProfileImageForm()
 
         context = {
             'companyForm' : companyForm,
@@ -104,7 +104,7 @@ class registerCompany(View):
     def post(self, request):
         companyForm = CompanyForm(request.POST)
         addressForm = AddressForm(request.POST)
-        profileImageForm = PofileImageForm(request.POST, request.FILES)
+        profileImageForm = ProfileImageForm(request.POST, request.FILES)
         normalForms = [companyForm, addressForm, profileImageForm]
 
         if all(form.is_valid() for form in normalForms):
