@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 from .forms import *
+from .backends import EmailBackend
 
 class Logout(View):
     @method_decorator(login_required)
@@ -44,7 +45,7 @@ def Login(request):
                     context = {'backErrorMessage':"<div class='errors-header'>Erro de cadastro encontrado: </div><li>E-mail já está cadastrado!</li>"}
                     return render(request, 'login/login.html', context)
                 else:
-                    user = User.objects.create_user(username=email,email=email,password=password,first_name=username)
+                    user = User.objects.create_user(username=username,email=email,password=password)
                     user.save()
                     
                     user = authenticate(username=email, password=password)
