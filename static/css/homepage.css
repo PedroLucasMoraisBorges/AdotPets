@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
 :root {
 
     --greenPrincipal: #649C80;
@@ -5,7 +7,7 @@
     --greenBackground: #EBF8F1;
     --alternativeColor: #698778;
     --containerMargin: 1rem;
-
+    --main-font: 'Public Sans'
 }
 
 * {
@@ -16,6 +18,7 @@
 body {
     font-size: 16px;
     background-color: var(--greenBackground);
+    font-family:  var(--main-font);
 }
 
 a {
@@ -41,7 +44,7 @@ a {
     }
 
     .nav-container {
-        width: 497px;
+        width: 525px;
         height: 70px;
     }
 
@@ -58,6 +61,14 @@ a {
     .nav-options a {
         color: #000000;
         font-size: 20px;
+        padding: 2px 12px;
+        transition: .2s;
+    }
+
+    .nav-options a:hover{
+        background-color: var(--greenSecondary);
+        border-radius: 20px;
+        transform: scale(1.1);
     }
 
     .nav-options button {
@@ -66,8 +77,7 @@ a {
 
     .nav-option-active:hover {
         background-color: var(--greenSecondary);
-        padding: 0px 12px;
-        border-radius: 20px;
+        
     }
 
     .link-cadastro a {

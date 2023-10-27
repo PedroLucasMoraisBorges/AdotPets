@@ -6,16 +6,16 @@
     <div class="object">
         <div class="nav-container">
             <nav class="nav-options">
-                <li><a href="{% url 'home' %}">Explorar</a></li>
-                <li><a href="#">Loja</a> </li>
-                <li><a href="{% url 'petsPerdidos' %}">Animais perdidos</a> </li>
+                <a href="{% url 'home' %}">Explorar</a>
+                <a href="#">Loja</a>
+                <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
                 {% if User %}
                     <a href="{% url 'perfil' %}">
-                        <li>{{User}}</li>
+                        {{User}}
                     </a>
                     <a href="{% url 'logout' %}">Sair</a>
                 {% else %}
-                    <li class="nav-option-active"><a href="{% url 'login' %}">Acessar Conta</a></li>
+                    <a href="{% url 'login' %}">Acessar Conta</a>
                 {% endif %}
             </nav>
         </div>
