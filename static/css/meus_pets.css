@@ -26,8 +26,8 @@ h1{
 
 
 .my-pets{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 21% 21% 21% 21%; /* Configurando o tamanho do Pet para 21% */ 
     justify-content: space-between;
     box-sizing: border-box;
     width: 100%;
@@ -53,9 +53,6 @@ h1{
     padding: 0.3rem 1rem;
 }
 
-.pet-card{
-    width: 21%;
-}
 
 .perfil-photo{
     width: 200px;

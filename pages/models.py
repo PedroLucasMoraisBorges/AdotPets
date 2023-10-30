@@ -11,7 +11,7 @@ class Pet(models.Model):
     sex = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.nome
+        return self.name
     
 
 class ImagePet(models.Model):
