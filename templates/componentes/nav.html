@@ -10,10 +10,28 @@
                 <a href="#">Loja</a>
                 <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
                 {% if User %}
-                    <a href="{% url 'perfil' %}">
-                        {{User}}
-                    </a>
-                    <a href="{% url 'logout' %}">Sair</a>
+                    <div class="imgPerfil">
+                        <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
+
+                        <div class="dropDown dropPerfil none">
+                            <a href="{% url 'perfil' %}">
+                                {{User}}
+                            </a>
+                            <a href="{% url 'logout' %}">Sair</a>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="notifications">
+                        <img class="buttonNot" src="{% static 'imgs/notifications.svg' %}" alt="">
+
+                        <div class="dropDown dropNot none">
+                            {% for noti in info.notifications %}
+                                <a href="#">{{noti.mensage}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
                 {% else %}
                     <a href="{% url 'login' %}">Acessar Conta</a>
                 {% endif %}
@@ -21,3 +39,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    var button = document.querySelector('.buttonNot')
+    var buttonPerfil = document.querySelector('.buttonPerfil')
+
+    function addRemove(elemnent){
+        if(elemnent.classList.contains("none")){
+            elemnent.classList.remove('none')
+        }
+        else{
+            elemnent.classList.add('none')
+        }
+    }
+
+    button.addEventListener('click', function(e){
+        var drop = document.querySelector('.dropNot')
+        var dropPerfil = document.querySelector('.dropPerfil')
+
+        dropPerfil.classList.add('none')
+        addRemove(drop)
+        
+    })
+
+    buttonPerfil.addEventListener('click', function(e){
+        var drop = document.querySelector('.dropPerfil')
+        var dropNot = document.querySelector('.dropNot')
+
+        dropNot.classList.add('none')
+        addRemove(drop)
+    })
+</script>

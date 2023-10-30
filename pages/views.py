@@ -70,6 +70,7 @@ class homePage(View):
         if request.user.is_authenticated:
             context = {
             'User' : request.user,
+            'info':getDefaultUser(request.user),
             'pets' : pag['pet_page'],
             'page' : pag['page'],
             'nextPage' : pag['nextPage'], 
@@ -328,6 +329,12 @@ class favoritePet(View):
     def get(self, request, petId):
         pet = Pet.objects.get(id=petId)
         donee = request.user
-
-        Favorites.objects.create(fk_pet=pet, fk_donee=donee)
+        mensage = "O usuário " + donee.username + " está interessado no seu Pet " + pet.name
+        testePet = Favorites.objects.filter(fk_pet=pet, fk_donee=donee)
+        
+        if len(testePet) == 0:
+            Notification.objects.create(fk_pet=pet, fk_donee=donee, fk_donor=pet.fk_user, mensage=mensage)
+            Favorites.objects.create(fk_pet=pet, fk_donee=donee)
+        else:
+            testePet[0].delete()
         return redirect('/home/')

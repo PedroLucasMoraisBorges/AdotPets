@@ -48,12 +48,12 @@
                     <div>
                         <label for="name">Nome</label>
                         <p>{{info.user}}</p>
-                        <input type="text" name="name" class="none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" id="name" value="{{User.first_name}}">
+                        <input type="text" name="name" class="none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" id="name" value="{{User.username}}">
                     </div>
                 </div>
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
-                <div class="buttons none">
+                <div class="none buttons">
                     <p class="fechar" onclick="fechar()">X</p>
                     <button name="editName" type="submit">OK</button>
                 </div>
