@@ -53,3 +53,8 @@ class Pontos(models.Model):
     spent = models.IntegerField()
     updated = models.DateTimeField(auto_now=True)
 
+class Notification(models.Model):
+    fk_donor = models.ForeignKey(User, related_name='NotificationDonor', on_delete=models.CASCADE)
+    fk_donee = models.ForeignKey(User, related_name='NotificationDonee', on_delete=models.CASCADE)
+    fk_pet = models.ForeignKey(Pet, related_name='NotificationPet', on_delete=models.CASCADE)
+    mensage = models.CharField(max_length=255)

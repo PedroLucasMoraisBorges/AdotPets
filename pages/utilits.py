@@ -51,6 +51,7 @@ def getDefaultUser(user):
     address = Address.objects.get(fk_user=user)
     defaultUser = DefaultUser.objects.get(fk_user=user)
     profileImage = ProfileImage.objects.filter(fk_user=user).first()
+    notifications = Notification.objects.filter(fk_donor=user)
 
     pestCount = Pet.objects.filter(fk_user=user).count()
     favoritesPets = Favorites.objects.filter(fk_donee=user).count()
@@ -63,7 +64,8 @@ def getDefaultUser(user):
         'address':address,
         'petsCount':pestCount,
         'favoritePets':favoritesPets,
-        'adoptedPets':adoptedPets
+        'adoptedPets':adoptedPets,
+        'notifications':notifications,
         }
     
     return user_list

@@ -104,6 +104,49 @@ a {
         font-weight: bold;
     }
 
+    .imgPerfil img{
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+    }
+
+    .notifications{
+        position: relative;
+    }
+
+    .notifications img{
+        width: 25px;
+    }
+
+    img:hover{
+        cursor: pointer;
+    }
+
+    .dropDown{
+        position: absolute;
+        font-size: .8rem;
+        width: 250px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        z-index: 10;
+    }
+
+    .dropDown a:hover{
+        border-radius: 0;
+    }
+
+    .dropNotifications{
+        position: absolute;
+        font-size: .8rem;
+        width: 250px;
+        background-color: white;
+    }
+
+    .navNone{
+        display: none;
+    }
+
     .description-header-section h1 {
         font-size: 48px;
         color: #14452C;

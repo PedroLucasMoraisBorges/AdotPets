@@ -27,13 +27,19 @@
     .info-container{
         position: absolute;
         bottom: 0;
-        text-align: center;
+
         background-color: rgba(255, 255, 255, 0.934);
         width: 100%;
     }
 
     .info-container p {
+        text-align: center;
         margin-top: 0.5rem;
+    }
+
+    .CardButtons{
+        display: flex;
+        justify-content: space-evenly;
     }
 
     .pet-card button{
@@ -44,6 +50,33 @@
         border-radius: 20px;
         padding: 0.3rem 0;
     }
+
+    .heart {
+        margin: 0px;
+        background-color: red;
+        height: 20px;
+        transform: rotate(-45deg);
+        width: 20px;
+        position: relative;
+    }
+
+    .heart:before,
+    .heart:after {
+        content: "";
+        background-color: red;
+        border-radius: 50%;
+        height: 20px;
+        position: absolute;
+        width: 20px;
+    }
+
+    .heart:before {
+        top: -10px;
+    }
+
+    .heart:after {
+        left: 10px;
+    }
 </style>
 
 <!-- Você que tá usando esse componente, pelo amor de Deus, configura o tamanho dele, no momento o width dele pega a página toda, não seta aqui, seta no css da página que você tá desenvolvendo -->
@@ -53,6 +86,11 @@
     <img src="{{pet.imgs.0.img.url}}" alt="">
     <div class="info-container">
         <p><strong>{{pet.pet.name}}</strong></p>
-        <button>Conferir</button>
+        <div class="CardButtons">
+            <button>Conferir</button>
+            {% if type == 'Adoção' %}
+                <div class="heart"></div>
+            {% endif %}
+        </div>
     </div>
 </div>
