@@ -178,6 +178,7 @@ class meuPerfil(View):
     @method_decorator(defaultUserRequired)
     def get(self, request,):
         address = Address.objects.get(fk_user=request.user)
+        print('ttt')
         defaultUser = DefaultUser.objects.get(fk_user=request.user)
         profileImage = ProfileImage.objects.get(fk_user=request.user)
 
@@ -192,7 +193,6 @@ class meuPerfil(View):
 
 
         user = getDefaultUser(request.user)
-
         for pet in getMyPets(request.user, search):
             imgs = ImagePet.objects.filter(fk_pet = pet)
             pets.append(
