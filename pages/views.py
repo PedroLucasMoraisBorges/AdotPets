@@ -14,6 +14,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from .utilits import *
 from auth_user.forms import *
+from django.core.mail import send_mail
+from django.conf import settings
+
 # Create your views here.
 
 def paginator(request, pets):
@@ -304,8 +307,19 @@ class adotarPet(View):
             pet = Pet.objects.get(id=petId)
             donee = request.user
 
-
             Requests.objects.create(fk_pet=pet, fk_donor=donor, fk_donee=donee)
+
+            message = donee.username + " enviou uma solitação para a adoção do seu pet " + pet.name + "!"
+            email = donor.email
+
+            send_mail(
+                "Solicitação de Adoção!", #Título do email
+                message, #Mensagem do email 
+                'settings.EMAIL_HOST_USER', #Host
+                [email], #Destinatário
+                fail_silently=False
+            )
+ 
             return redirect('/home/')
         else:
             return redirect('/login/')
