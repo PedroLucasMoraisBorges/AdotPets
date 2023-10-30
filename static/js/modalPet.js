@@ -81,6 +81,9 @@
         let referenceForModal = 'modal-pet-' + id
         let modal = document.getElementById(referenceForModal)
         modal.classList.remove('hidden')
+        modal.children[0].classList.add('animation')
+        
+        
         
         let referenceForCarrousel = 'carrousel-' + id
         let carrousel = document.getElementById(referenceForCarrousel)
@@ -98,8 +101,10 @@
 
     function closeModal(e){
         clickedOutOfModal = e.target.classList.contains('modal-pet-container')
-        if (clickedOutOfModal == true){
+        clickedXButton = e.target.classList.contains('exit-modal-button')
+        if (clickedOutOfModal == true || clickedXButton == true){
             e.currentTarget.classList.add('hidden')
+            e.currentTarget.classList.remove('animation')
         }
 
         target = e.currentTarget
