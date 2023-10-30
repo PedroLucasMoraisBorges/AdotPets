@@ -17,7 +17,7 @@
     }
 
     .modal-pet{
-        background-color: white;
+        background-color: white;    
         display: flex;
         width: 800px;
         min-height: 550px;
@@ -25,9 +25,28 @@
         overflow: hidden;
     }
 
+    @keyframes openModal {
+        from{
+            transform: scale(0.5);
+            opacity: 0;
+        }
+        to{
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animation{
+        transform-origin: bottom center;
+        animation-name: openModal;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
     .hidden{
         display: none;
     }
+
 
     .carrousel-container{
         width: 52%;
@@ -53,6 +72,17 @@
         padding: 1.3rem 1rem;
     }
 
+    .exit-modal-button{
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+    }
+
+    .exit-modal-button:hover{
+        background-color: lightgrey;
+
+    }
+
     .modal-top{
         display: flex;
         justify-content: space-between;
@@ -66,7 +96,7 @@
     }
 
     #exit-modal-button{
-        width: 12%;
+        width: 13%;
     }
 
 
@@ -243,7 +273,7 @@
         <div class="pet-info-container">
             <div class="modal-top">
                 <h3>{{pet.pet.name}}</h3>
-                <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" id="exit-modal-button">
+                <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" id="exit-modal-button" class="exit-modal-button">
             </div>
             <div class="pet-info">
                 <ul>
