@@ -9,6 +9,7 @@ class Pet(models.Model):
     desc = models.CharField(max_length=200)
     obs = models.CharField(max_length=200)
     sex = models.CharField(max_length=10)
+    adopted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -20,14 +21,14 @@ class ImagePet(models.Model):
 
 class LostPets(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'lostPets', on_delete=models.CASCADE)
+    found = models.BooleanField(default=False)
 
-class PetsFound(models.Model):
-    fk_pet = models.ForeignKey(Pet, related_name= 'petsFound', on_delete=models.CASCADE)
 
 class Requests(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     fk_donor = models.ForeignKey(User, related_name='requests_donor', on_delete= models.CASCADE)
     fk_donee = models.ForeignKey(User, related_name='requests_donee', on_delete= models.CASCADE)
+    dt_request = models.DateField(auto_now=True)
 
 class Favorites(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
