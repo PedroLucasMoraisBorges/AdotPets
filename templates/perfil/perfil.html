@@ -45,7 +45,7 @@
         <div>
             <article class="card_edit">
                 <div>
-                    <div>
+                    <div class="infos">
                         <label for="name">Nome</label>
                         <p>{{info.user}}</p>
                         <input type="text" name="name" class="none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm" id="name" value="{{User.username}}">
@@ -54,8 +54,8 @@
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
                 <div class="none buttons">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button name="editName" type="submit">OK</button>
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button name="editName" type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
 
@@ -70,9 +70,9 @@
                 </div>
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
-                <div class="buttons none">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button type="submit">OK</button>
+                <div class="none buttons">
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
 
@@ -87,9 +87,9 @@
                 </div>
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
-                <div class="buttons none">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button type="submit">OK</button>
+                <div class="none buttons">
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
         </div>
@@ -106,9 +106,9 @@
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
 
-                <div class="buttons none">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button type="submit">OK</button>
+                <div class="none buttons">
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
 
@@ -124,9 +124,9 @@
                 </div>
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
-                <div class="buttons none">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button type="submit">OK</button>
+                <div class="none buttons">
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
 
@@ -142,9 +142,9 @@
                 </div>
 
                 <img class="btnEdit" src="{% static 'imgs/edit.svg' %}" alt="">
-                <div class="buttons none">
-                    <p class="fechar" onclick="fechar()">X</p>
-                    <button type="submit">OK</button>
+                <div class="none buttons">
+                    <img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt="">
+                    <button type="submit"><img src="{% static 'imgs/ok.svg' %}" alt=""></button>
                 </div>
             </article>
         </div>
@@ -152,10 +152,7 @@
 
     <h1>Meus Pets</h1>
 
-    <form action="" class="search-pet-form">
-        <input type="text" name="Search" placeholder="Digite o nome do Pet">
-        <button>Search</button>
-    </form>
+    {% include '../componentes/search.html' %}
 
     <h4>Meus Pets</h4>
     <article class="my-pets">
@@ -192,9 +189,9 @@
     var form = document.querySelector(".perfil-information-container")
     
     form.addEventListener("click",  function(event){
-        button = event.target
+        var button = event.target
         if(button.classList.contains("btnEdit")){
-            parente = button.parentNode
+            var parente = button.parentNode
             var inputElement = parente.querySelector('div div input');
             var paragrafo = parente.querySelector('div div p');
             var imgEdit = parente.querySelector('div img')
@@ -206,7 +203,7 @@
             inputElement.classList.remove('none')
         }
         else if(button.classList.contains("fechar")){
-            parente = button.parentNode.parentNode
+            var parente = button.parentNode.parentNode
             var inputElement = parente.querySelector('div div input');
             var paragrafo = parente.querySelector('div div p');
             var imgEdit = parente.querySelector('div img')

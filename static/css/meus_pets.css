@@ -33,25 +33,7 @@ h1{
     width: 100%;
 }
 
-.search-pet-form{
-    margin-bottom: 2rem;
-}
 
-.search-pet-form input{
-    border-radius: 10px;
-    border: 1px solid lightgrey;
-    padding: 0.3rem 0.5rem;
-    width: 35%;
-}
-
-.search-pet-form button{
-    background-color: var(--greenPrincipal);
-    color: white;
-    border: None;
-    border-radius: 10px;
-    margin-left: 1.5rem;
-    padding: 0.3rem 1rem;
-}
 
 
 .perfil-photo{
@@ -143,6 +125,7 @@ label{
     color: #32292fb4;
 }
 
+
 .card_edit{
     display: flex;
     justify-content: space-between;
@@ -152,6 +135,13 @@ label{
     width: 100%;
     border-radius: 16px;
     padding: 1rem .5rem;
+    transition: .3s;
+}
+
+.card_edit div div{
+    width: 320px;
+    display: flex;
+    flex-direction: column;
 }
 
 .btnEdit:hover{
@@ -161,6 +151,19 @@ label{
 
 .buttons{
     display: flex;
+}
+
+.buttons button{
+    background-color: transparent;
+    border: 0;
+    margin-left: 0.9rem;
+    margin-right: 0.3rem;
+    transition: 0.3s;
+}
+
+.buttons button:hover{
+    filter: brightness(1.2);
+    transform: scale(1.1);
 }
 
 .none{
