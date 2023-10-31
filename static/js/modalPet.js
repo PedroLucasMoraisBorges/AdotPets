@@ -124,3 +124,18 @@
             iterator = 0
         }
     }
+
+    // Contact options for lost pets
+    
+    let contactButtons = document.querySelectorAll(".contact-button")
+    contactButtons.forEach(button => {
+        button.addEventListener("click", toggleContactDiv)
+    })
+
+    function toggleContactDiv(e){
+        button = e.target
+        id = button.getAttribute('id').replace("contactButton-", "")
+        referenceForContactDiv = "#contactDiv-" + id
+        div = document.querySelector(referenceForContactDiv)
+        div.classList.toggle("hidden")
+    }
