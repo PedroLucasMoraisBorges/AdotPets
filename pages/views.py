@@ -57,11 +57,14 @@ class homePage(View):
         for pet in getPetsAdot(request, search):
             imgs = ImagePet.objects.filter(fk_pet = pet)
             contacts = getUserContacts(request, pet)
+            favoritePet = getTestFavoritePets(pet)
             pets.append(
                 {
                     'pet' : pet,
                     'imgs': imgs,
-                    'contacts':contacts}
+                    'contacts':contacts,
+                    'type': "adot",
+                    'favoritePet':favoritePet}
                 )
             
         pag = paginator(request, pets)
@@ -69,7 +72,6 @@ class homePage(View):
 
         if request.user.is_authenticated:
             context = {
-            'User' : request.user,
             'info':getDefaultUser(request.user),
             'pets' : pag['pet_page'],
             'page' : pag['page'],
@@ -77,7 +79,6 @@ class homePage(View):
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
-            'type': 'Adoção'
         }
         else:
             context = {
@@ -87,7 +88,6 @@ class homePage(View):
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
-            'type': 'Adoção'
         }
         return render(request, 'adocao/animais.html', context)
 
@@ -102,6 +102,7 @@ class adicionarPet(View):
 
 
         context = {
+            'info' : getDefaultUser(request.user),
             'btn':'Cadastrar Pet',
             'User':request.user,
             'form':form,
@@ -182,7 +183,6 @@ class meuPerfil(View):
     @method_decorator(defaultUserRequired)
     def get(self, request,):
         address = Address.objects.get(fk_user=request.user)
-        print('ttt')
         defaultUser = DefaultUser.objects.get(fk_user=request.user)
         profileImage = ProfileImage.objects.get(fk_user=request.user)
 
@@ -202,23 +202,26 @@ class meuPerfil(View):
             pets.append(
                 {
                     'pet' : pet,
-                    'imgs': imgs}
+                    'imgs': imgs,
+                    'type':'myPets'}
                 )
             
         for favorite in getFavoritePets(request.user, search):
-            imgs = ImagePet.objects.filter(fk_pet = favorite.fk_pet)
             pet = favorite.fk_pet
+            imgs = ImagePet.objects.filter(fk_pet = favorite.fk_pet)
+            contacts = getUserContacts(request, pet)
             pets_fav.append(
                 {
                     'pet' : pet,
-                    'imgs': imgs}
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "adot"}
                 )
         
         pag = paginator(request, pets)  
         pag_fav = paginator(request, pets_fav)   
 
         context = {
-            'User' : request.user,
             'info':user,
             'pets' : pag['pet_page'],
             'pets_fav' :pag_fav['pet_page'],
@@ -227,7 +230,6 @@ class meuPerfil(View):
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
-            'type': 'Meus Pets',
             'addressForm':addressForm,
             'defaultUserForm':defaultUserForm,
             'profileImageForm':profileImageForm
@@ -244,9 +246,8 @@ class meuPerfil(View):
         addressForm = AddressForm(request.POST, instance=address)
 
         forms = [profileImageForm, defaultUserForm, addressForm]
-        print(defaultUserForm.errors)
         if request.POST.get('editName') != None:
-            request.user.first_name = request.POST.get('name')
+            request.user.username = request.POST.get('name')
             request.user.save()
             return redirect('/perfil/')
         if all(form.is_valid() for form in forms):
@@ -268,16 +269,21 @@ class petsPerdidos(View):
         for lostPet in getLostPets(request, search):
             pet = lostPet.fk_pet
             imgs = ImagePet.objects.filter(fk_pet = pet)
+            contacts = getUserContacts(request, pet)
             pets.append(
                 {
                     'pet' : pet,
-                    'imgs': imgs}
-                )
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "lost"}
+            )
+            
+            
         
         pag = paginator(request, pets)
         if request.user.is_authenticated:
             context = {
-                'User' : request.user,
+                'info' : getDefaultUser(request.user),
                 'pets' : pag['pet_page'],
                 'page' : pag['page'],
                 'nextPage' : pag['nextPage'], 

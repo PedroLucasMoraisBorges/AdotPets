@@ -9,13 +9,13 @@
                 <a href="{% url 'home' %}">Explorar</a>
                 <a href="#">Loja</a>
                 <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
-                {% if User %}
+                {% if info.user %}
                     <div class="imgPerfil">
                         <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
 
                         <div class="dropDown dropPerfil none">
                             <a href="{% url 'perfil' %}">
-                                {{User}}
+                                {{info.user}}
                             </a>
                             <a href="{% url 'logout' %}">Sair</a>
                         </div>

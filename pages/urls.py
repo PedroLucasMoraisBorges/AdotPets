@@ -14,7 +14,7 @@ urlpatterns = [
     path('perfil/', views.meuPerfil.as_view(), name='perfil'),
     
     #Interação com Pet
-    path('cadastroPet/', views.adicionarPet.as_view(), name='uploadPet'),
+    path('cadastroPet/', views.adicionarPet.as_view(), name='cadastroPet'),
     path('editarPet/<int:id>', views.editPet.as_view(), name='editarPet'),
     path('adotarPet/<int:petId>/<int:doadorId>', views.adotarPet.as_view(), name='adotarPet'),
     path('favoritarPet/<int:petId>', views.favoritePet.as_view(), name='favoritarPet'),

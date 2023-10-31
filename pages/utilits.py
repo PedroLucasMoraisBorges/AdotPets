@@ -86,3 +86,11 @@ def getUserContacts(request, pet):
         }
     return contacts
     
+
+def getTestFavoritePets(pet):
+    try:
+        test = Favorites.objects.get(fk_pet = pet)
+        result = True
+    except:
+        result = False
+    return result
