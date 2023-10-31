@@ -114,7 +114,6 @@ class adicionarPet(View):
         form = RegisterPetForm(request.POST)
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = imgForm_factory(request.POST, request.FILES)
-        dt_ent = date.today()
 
         if form.is_valid() and imgForm.is_valid():
             if request.POST.get('identificador') == "adocao":
@@ -125,7 +124,7 @@ class adicionarPet(View):
                 imgForm.instance = pet
                 imgForm.save()
 
-                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex, dt_entry=dt_ent)
+                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex)
             else:
                 pet = form.save(commit=False)
                 pet.fk_user = request.user
@@ -134,7 +133,7 @@ class adicionarPet(View):
                 imgForm.instance = pet
                 imgForm.save()
 
-                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex, dt_entrada=dt_ent)
+                log_entry = LogEntry.objects.create(fk_donor=request.user, breed=pet.breed, sex=pet.sex)
                 lostPets = LostPets.objects.create(fk_pet=pet)
 
 
@@ -199,23 +198,33 @@ class meuPerfil(View):
         user = getDefaultUser(request.user)
         for pet in getMyPets(request.user, search):
             imgs = ImagePet.objects.filter(fk_pet = pet)
-            pets.append(
-                {
-                    'pet' : pet,
-                    'imgs': imgs,
-                    'type':'myPets'}
-                )
+            if getTestLostPets(pet) == False:
+                pets.append(
+                    {
+                        'pet' : pet,
+                        'imgs': imgs,
+                        'type':'myPets'}
+                    )
+            else:
+                pets.append(
+                    {
+                        'pet' : pet,
+                        'imgs': imgs,
+                        'type':'myLostPets'}
+                    )
             
         for favorite in getFavoritePets(request.user, search):
             pet = favorite.fk_pet
             imgs = ImagePet.objects.filter(fk_pet = favorite.fk_pet)
             contacts = getUserContacts(request, pet)
+            favoritePet = getTestFavoritePets(pet)
             pets_fav.append(
                 {
                     'pet' : pet,
                     'imgs': imgs,
                     'contacts':contacts,
-                    'type': "adot"}
+                    'type': "adot",
+                    'favoritePet':favoritePet}
                 )
         
         pag = paginator(request, pets)  
@@ -344,3 +353,18 @@ class favoritePet(View):
         else:
             testePet[0].delete()
         return redirect('/home/')
+    
+
+class MarcarAdotado(View):
+    def get(self, request, petId):
+        pet = Pet.objects.get(id=petId)
+
+        try:
+            pet = LostPets.objects.get(fk_pet = pet)
+            pet.found = True
+        except:
+            pass
+
+        pet.adopted = True
+        pet.save()
+        return redirect('/perfil/')
