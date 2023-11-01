@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.forms.widgets import NumberInput
+from django.forms.widgets import NumberInput, FileInput
 from .models import *
 
 
@@ -13,7 +13,9 @@ class CustomUserCreationForm(UserCreationForm):
     nome = forms.CharField(
         required=True,
         label='Nome completo',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome completo'}))
+
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'minlength':'8'}))
 
     class Meta:
         model = User
@@ -34,44 +36,57 @@ class CustomUserCreationForm(UserCreationForm):
         return nome
 
 class DefaultUserForm(forms.ModelForm):
-    telefone = forms.CharField(
-        label = 'Telefone',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
+    telephone = forms.CharField(
+        label = 'telephone',
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     
     class Meta:
         model = DefaultUser
         fields = '__all__'
         exclude = ('fk_user',)
 
-class EnderecoForm(forms.ModelForm):
-    cep = forms.IntegerField(
-        label = 'Cep',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
-    )
-    cidade = forms.CharField(
-        label= 'Cidade',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Cidade'})
-    )
-    rua = forms.CharField(
-        label= 'Rua',
-        widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Informe a sua rua'})
-    )
-    numero = forms.IntegerField(
-        label='Número',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
+class ProfileImageForm(forms.ModelForm):
+    img = forms.ImageField(
+        label='Imagem de perfil',
+        widget= FileInput(attrs={'accept':'.jpg, .png','class':'none'}),
+        help_text='Tipos de documentos aceitos: .jpg, .png',
+        required=False
     )
 
     class Meta:
-        model = Endereco
+        model = ProfileImage
         fields = '__all__'
         exclude = ('fk_user',)
 
-class EmpresaForm(forms.ModelForm):
-    nome_social = forms.CharField(
+class AddressForm(forms.ModelForm):
+    cep = forms.IntegerField(
+        label = 'Cep',
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
+    )
+    city = forms.CharField(
+        label= 'city',
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'city'})
+    )
+    road = forms.CharField(
+        label= 'Rua',
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Informe a sua rua'})
+    )
+    number = forms.IntegerField(
+        label='Número',
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
+    )
+
+    class Meta:
+        model = Address
+        fields = '__all__'
+        exclude = ('fk_user',)
+
+class CompanyForm(forms.ModelForm):
+    social_name = forms.CharField(
         label='Nome Social',
         widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome Social'})
     )
-    nome_fantasia = forms.CharField(
+    fantasy_name = forms.CharField(
         label='Nome Fantasia',
         widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome Fantasia'})
     )
@@ -80,6 +95,6 @@ class EmpresaForm(forms.ModelForm):
         widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '0000000000000'})
     )
     class Meta:
-        model = Empresa
+        model = Company
         fields = '__all__'
         exclude = ('fk_user',)

@@ -3,9 +3,6 @@
 
 
 {% block head %}
-
-<link rel="stylesheet" href="{% static 'css/homepage.css' %}">
-
 {% endblock head %}
 
 {% block content %}
@@ -13,21 +10,8 @@
 <div>
     <div class="page-container">
         <header>
-            <div class="top-section">
-                <div class="logo">
-                    <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
-                </div>
-                <div class="object">
-                    <div class="nav-container">
-                        <nav class="nav-options">
-                            <li><a href="#">Explorar</a></li>
-                            <li><a href="#">Loja</a> </li>
-                            <li><a href="#">Função3</a> </li>
-                            <li class="nav-option-active"><a href="{% url 'login' %}">Login</a></li>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+            {% include 'componentes/nav.html' %}
+
             <section class="header-section">
                 <img src="{% static 'imgs/coelho-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
                 <div class="description-header-section">
@@ -132,41 +116,7 @@
                     </div>
                 </div>
             </section>
-            <footer>
-                <div class="logo">
-                    <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
-                </div>
-                <div class="footer-information">
-                    <div class="info-section">
-                        <h4><span class="colorized-text">
-                                Lorem ipsum
-                            </span></h4>
-                        <p>Lorem ipsum</p>
-                        <p>Mi</p>
-                        <p>Lorem</p>
-                        <p>Lorem ipsum</p>
-                    </div>
-                </div>
-                <div class="footer-information">
-                    <div class="info-section">
-                        <h4><span class="colorized-text">
-                                Lorem ipsum
-                            </span></h4>
-                        <p>Lorem ipsum dolor sit</p>
-                        <p>Lorem Ipsum dolor sit armet</p>
-                    </div>
-                </div>
-                <div class="footer-information">
-                    <div class="info-section">
-                        <h4><span class="colorized-text">
-                                Lorem
-                            </span></h4>
-                        <img src="{% static 'imgs/facebookIcon.svg' %}" alt="facebook logo">
-                        <img src="{% static 'imgs/instagramIcon.svg' %}" alt="facebook logo">
-                    </div>
-                </div>
-            </footer>
-            <div class="copyDown">Lorem ipsum dolor sit amet consectetur. <span class="copy">Lorem Lorem</span></div>
+            {% include 'componentes/footer.html' %}
     </div>
     </main>
 </div>

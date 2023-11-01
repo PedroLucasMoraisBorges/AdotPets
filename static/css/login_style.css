@@ -102,11 +102,12 @@ form {
 }
 
 input {
-    background-color: #eee;
+    background-color: #ffffff;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
     width: 100%;
+    border: solid 1px lightgray;
 }
 
 .container {
@@ -278,4 +279,30 @@ footer i {
 footer a {
     color: #3c97bf;
     text-decoration: none;
+}
+
+.display-error{
+    background-color: red;
+    padding: 2rem;
+    color: white;
+    position: fixed;
+    top: 5rem;
+    left: 0;
+    transition: 1s;
+}
+
+.error-camp{
+    border: 1px solid red;
+}
+
+.error-camp::placeholder{
+    color: red;
+}
+
+.hiddeable{
+    transform: translateX(-100%);
+}
+
+.errors-header{
+    margin-bottom: 0.5rem;
 }

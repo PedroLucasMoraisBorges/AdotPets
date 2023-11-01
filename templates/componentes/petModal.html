@@ -1,0 +1,330 @@
+
+{% load static %}
+
+<style>
+    .modal-pet-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        min-width: 100vw;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.696);
+        z-index: 10;
+    }
+
+    .modal-pet{
+        background-color: white;    
+        display: flex;
+        width: 800px;
+        min-height: 550px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    @keyframes openModal {
+        from{
+            transform: scale(0.5);
+            opacity: 0;
+        }
+        to{
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animation{
+        transform-origin: bottom center;
+        animation-name: openModal;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .hidden{
+        display: none;
+    }
+
+
+    .carrousel-container{
+        width: 52%;
+        overflow: hidden;
+        position: relative;
+        background-image: url(/static/imgs/dogplaceholder.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .carrousel-content{
+        transition: 1s;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .pet-info-container{
+        width: 48%;
+        box-sizing: border-box;
+        padding: 1.3rem 1rem;
+    }
+
+    .exit-modal-button{
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 50%;
+    }
+
+    .exit-modal-button:hover{
+        background-color: lightgrey;
+
+    }
+
+    .modal-top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        padding: 0 1.2rem;
+    }
+
+    .modal-top h3{
+        font-weight: bolder;
+    }
+
+    #exit-modal-button{
+        width: 13%;
+    }
+
+
+    .pet-info{
+        background-color: var(--greenBackground);
+        border-radius: 10px;
+        box-sizing: border-box;
+        width: 90%;
+        margin: auto;
+        font-size: 15px;
+        padding: 1.2rem 1rem;
+    }
+
+    .pet-info ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .pet-info li{
+        margin-bottom: 0.8rem;
+    }
+
+    .pet-info span{
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .info-header{
+        line-height: 15px;
+        color: grey;
+    }
+
+    .pet-modal-img{
+        width: 100%;
+        width: inherit;
+        object-fit: cover;
+        flex-shrink: 0;
+    }
+
+    .carrousel-indicators{
+        display: flex;
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 15;
+    }
+
+    .carrousel-indicator{
+        height: 12px;
+        border-radius: 50%;
+        width: 12px;
+        margin-left: 0.7rem;
+        background-color: lightgreen;
+    }
+
+    .carrousel-indicator:first-of-type{
+        margin-left: 0;
+    }
+
+    .indicator-active{
+        background-color: var(--greenPrincipal);
+    }
+
+    .ud-options{
+        display: block;
+        text-align: center;
+        height: fit-content;
+        width: 80%;
+        margin: auto;
+        margin-top: 0.8rem;
+    }
+
+    .ud-options button{
+        background-color: var(--greenPrincipal);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+        padding: 0.4rem 1rem;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .ud-options button:hover{
+        background-color: var(--greenSecondary);
+        color: white;
+    }
+
+    .trigger-before{
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        z-index: 20;
+        top: 0;
+        left: 0;
+        transition: 0.2s;
+        background: linear-gradient(to right,  rgba(0, 0, 0, 0.145), transparent);
+        opacity: 0;
+        align-items: center;
+    }
+
+    .trigger-before:hover{
+        opacity: 1;
+    }
+    
+    .trigger-after{
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        z-index: 20;
+        top: 0;
+        right: 0;
+        background: linear-gradient(to left,  rgba(0, 0, 0, 0.145), transparent);
+        opacity: 0;
+        flex-direction: row-reverse;
+        align-items: center;
+        
+    }
+
+    .trigger-after:hover{
+        opacity: 1;
+    }
+
+    .trigger-before, .trigger-after{
+        cursor: pointer;
+    }
+
+    .arrow-right, .arrow-left{
+        background-color: var(--greenPrincipal);
+        color: white;
+        width: 50px;
+        height: 50px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bolder;
+        border-radius: 50%;
+    }
+
+    .arrow-right{
+        margin-right: 2rem;
+    }
+
+    .arrow-left{
+        margin-left: 2rem;
+    }
+
+    
+
+</style>
+
+<div class="modal-pet-container hidden" id="modal-pet-{{pet.pet.id}}">
+    <div class="modal-pet">
+        <div class="carrousel-container">
+            <div class="carrousel-content" id="carrousel-{{pet.pet.id}}">
+                {% for img in pet.imgs %}
+                    <img src="{{img.img.url}}" alt="pet image" class="pet-modal-img">
+                {% endfor %}
+            </div>
+
+            <div class="carrousel-indicators">
+                {% for img in pet.imgs %}
+                    <div class="carrousel-indicator carrousel-indicator-{{pet.pet.id}}"></div>
+                {% endfor %}
+            </div>
+            <div class="trigger-before" id="triggerBefore-{{pet.pet.id}}"><div class="arrow-left"><</div></div>
+            <div class="trigger-after" id="triggerAfter-{{pet.pet.id}}"><div class="arrow-right">></div></div>
+        </div>
+        <div class="pet-info-container">
+            <div class="modal-top">
+                <h3>{{pet.pet.name}}</h3>
+                <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" id="exit-modal-button" class="exit-modal-button">
+            </div>
+            <div class="pet-info">
+                <ul>
+                    <li>
+                        <span class="info-header">Doador</span>
+                        <span class="info-content">{{pet.pet.fk_user}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Nome</span>
+                        <span class="info-content">{{pet.pet.name}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Raça</span>
+                        <span class="info-content">{{pet.pet.breed}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Descrição</span>
+                        <span class="info-content">{{pet.pet.desc}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Sexo</span>
+                        <span class="info-content">{{pet.pet.sex}}</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Idade</span>
+                        <span class="info-content">{{pet.pet.age}} ano(s)</span>
+                    </li>
+                    <li>
+                        <span class="info-header">Observações</span>
+                        <span class="info-content">{{pet.pet.obs}}</span>
+                    </li>
+                </ul>
+            </div>
+                
+                <p>{{pet.contacts.email}}</p>
+                <p>{{pet.contacts.tel}}</p>
+                {% if pet.type == 'adot' %}
+                    <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
+                    <a href="{% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %}" class="ud-options">
+                        <button>Adotar</button>
+                    </a>
+                {% elif pet.type == 'lost' %}
+                    <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Entrar em Contato</button></a>
+                {% elif pet.type == 'myLostPets' %}
+                    
+                    <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
+                    <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Encontrado</button></a>
+                {% else %}
+                    <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
+                    <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
+                {% endif %}
+        </div>
+    </div>
+</div>

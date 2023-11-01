@@ -3,6 +3,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Pet)
-admin.site.register(ImagemPet)
-admin.site.register(AnimaisPerdidos)
-admin.site.register(Produto)
+admin.site.register(ImagePet)
+admin.site.register(LostPets)
+admin.site.register(Favorites)
+admin.site.register(Requests)

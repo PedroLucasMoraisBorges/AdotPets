@@ -15,11 +15,10 @@
 {% include '../componentes/nav.html' %}
 
 <main class="pets-section">
-    <h1>Pets Perdidos</h1>
+    <h1>Adoção</h1>
 
     {% include '../componentes/search.html' %}
 
-    
     <article class="my-pets">
         {% for pet in pets %}
             {% include 'componentes/petCard.html' %}
@@ -41,4 +40,5 @@
 {% include '../componentes/footer.html' %}
 
 <script src="{% static 'js/modalPet.js' %}"></script>
+
 {% endblock %}

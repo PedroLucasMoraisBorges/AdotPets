@@ -1,0 +1,61 @@
+.mid-3 {
+    padding: 90PX;
+    height: 600px;
+    background-color: #698778;
+}
+
+.mid-3-1 {
+    margin: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+}
+
+.description-mid-3-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.description-mid-3-1 h3 {
+    color: #FFFFFF;
+    width: 70%;
+    font-size: 40px;
+}
+
+.description-mid-3-1 button {
+    color: #000000;
+    border-radius: 15px;
+    background-color: #A5EBC8;
+    margin: 30px 0;
+    width: 30%;
+    border: 0px;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 90px 80px;
+}
+
+.copyDown {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,108 @@
+<style>
+    .pet-card{
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.129);
+        transition: 0.2s;
+        cursor: pointer;
+        background-image: url(/static/imgs/dogplaceholder.png);
+        background-position: -10px -80px;
+    }
+
+    .pet-card:hover{
+        transform: scale(1.05);
+    }
+
+    .pet-card img{
+        width: calc(100% + 2rem);
+        position: relative;
+        right: 1.2rem;
+        bottom: 1px;
+        height: 251px;
+        object-fit: cover;
+    }
+
+    .info-container{
+        position: absolute;
+        bottom: 0;
+
+        background-color: rgba(255, 255, 255, 0.934);
+        width: 100%;
+    }
+
+    .info-container p {
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+
+    .CardButtons{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .pet-card button{
+        margin-bottom: 1.5rem;
+        background-color: var(--greenSecondary);
+        width: 150px;
+        border: none;
+        border-radius: 20px;
+        padding: 0.3rem 0;
+    }
+
+    .heart {
+        margin: 0px;
+        background-color: #FF9292;
+        height: 20px;
+        transform: rotate(-45deg);
+        width: 20px;
+        position: relative;
+    }
+
+    .heart:before,
+    .heart:after {
+        content: "";
+        background-color: #FF9292;
+        border-radius: 50%;
+        height: 20px;
+        position: absolute;
+        width: 20px;
+    }
+
+    .heart:before {
+        top: -10px;
+    }
+
+    .heart:after {
+        left: 10px;
+    }
+
+    .false{
+        background-color: #D6D6D6;
+    }
+
+    .false:before, .false::after{
+        background-color: #D6D6D6;
+    }
+</style>
+
+<!-- Você que tá usando esse componente, pelo amor de Deus, configura o tamanho dele, no momento o width dele pega a página toda, não seta aqui, seta no css da página que você tá desenvolvendo -->
+<!-- Dê uma olhadinha tambem na view de meusPets, para entender a implementação e como devem ser nomeadas as variáveis-->
+
+<div class="pet-card" id="pet-card-{{pet.pet.id}}">
+    <img src="{{pet.imgs.0.img.url}}" alt="">
+    <div class="info-container">
+        <p><strong>{{pet.pet.name}}</strong></p>
+        <div class="CardButtons">
+            <button>Conferir</button>
+            {% if pet.type == 'adot' %}
+                {% if pet.favoritePet == True %}
+                    <div class="heart"></div>
+                {% else %}
+                    <div class="heart false"></div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>

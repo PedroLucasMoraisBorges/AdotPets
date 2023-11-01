@@ -16,7 +16,7 @@
         colors="outline:#121331,primary:#b26836,secondary:#646e78,tertiary:#2ca58d" style="width:100px;height:100px">
     </lord-icon>
     <!-- partial:index.partial.html -->
-    <h2>Seja bem-vindo ao Adota<span class="s-name">Pet</span></h2>
+    <h2>Seja bem-vindo ao Adote<span class="s-name">Pet</span></h2>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
             <form action="" method="post">
@@ -27,21 +27,21 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use seu e-mail para se registrar:</span>
-                <input name="username" type="text" placeholder="Nome Completo" />
-                <input name="email" type="email" placeholder="E-mail" />
-                <input name="password1" type="password" placeholder="Senha" />
-                <input name="password2" type="password" placeholder="Confirme sua Senha" />
+                <input name="username" type="text" placeholder="Nome Completo" id="completeName"/>
+                <input name="email" type="email" placeholder="E-mail" id="emailCamp"/>
+                <input name="password1" type="password" placeholder="Senha" id="pass1"/>
+                <input name="password2" type="password" placeholder="Confirme sua Senha" id="pass2"/>
                 <div class="cadast">
                     <div class="empr">
-                        <label for="empresa">Empresa</label>
-                        <input type="radio" id="empresa" value="E" name="userType">
+                        <label for="company">Empresa</label>
+                        <input type="radio" id="company" value="E" name="userType" class="radios">
                     </div>
                     <div class="client">
                         <label for="cliente">Cliente</label>
-                        <input type="radio" id="cliente" value="C" name="userType">
+                        <input type="radio" id="cliente" value="C" name="userType" class="radios">
                     </div>
                 </div>
-                <button name="cad" type="submit">Cadastre-se</button>
+                <button name="cad" type="submit" id="submitButton">Cadastre-se</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -53,10 +53,10 @@
                     <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                 </div>
                 <span class="info">Ou use sua Conta:</span>
-                <input type="email" name="email" placeholder="Email" />
-                <input type="password" name="senha" placeholder="Senha" />
+                <input type="email" name="email" placeholder="Email" id="emailLoginCamp"/>
+                <input type="password" name="senha" placeholder="Senha" id="passwordLoginCamp"/>
                 <a href="#">Esqueceu a senha?</a>
-                <button name="login" type="submit">Login</button>
+                <button name="login" type="submit" id="submitLoginButton">Login</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -77,8 +77,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="hiddeable display-error" id="errorMessage">
+
+        </div>
+
     </div>
     <script src="{% static 'js/script.js'%}"></script>
+
+
+    <script src="{% static 'js/loginRegisterValidation.js' %}" data-error="{{backErrorMessage}}"></script>
+
 </body>
 
 </html>

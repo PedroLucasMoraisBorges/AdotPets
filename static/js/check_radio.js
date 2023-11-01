@@ -1,7 +1,7 @@
 console.log("Opa")
 
-let machoCamp = document.getElementById('id_sexo_0')
-let femeaCamp = document.getElementById('id_sexo_1')
+let machoCamp = document.getElementById('id_sex_0')
+let femeaCamp = document.getElementById('id_sex_1')
 
 let machoButton = document.getElementById('machoButton')
 let femeaButton = document.getElementById('femeaButton')

@@ -3,26 +3,38 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Pet(models.Model):
     fk_user = models.ForeignKey(User, related_name= 'pet', on_delete= models.CASCADE)
-    nome = models.CharField(max_length=50)
-    raca = models.CharField(max_length=30)
-    idade = models.CharField(max_length=8)
+    name = models.CharField(max_length=50)
+    breed = models.CharField(max_length=30)
+    age = models.CharField(max_length=8)
     desc = models.CharField(max_length=200)
     obs = models.CharField(max_length=200)
-    sexo = models.CharField(max_length=10)
+    sex = models.CharField(max_length=10)
+    adopted = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.nome
+        return self.name
     
 
-class ImagemPet(models.Model):
+class ImagePet(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name = 'imagem_pet', on_delete = models.CASCADE)
-    imagem = models.ImageField(upload_to='imgPet/', blank=False)
-
-class AnimaisPerdidos(models.Model):
-    fk_pet = models.ForeignKey(Pet, related_name= 'animaisPerdidos', on_delete=models.CASCADE)
+    img = models.ImageField(upload_to='imgPet/', blank=False, default='')
 
 class Produto(models.Model):
     nome = models.CharField(max_length=150)
     desc = models.CharField(max_length=250)
     valor = models.CharField(max_length=6, default= 0)
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, related_name='produto')
+    empresa = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='produto')
+
+class LostPets(models.Model):
+    fk_pet = models.ForeignKey(Pet, related_name= 'lostPets', on_delete=models.CASCADE)
+    found = models.BooleanField(default=False)
+
+class Requests(models.Model):
+    fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    fk_donor = models.ForeignKey(User, related_name='requests_donor', on_delete= models.CASCADE)
+    fk_donee = models.ForeignKey(User, related_name='requests_donee', on_delete= models.CASCADE)
+    dt_request = models.DateField(auto_now=True)
+
+class Favorites(models.Model):
+    fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    fk_donee = models.ForeignKey(User, on_delete= models.CASCADE)
