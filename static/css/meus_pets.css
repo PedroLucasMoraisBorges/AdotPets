@@ -33,7 +33,6 @@ h1{
     width: 100%;
 }
 
-<<<<<<< HEAD
 .search-pet-form{
     margin-bottom: 2rem;
 }
@@ -53,9 +52,6 @@ h1{
     margin-left: 1.5rem;
     padding: 0.3rem 1rem;
 }
-=======
-
->>>>>>> ad08b50dac59ed6f54d3ed55f5e730e3c76eb61d
 
 
 .perfil-photo{
@@ -147,10 +143,6 @@ label{
     color: #32292fb4;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> ad08b50dac59ed6f54d3ed55f5e730e3c76eb61d
 .card_edit{
     display: flex;
     justify-content: space-between;
@@ -163,7 +155,6 @@ label{
     transition: .3s;
 }
 
-<<<<<<< HEAD
 .card_edit .buttons img{
     opacity: .5;
     transition: .2s;
@@ -173,8 +164,6 @@ label{
     opacity: 1;
 }
 
-=======
->>>>>>> ad08b50dac59ed6f54d3ed55f5e730e3c76eb61d
 .card_edit div div{
     width: 320px;
     display: flex;
@@ -190,8 +179,6 @@ label{
     display: flex;
 }
 
-<<<<<<< HEAD
-=======
 .buttons button{
     background-color: transparent;
     border: 0;
@@ -205,7 +192,6 @@ label{
     transform: scale(1.1);
 }
 
->>>>>>> ad08b50dac59ed6f54d3ed55f5e730e3c76eb61d
 .none{
     display: none;
 }

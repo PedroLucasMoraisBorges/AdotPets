@@ -19,12 +19,6 @@ class ImagePet(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name = 'imagem_pet', on_delete = models.CASCADE)
     img = models.ImageField(upload_to='imgPet/', blank=False, default='')
 
-class Produto(models.Model):
-    nome = models.CharField(max_length=150)
-    desc = models.CharField(max_length=250)
-    valor = models.CharField(max_length=6, default= 0)
-    empresa = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='produto')
-
 class LostPets(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'lostPets', on_delete=models.CASCADE)
     found = models.BooleanField(default=False)
