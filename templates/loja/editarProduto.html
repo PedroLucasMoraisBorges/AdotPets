@@ -1,0 +1,12 @@
+{% block content %}
+
+<h1>Editar produto</h1>
+<br>
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <input type="submit" value="Update">
+</form>
+
+{% endblock %}

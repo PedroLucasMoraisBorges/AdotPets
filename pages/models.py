@@ -23,7 +23,6 @@ class LostPets(models.Model):
     fk_pet = models.ForeignKey(Pet, related_name= 'lostPets', on_delete=models.CASCADE)
     found = models.BooleanField(default=False)
 
-
 class Requests(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     fk_donor = models.ForeignKey(User, related_name='requests_donor', on_delete= models.CASCADE)

@@ -310,10 +310,8 @@ class petsPerdidos(View):
                     'contacts':contacts,
                     'type': "lost"}
             )
-            
-            
-        
         pag = paginator(request, pets)
+            
         if request.user.is_authenticated:
             context = {
                 'info' : getDefaultUser(request.user),
@@ -337,6 +335,7 @@ class petsPerdidos(View):
             }
         
         return render(request, 'perdidos/petsPerdidos.html', context)
+
 
 
 class adotarPet(View):
@@ -391,6 +390,7 @@ class MarcarAdotado(View):
 
         pet.adopted = True
         pet.save()
+
 
         #Deletando solicitações pelo pet, pois já foi adotado
         solicitacoes = Requests.objects.filter(fk_pet=pet)
@@ -459,3 +459,4 @@ def processos(request):
     context = {'info':getDefaultUser(request.user), 'petsEmAdocao':petsEmAdocao, 'petsSolicitados':petsSolicitados, 'petsAdotados':petsAdotados}
 
     return render(request, 'processos/processos.html', context)
+
