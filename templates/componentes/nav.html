@@ -9,6 +9,7 @@
                 <a href="{% url 'home' %}">Explorar</a>
                 <a href="#">Loja</a>
                 <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
+                <a href="{% url 'processos' %}">Processos</a>
                 {% if info.user %}
                     <div class="imgPerfil">
                         <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">

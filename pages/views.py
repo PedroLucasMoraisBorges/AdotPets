@@ -91,7 +91,31 @@ class homePage(View):
         }
         return render(request, 'adocao/animais.html', context)
 
+    def post(self, request):
+        if request.method == 'POST' and 'sendRequestButton' in request.POST:
+            
+            if request.user.is_authenticated:
+                donor = User.objects.get(id=request.POST.get('id_user'))
+                pet = Pet.objects.get(id=request.POST.get('id_pet'))
+                text = request.POST.get('requestText')
+                donee = request.user
 
+                Requests.objects.create(fk_pet=pet, fk_donor=donor, fk_donee=donee, requestText=text)
+
+                message = donee.username + " enviou uma solitação para a adoção do seu pet " + pet.name + "!" + "\n" + text
+                email = donor.email
+
+                send_mail(
+                    "Solicitação de Adoção!", #Título do email
+                    message, #Mensagem do email 
+                    'settings.EMAIL_HOST_USER', #Host
+                    [email], #Destinatário
+                    fail_silently=False
+                )
+ 
+                return redirect('/home/')
+            else:
+                return redirect('/login/')
             
 class adicionarPet(View):
     @method_decorator(login_required)
@@ -367,4 +391,71 @@ class MarcarAdotado(View):
 
         pet.adopted = True
         pet.save()
-        return redirect('/perfil/')
+
+        #Deletando solicitações pelo pet, pois já foi adotado
+        solicitacoes = Requests.objects.filter(fk_pet=pet)
+        for solicitacao in solicitacoes:
+            solicitacao.delete()
+
+        return redirect('/processos/')
+    
+def processos(request):
+    pets = Pet.objects.filter(fk_user=request.user)
+    petsEmAdocao = []
+    petsSolicitados = []
+    petsAdotados = []
+
+    for pet in pets:
+        #Pegar pets que ainda não foram adotados
+        if pet.adopted == False:
+            imgs = ImagePet.objects.filter(fk_pet=pet)
+            contacts = getUserContacts(request, pet)
+            petsEmAdocao.append(
+                {
+                    'pet':pet,
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "myPets"
+                }
+            )
+
+
+        #Pegar pets solicitados!
+        solicitado = Requests.objects.filter(fk_pet=pet)
+        if solicitado.count() > 0:
+            imgs = ImagePet.objects.filter(fk_pet=pet)
+            contacts = getUserContacts(request, pet)
+            petsSolicitados.append(
+                {
+                    'pet':pet,
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "requested"
+                }
+            )
+
+
+        #Pegar pets já adotados
+        if pet.adopted == True:
+            imgs = ImagePet.objects.filter(fk_pet=pet)
+            contacts = getUserContacts(request, pet)
+            petsAdotados.append(
+                {
+                    'pet':pet,
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "adopted"
+                }
+            )
+
+
+    if len(petsEmAdocao) == 0:
+        petsEmAdocao = "Empty"
+    if len(petsSolicitados) == 0:
+        petsSolicitados = "Empty"
+    if len(petsAdotados) == 0:
+        petsAdotados = "Empty"
+
+    context = {'info':getDefaultUser(request.user), 'petsEmAdocao':petsEmAdocao, 'petsSolicitados':petsSolicitados, 'petsAdotados':petsAdotados}
+
+    return render(request, 'processos/processos.html', context)

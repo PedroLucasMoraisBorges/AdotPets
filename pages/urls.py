@@ -9,6 +9,7 @@ urlpatterns = [
     #Amostra de pets
     path('petsPerdidos/', views.petsPerdidos.as_view(), name='petsPerdidos'),
     path('home/', views.homePage.as_view(), name='home'),
+    path('processos/', views.processos, name='processos'),
 
     #perfil
     path('perfil/', views.meuPerfil.as_view(), name='perfil'),
