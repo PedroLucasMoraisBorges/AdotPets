@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views import View
 from django.urls import reverse
 from .models import *
@@ -286,10 +286,8 @@ class petsPerdidos(View):
                     'contacts':contacts,
                     'type': "lost"}
             )
+            pag = paginator(request, pets)
             
-            
-        
-        pag = paginator(request, pets)
         if request.user.is_authenticated:
             context = {
                 'info' : getDefaultUser(request.user),
@@ -313,6 +311,53 @@ class petsPerdidos(View):
             }
         
         return render(request, 'perdidos/petsPerdidos.html', context)
+            
+def cadastroProduto(request):
+    if request.POST:
+        teste = uploadProduto(request.POST)
+        if teste.is_valid():
+            teste.save()
+            print("É válido e foi salvo.")
+        return redirect(produtos)
+    return render(request, 'cadastros/cadastroProduto.html', {'form' : teste})
+
+def produtos(request):
+    produtos = Produto.objects.all()
+    return render(request, 'produtos/produtos.html', {'produto': produtos})
+
+def verProduto(request, id):
+    var = Produto.objects.filter(id=id)
+    if var != None:
+        return render(request, 'produtos/produto.html', {'produto' : var})
+    else:
+        return HttpResponse("Esse produto não existe! Var = %s" %var)
+
+def verLoja(request, id):
+    id_emp = Empresa.objects.get(pk=id)
+    produtos = Produto.objects.filter(empresa=id_emp)
+    return render(request, 'produtos/loja.html', {'produto' : produtos, 'empresa' : id_emp})
+
+def cadastroProduto(request):
+    if request.method == 'POST':
+        teste = uploadProduto(request.POST)
+
+        if teste.is_valid():
+            teste.save()
+            print("É válido e foi salvo.")
+        return redirect(produtos)
+
+    return render(request, 'cadastroProduto.html', {'form' : uploadProduto})
+
+def editarProduto(request, id):
+    var = Produto.objects.get(id=id)
+    form = editProduto(request.POST or None, instance=var)
+    if form.is_valid():
+        form.save()
+        print("É válido e foi salvo.")
+        return redirect(produtos)
+
+    return render(request, 'editarProduto.html', {'produto' : var, 'form' : form})
+
 
 
 class adotarPet(View):

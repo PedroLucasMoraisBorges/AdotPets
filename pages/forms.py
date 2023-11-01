@@ -39,3 +39,22 @@ class RegisterImgPet(forms.ModelForm):
     class Meta:
         model = ImagePet
         fields = ['img',]
+        
+class uploadProduto(forms.ModelForm):
+    nome = forms.TextInput(attrs={'required': True})
+    desc = forms.TextInput(attrs={'required': True})
+    valor = forms.TextInput(attrs={'required': True})
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all())
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'desc', 'valor', 'empresa']
+
+class editProduto(forms.ModelForm):
+    nome = forms.TextInput(attrs={'required': True})
+    desc = forms.TextInput(attrs={'required': True})
+    valor = forms.TextInput(attrs={'required': True})
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'desc', 'valor']
