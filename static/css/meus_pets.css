@@ -195,3 +195,33 @@ label{
 .none{
     display: none;
 }
+
+.not-found-image{
+    width: 500px;
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+#requestTextContainer{
+    box-sizing: border-box;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 25;
+    background-color: rgba(0, 0, 0, 0.651);
+}
+
+.request-text-around{
+    border-radius: 10px;
+    background-color: white;
+    padding: 2rem;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+

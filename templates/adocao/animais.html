@@ -3,7 +3,7 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,6 +13,22 @@
 {% endfor %}
 
 {% include '../componentes/nav.html' %}
+
+<div id="requestTextContainer" class="request-text hidden">
+    
+    <div class="request-text-around">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="id_pet" id="requestIdPet">
+            <input type="text" class="hidden" name="id_user" id="requestIdUser">
+            <textarea id="requestText" cols="30" rows="10" name="requestText">
+            </textarea>
+            <button name="sendRequestButton" class="ud-options">Enviar Solicitação</button>
+        </form>
+    </div>
+
+</div>
+
 
 <main class="pets-section">
     <h1>Adoção</h1>

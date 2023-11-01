@@ -124,3 +124,35 @@
             iterator = 0
         }
     }
+
+    // Contact options for lost pets
+    
+    let contactButtons = document.querySelectorAll(".contact-button")
+    contactButtons.forEach(button => {
+        button.addEventListener("click", toggleContactDiv)
+    })
+
+    function toggleContactDiv(e){
+        button = e.target
+        id = button.getAttribute('id').replace("contactButton-", "")
+        referenceForContactDiv = "#contactDiv-" + id
+        div = document.querySelector(referenceForContactDiv)
+        div.classList.toggle("visible");
+    }
+    
+    let requestText = document.querySelector('#requestTextContainer')
+
+    function toggleRequestText(e){
+        petId = e.target.getAttribute('petId')
+        document.querySelector("#requestIdPet").setAttribute('value', petId)
+
+        userId = e.target.getAttribute('userId')
+        document.querySelector("#requestIdUser").setAttribute('value', userId)
+    
+        requestText.classList.toggle('hidden')
+    }
+
+    let adoptButtons = document.querySelectorAll('.adopt-button')
+    adoptButtons.forEach(button => {
+        button.addEventListener("click", toggleRequestText)
+    })
