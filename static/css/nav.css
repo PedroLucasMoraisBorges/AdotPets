@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap');
+
+:root {
+
+    --greenPrincipal: #649C80;
+    --greenSecondary: #A5EBC8;
+    --greenBackground: #EBF8F1;
+    --alternativeColor: #698778;
+    --containerMargin: 1rem;
+    --main-font: 'Public Sans'
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    background-color: var(--greenBackground);
+    font-family:  var(--main-font);
+}
+
+a {
+    text-decoration: none;
+}
+
+.top-section {
+    margin: 50px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    font-size: 16px;
+}
+
+.object {
+    display: flex;
+    align-items: center;
+}
+
+.nav-container {
+    width: 525px;
+    height: 70px;
+}
+
+.nav-options {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    list-style: none;
+    background-color: white;
+    padding: 20px 7px;
+    border-radius: 13px;
+}
+
+.nav-options a {
+    color: #000000;
+    font-size: 20px;
+    padding: 2px 12px;
+    transition: .2s;
+}
+
+.nav-options a:hover{
+    background-color: var(--greenSecondary);
+    border-radius: 20px;
+    transform: scale(1.1);
+}
+
+.nav-options button {
+    background-color: transparent;
+}
+
+.nav-option-active:hover {
+    background-color: var(--greenSecondary);
+    
+}
+
+.link-cadastro a {
+    margin: 0 30px;
+    color: #000000;
+}
+
+.irregular-ball {
+    width: 560px;
+    height: 633px;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 20px 80px;
+}
+
+.description-header-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.imgPerfil img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.notifications{
+    position: relative;
+}
+
+.notifications img{
+    width: 25px;
+}
+
+img:hover{
+    cursor: pointer;
+}
+
+.dropDown{
+    position: absolute;
+    font-size: .8rem;
+    width: 250px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.dropDown a:hover{
+    border-radius: 0;
+}
+
+.dropNotifications{
+    position: absolute;
+    font-size: .8rem;
+    width: 250px;
+    background-color: white;
+}
+
+.none{
+    display: none;
+}

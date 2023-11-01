@@ -1,8 +1,14 @@
-from django.contrib import admin
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('login/', views.Login.as_view(), name='login'),
-    path('cadastro/', views.CadastrarUser.as_view(), name='cadastroUser')
+    # Acesso
+    path('login/', views.Login, name='login'),
+    path('logout/', views.Logout.as_view(), name='logout'),
+
+    #Cadastro
+    path('cadastro/cliente/', views.registerCliente.as_view(), name='cadastroCliente'),
+    path('cadastro/company/', views.registerCompany.as_view(), name='cadastrocompany')
+
+    #Edição
 ]

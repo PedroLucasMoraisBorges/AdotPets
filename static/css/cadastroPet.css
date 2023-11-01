@@ -1,0 +1,239 @@
+body{
+    background-color: #c2e5d4;
+}
+
+.form-section{
+    background-color: white;
+    display: flex;
+    width: calc(100% - 20rem);
+    margin: auto;
+    margin-top: 5rem;
+    border-radius: 10px;
+    margin-bottom: 5rem;
+}
+
+#petForm{
+    display: flex;
+    width: 100%;
+}
+
+#petForm h1{
+    margin-bottom: 3rem;
+    color: #14452C;
+    font-size: 2.2rem;
+}
+
+#petForm > div{
+    width: 50%;
+}
+
+#petForm > div:first-of-type{
+    padding: 2rem;
+}
+
+.first-part-container{
+    margin-left: 2rem;
+}
+
+.input-pet-information{
+    box-sizing: border-box;
+    width: calc(100% - 8rem);
+    border: none;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.input-idade{
+    width: 100%;
+}
+
+.lined-inputs{
+    display: flex;
+    justify-content: space-between;
+}
+
+.lined-inputs > div:first-of-type{
+    width: 25%;
+}
+
+.lined-inputs > div:last-of-type{
+    width: 65%;
+}
+
+.submitButton{
+    display: block;
+    background-color: #649C80;
+    margin: auto;
+    color: white;
+    border: none;
+    width: 65%;
+    padding: 0.70rem;
+    margin-top: 3rem;
+    border-radius: 15px;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.submitButton:hover{
+    background-color: white;
+    outline: solid 1px #379a69;
+    color: #4cc789;
+}
+
+.radio-inputs{
+    display: flex;
+    justify-content: space-evenly;
+    display: inline;
+    display: none;
+}
+
+.radio-inputs input{
+    display: inline;
+}
+
+.radio-button{
+    background-color: white;
+    border: solid 1px #649C80;
+    color: #379a69;
+    padding: 0.5rem;
+    width: 35%;
+    border-radius: 10px;
+    transition: 0.1s;
+}
+
+.radio-button:hover{
+    background-color: #649C80;
+    color: white;
+}
+
+.active-radio{
+    background-color: #649C80;
+    color: white;
+}
+
+.hidden{
+    visibility: hidden;
+    position: absolute;
+}
+
+.media-form-container{
+    background-image: url(../imgs/background-pet.png);
+    background-position: top center;
+    background-size: cover;
+
+}
+
+
+.images-forms{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2rem;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 6rem;
+}
+
+
+.dynamic-form{
+    background-color: rgba(255, 255, 255, 0.663);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    align-items: center;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.img-preview-container{
+    position: absolute;
+    top: 0;
+    right: 05;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.img-preview-container img{
+    cursor: pointer;
+    position: relative;
+    bottom: 1.5rem;
+    right: 1rem;
+    width: calc(100% + 3rem);
+    height: calc(100% + 3rem);
+    object-fit: cover;
+}
+
+.focus{
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.dynamic-form > .delete{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #379a6996;
+    color: white;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 25px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    border-bottom-left-radius: 10px;
+    z-index: 100;
+}
+
+.dynamic-form{
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: 4px 4px 5px #3636368f;
+}
+
+
+.dynamic-form:hover{
+    transform: translate(10px, -10px)  rotate(3deg);
+}
+
+.selectImageButton{
+    width: 60%;
+    height: 60%;
+    border-radius: 20px;
+    transform: scale(1.5);
+    background-color: rgba(255, 255, 255, 0.301);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.135);
+    border: none;
+}
+
+.add-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.add-row:hover div{
+    transform: scale(1.05);
+    background-color: white;
+    color: #14452C;
+}
+
+.add-row > div{
+    transition: 0.15s;
+    background-color: #4cc789;
+    color: white;
+    width: 70px;
+    height: 70px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 4rem;
+    border-radius: 50%;
+}

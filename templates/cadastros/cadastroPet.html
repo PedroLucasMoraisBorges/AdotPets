@@ -1,0 +1,151 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/cadastroPet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% include '../componentes/nav.html' %}
+
+
+<div class="form-section">
+    <form method="POST" action="{{action}}" enctype="multipart/form-data" id="petForm">
+        {% csrf_token %}
+
+        <div>
+            
+                <h1>Formulário de cadastro do pet</h1>
+                    <div class="first-part-container">
+                    {% for field in form %}
+                        {% if field.label != 'Sexo' and field.label != 'Idade'%}
+                        <label>{{field.label_tag}}</label>
+                        {{field}}
+                        {% if field.errors %}
+                            <p class="error">{{ field.errors }}</p>
+                        {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="lined-inputs">
+                        <div>
+                            <label>{{form.age.label}}</label>
+                            {{form.age}}
+                        </div>
+                        <div>
+                            <label>{{form.sex.label}}</label>
+                            <div class="radio-buttons-containers">
+                                <div class="radio-buttons">
+                                    <button type="button" id="machoButton" class="radio-button">Macho</button>
+                                    <button type="button" id="femeaButton" class="radio-button">Fêmea</button>
+                                </div>
+                                {{form.sex}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="perdido">perdido</label>
+                        <input type="radio" name="identificador" id="perdido" value="perdido">
+                        <label for="adocao">adocao</label>
+                        <input type="radio" name="identificador" id="adocao" value="adocao">
+                    </div>
+                </div>
+            <button type="submit" class="submitButton">{{btn}}</button>
+        </div>
+    
+        <div class="media-form-container">
+            {{ imgForm.management_form }}
+            <div class="images-forms">
+                {% for field in imgForm %}
+                    <div class="ImagemFormset">
+                        <div class="img-preview-container">
+                                <img src="" alt="" id="image-0" class="preview-image">
+                        </div>
+                        <button type="button" class="selectImageButton" id="0">+</button>
+                        <div class="hidden">{{field}}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/check_radio.js' %}"></script>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    function open(e){
+        let id = e.target.getAttribute('id')
+        stringId = 'id_imagem_pet-' + id + '-img'
+        imgInp = document.getElementById(stringId)
+        img = document.getElementById('image-' + id)
+        console.log(img)
+        imgInp.click()
+        imgInp.onchange = evt => {
+        const [file] = imgInp.files
+        if (file) {
+            img.src = URL.createObjectURL(file)
+            img.classList.add('focus')
+        }
+}
+    }
+
+    let selectButtons = null
+   
+
+
+    $(async function() {
+        $('.ImagemFormset').formset({
+            prefix: '{{ imgForm.prefix }}', addText: '<div>+</div>'
+        })
+
+        function attButtons(){
+            selectButtons = document.querySelectorAll('.selectImageButton')
+            selectButtons.forEach((button, index) => {
+                if(index != 0){
+                    button.setAttribute('id', index)
+                    button.addEventListener('click', open)
+                    console.log(button)
+                }
+            })
+
+            let imagePre = document.querySelectorAll('.preview-image')
+            console.log(imagePre)
+            imagePre.forEach((image, index) => {
+                image.setAttribute('id', 'image-' + index)
+            })
+        }
+
+        addButton = document.querySelector('.add-row')
+        addButton.addEventListener('click', attButtons)
+
+        let deleteButton = await document.getElementsByClassName('delete')[0]
+        deleteButton.classList.add('hidden')
+
+        let dynamicForm = document.querySelector('.dynamic-form')
+        dynamicForm.addEventListener('click', clickAdd)
+
+        function clickAdd(e){
+            let firstInputImage = document.querySelector('#id_imagem_pet-0-img')
+            firstInputImage.click()
+            img = document.getElementById('image-0')
+            firstInputImage.onchange = evt => {
+            const [file] = firstInputImage.files
+            if (file) {
+            img.src = URL.createObjectURL(file)
+            img.classList.add('focus')
+            }
+        }
+        }
+    })
+
+
+</script>
+{% endblock %}

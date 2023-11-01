@@ -1,0 +1,169 @@
+:root {
+    --principal: #159A9C;
+    --secundaria: #002333;
+}
+
+.row-divider {
+    width: 100%;
+    height: 40px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.border-radius-inputs {
+    border-radius: 10px;
+}
+
+.fs-inputs {
+    font-size: 14px;
+}
+
+.border-radius-divs {
+    border-radius: 25px;
+}
+
+.border-primaria {
+    border: 4px solid;
+    border-color: var(--principal);
+}
+
+.bg-primaria {
+    background-color: var(--principal);
+}
+
+.c-primaria {
+    color: var(--principal)
+}
+
+.c-secundaria {
+    color: var(--secundaria);
+}
+
+.btn-adp-primaria {
+    background-color: var(--principal);
+    color: white;
+    transition: 0.1s;
+}
+
+.btn-adp-primaria:hover {
+    color: white;
+    transition: 0.2s;
+    background-color: var(--secundaria)
+}
+
+.active {
+    background-color: var(--secundaria)
+}
+
+.section-auth {
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.section-auth:hover {
+    background-color: var(--secundaria);
+    transition: 0.2s;
+}
+
+.icon {
+    transition: 0.1s;
+}
+
+.icon:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+@media screen and (max-width: 420px) {
+
+    .register-camp,
+    .login-camp,
+    .top-bar {
+        width: 90% !important;
+    }
+
+    .register-camp,
+    .login-camp {
+        padding: 8% !important;
+    }
+}
+
+
+.nav-animation {
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-animation::before {
+    position: absolute;
+    content: " ";
+    display: block;
+    height: 5px;
+    width: 0;
+    background-color: white;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.2s;
+}
+
+.nav-animation:hover:before {
+    transition: 0.2s;
+    width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+    .cards {
+        width: 33% !important;
+    }
+
+    .cards {
+        flex-grow: 1;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    .cards {
+        width: 50% !important;
+    }
+
+    .cards:last-of-type {
+        flex-grow: 1;
+    }
+
+    .mobile {
+        font-size: 13px !important;
+    }
+
+    .logo-hidden {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 555px) {
+    .cards {
+        width: 100% !important;
+    }
+
+    .cards:last-of-type {
+        flex-grow: 1;
+    }
+
+    .mobile {
+        font-size: 13px !important;
+    }
+
+    .logo-hidden {
+        display: none;
+    }
+
+    .ms-5 {
+        margin-left: 10px !important;
+    }
+}

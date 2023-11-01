@@ -1,0 +1,44 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% for pet in pets%}
+    {% include 'componentes/petModal.html' %}
+{% endfor %}
+
+{% include '../componentes/nav.html' %}
+
+<main class="pets-section">
+    <h1>Adoção</h1>
+
+    {% include '../componentes/search.html' %}
+
+    <article class="my-pets">
+        {% for pet in pets %}
+            {% include 'componentes/petCard.html' %}
+        {% endfor %}
+    </article>
+    {% include 'componentes/paginator.html' %}
+</main>
+
+<section class="mid-3">
+    <div class="mid-3-1">
+        <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes" class="background-shapes">
+        <div class="description-mid-3-1">
+            <h3>Faça igual a eles vire um parceiro da AdotePet</h3>
+            <button class="parceiro">Seja um Parceiro</button>
+        </div>
+    </div>
+</section>
+
+{% include '../componentes/footer.html' %}
+
+<script src="{% static 'js/modalPet.js' %}"></script>
+
+{% endblock %}

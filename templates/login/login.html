@@ -1,54 +1,93 @@
-{% extends '../componentes/base.html' %}
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>Adota PET</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+    <link rel="stylesheet" href="{% static 'css/login_style.css'%}">
+</head>
 
-
-
-
-<!--body-->
-{% block content %}
-<!--
-    {% if errors %}
-    <div class="alert alert-danger alert-dismissible">
-        <div>
-            {% for error in errors %}
-                <span>{{ error }}</span><br>
-            {% endfor %}
+<body>
+    <script src="https://cdn.lordicon.com/bhenfmcm.js"></script>
+    <lord-icon src="https://cdn.lordicon.com/zagjqhhk.json" trigger="loop" delay="1000"
+        colors="outline:#121331,primary:#b26836,secondary:#646e78,tertiary:#2ca58d" style="width:100px;height:100px">
+    </lord-icon>
+    <!-- partial:index.partial.html -->
+    <h2>Seja bem-vindo ao Adote<span class="s-name">Pet</span></h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h1>Crie sua <span class="f-name">Conta</span></h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span class="info">Ou use seu e-mail para se registrar:</span>
+                <input name="username" type="text" placeholder="Nome Completo" id="completeName"/>
+                <input name="email" type="email" placeholder="E-mail" id="emailCamp"/>
+                <input name="password1" type="password" placeholder="Senha" id="pass1"/>
+                <input name="password2" type="password" placeholder="Confirme sua Senha" id="pass2"/>
+                <div class="cadast">
+                    <div class="empr">
+                        <label for="company">Empresa</label>
+                        <input type="radio" id="company" value="E" name="userType" class="radios">
+                    </div>
+                    <div class="client">
+                        <label for="cliente">Cliente</label>
+                        <input type="radio" id="cliente" value="C" name="userType" class="radios">
+                    </div>
+                </div>
+                <button name="cad" type="submit" id="submitButton">Cadastre-se</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post">
+                {% csrf_token %}
+                <h1>Efetue seu <span class="f-name">Login!</span> </h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+                <span class="info">Ou use sua Conta:</span>
+                <input type="email" name="email" placeholder="Email" id="emailLoginCamp"/>
+                <input type="password" name="senha" placeholder="Senha" id="passwordLoginCamp"/>
+                <a href="#">Esqueceu a senha?</a>
+                <button name="login" type="submit" id="submitLoginButton">Login</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Faça seu <span class="f-name">login!</span></h1>
+                    <div class="text">
+                        <p>Clique no botão abaixo e venha fazer seu login</p>
+                    </div>
+                    <button class="ghost" id="signIn">Login</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Olá, <span class="f-name">tudo bem!</span></h1>
+                    <div class="text">
+                        <p>Gostaria de adorar um pet? Então venha criar uma conta</p>
+                    </div>
+                    <button class="ghost" id="signUp">Cadastre-se</button>
+                </div>
+            </div>
         </div>
 
-        <button class="close" onclick="fechar()">x</button>
+        <div class="hiddeable display-error" id="errorMessage">
+
+        </div>
+
     </div>
-    {% endif %}
--->
-<div class="form-container">
-    <form method="post" id="login">
-        {%csrf_token%}
-            
-        <h1>Insira seus dados de login</h1>
+    <script src="{% static 'js/script.js'%}"></script>
 
-        <div class="input-container">
-            <input placeholder="E-mail" name="{{form.username.name}}" type="text"/>  
-            <i data-feather="mail"></i>
-        </div>                                                           
 
-        <div class="input-container">
-            <input placeholder="Senha" name="{{form.password.name}}" type="password" />
-            <i data-feather="key"></i>
-        </div>
+    <script src="{% static 'js/loginRegisterValidation.js' %}" data-error="{{backErrorMessage}}"></script>
 
-        <div class="options-container">
-            <div class="checkbox-container">
-            <input type="checkbox" name="remember_me" id="remember" />
-            <label for="remeber">Lembre-se de mim</label>
-            </div><a href="#">Esqueceu sua senha?</a>
-        </div>
+</body>
 
-        <input type="submit" value="Avançar">
-    </form>
-  </div>
-  
-</div>
-{% endblock %}
+</html>

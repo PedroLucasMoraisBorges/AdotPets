@@ -1,0 +1,5 @@
+<form method="POST" action="{% url 'cadastroProduto' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Submit</button>
+    </form>

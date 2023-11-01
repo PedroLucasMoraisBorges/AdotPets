@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure---hea#veb8496htv)x1mo0s1nn!x$2d=lbgo3z=(96#40e9j7r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.122.51']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'auth_user',
-    'pages'
+    'pages',
+
+    'PIL'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'adotPet.urls'
 
@@ -72,7 +75,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'adotPet.wsgi.application'
 
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Mantenha o backend padrão
+]
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -132,4 +137,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'auth_user.User'
+
+AUTHENTICATION_BACKENDS = [
+    'auth_user.backends.EmailBackend'
+    ]
+
+#email configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'adotpets.oficial@gmail.com'
+EMAIL_HOST_PASSWORD = 'fumvuebfecyfmvkk'

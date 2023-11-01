@@ -1,0 +1,42 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+        <label>{{field.label_tag}}</label>
+        <p>{{field}}</p>
+    {% endfor %}
+
+    {{ imgForm.management_form }}
+    {% for field in imgForm %}
+        <div class="ImagemFormset">
+            <hr>
+            <p>{{field}}</p>
+        </div>
+    {% endfor %}
+    <button>Submit</button>
+</form>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+    $(function() {
+        $('.ImagemFormset').formset({
+            prefix: '{{ imgForm.prefix }}',
+            addText: 'Adicionar foto',
+            removeText: 'Remover',
+        });
+    })
+</script>
+{% endblock %}

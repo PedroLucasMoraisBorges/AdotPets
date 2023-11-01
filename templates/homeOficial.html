@@ -1,0 +1,128 @@
+{% extends 'componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+
+<div>
+    <div class="page-container">
+        <header>
+            {% include 'componentes/nav.html' %}
+
+            <section class="header-section">
+                <img src="{% static 'imgs/coelho-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
+                <div class="description-header-section">
+                    <h1>Lorem ipsum dolor sit.
+                        <br>
+                        <span class="colorized-text-1">Nunc Vuputate Liberum.</span>
+                    </h1>
+                    <p>Horem ipsum dolor sit amet, consectetur adipiscing elit.
+                        <br>
+                        <span class="colorized-text-2">Lorem ipsum dolor sit amet.</span>
+                    </p>
+                </div>
+            </section>
+        </header>
+        <main>
+            <div class="mid-form">
+                <div class="form-home-pg">
+                    <h2>Lorem ipsum dolor</h2>
+                    <div class="form-home-pg-pets">
+                        <p>Lorem ipsum dolor sit</p>
+                        <select name="" id="">
+                            <option value="Cachorro">Cachorro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="William">William</option>
+                        </select>
+                        <div class="send-pet">
+                            <button>Lorem Ipsum</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mid-sections">
+                <section class="mid-1">
+                    <div class="pg-post-1">
+                        <img src="{% static 'imgs/cat-home-page.svg' %}" class="irregular-ball" alt="irregular ball">
+                        <div class="description-mid-1">
+                            <h2>Lorem ipsum
+                                <br>
+                                <span class="colorized-text-1">dolor sit.</span>
+                            </h2>
+                            <p>Norem ipsum dolor amet, consectetur elit.
+
+                                <span class="colorized-text-2">Nunc vulputate libero et velinterdum,mattis.</span>
+                                <br>
+                                <span class="colorized-text-2">Nunc vulputate.</span>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="mid-2">
+                    <div class="pg-post-2">
+                        <img src="{% static 'imgs/dog-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
+                        <div class="description-mid-2">
+                            <h2>Lorem ipsum
+                                <br>
+                                <span class="colorized-text-1">dolor sit</span>
+                            </h2>
+                            <p>Lorem ipsum dolor sit amet consectetur. Scelerisque
+                                <span class="colorized-text-2">pulvinar nunc pulvinar erat.</span>
+                                <br>
+                                <span class="colorized-text-2">Lorem ipsum dolor sit</span>
+                            </p>
+                        </div>
+                    </div>
+                    <section class="mid-2-1">
+                        <div class="description-mid-2-1">
+                            <h3>Lorem ipsum
+                                <br>
+                                <span class="colorized-text-2">dolor sit amet</span>
+                            </h3>
+                        </div>
+                        <div class="container-carrousel">
+                            <img src="{% static 'imgs/woman-and-cat.svg' %}" alt="irregular ball"
+                                class="rectangle-stand">
+                            <div class="information">
+                                <p>Lorem ipsum dolor sit amet consectetur. Maecenas nibh et tellus mattis ultricies.
+                                    Tincidunt odio risus magna leo leo. Volutpat quis tortor tempor cursus id ultrices.
+                                    At duis.</p>
+                                <p><strong>Lorem</strong></p>
+                                <p>Lorem</p>
+                                <div class="carrousel">
+                                    <ul class="carrousel-indicators">
+                                        <li class="carrousel-indicator"></li>
+                                        <li class="carrousel-indicator"></li>
+                                        <li class="carrousel-indicator indicator-active "></li>
+                                        <li class="carrousel-indicator"></li>
+                                        <li class="carrousel-indicator"></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            </section>
+            </section>
+            <section class="mid-3">
+                <div class="mid-3-1">
+                    <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes"
+                        class="background-shapes">
+                    <div class="description-mid-3-1">
+                        <h3>Lorem ipsum aolor ait amet consectetur</h3>
+                        <button>Lorem Ipsum Dolor</button>
+                    </div>
+                </div>
+            </section>
+            {% include 'componentes/footer.html' %}
+    </div>
+    </main>
+</div>
+
+</div>
+
+
+
+{% endblock content %}
