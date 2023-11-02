@@ -1,0 +1,86 @@
+:root{
+    --colorSecundary : white;
+}
+
+h1{
+    margin-bottom: 4rem;
+}
+
+h2{
+    font-size: 1.5rem;
+}
+
+p{
+    margin: 0;
+}
+
+main{
+    background-color: var(--greenBackground);
+    padding: 5rem;
+    padding-top: 0;
+    min-height: 100vh;
+}
+
+section{
+    width: 100%;
+    margin-top: 4rem;
+}
+
+
+/* Services */
+
+.services{
+    display: flex;
+    justify-content: space-between;
+}
+
+.services a{
+    color: black;
+    background-color: var(--colorSecundary);
+    padding: 1.5rem 4rem;
+    border-radius: 10px;
+}
+
+/* Services */
+
+
+
+/* Prop */
+
+.prop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--colorSecundary);
+    padding: 3rem;
+}
+
+.prop img{
+    border-radius: 10px;
+}
+
+/* Prop */
+
+
+/* Benefits */
+
+.benefits .options{
+    display: flex;
+    justify-content: space-between;
+}
+
+.benefits .options div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 22%;
+    padding: 1.5rem 1rem;
+    background-color: var(--colorSecundary);
+}
+
+.benefits img{
+    margin-right: 1.5rem;
+}
+
+
+/* Benefits */

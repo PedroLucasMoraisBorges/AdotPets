@@ -9,6 +9,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from .forms import *
 from .backends import EmailBackend
+from pages.utilits import *
+from django.urls import reverse
 
 class Logout(View):
     @method_decorator(login_required)
@@ -28,7 +30,11 @@ def Login(request):
 
             if user:
                 login(request, user)
-                return HttpResponseRedirect('/home/')
+
+                if getUserType(request.user) == 'defaultUser':
+                    return redirect('/home/')
+                else:
+                    return redirect('homeCompany')
             else:
                 context = {'backErrorMessage':"<div class='errors-header'>Erro de Login encontrado: </div><li>Informações de login incorretas!</li>"}
                 return render(request, 'login/login.html', context)

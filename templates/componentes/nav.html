@@ -6,11 +6,19 @@
     <div class="object">
         <div class="nav-container">
             <nav class="nav-options">
-                <a href="{% url 'home' %}">Explorar</a>
-                <a href="#">Loja</a>
-                <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
+                {% if info.company %}
+                    <a href="">Meus Pets</a> 
+                    <a href="">Produtos</a>
+                    <a href="">Serviços</a>
+                {% else %}
+                    <a href="{% url 'home' %}">Explorar</a>
+                    <a href="{% url 'produtos' %}">Loja</a>
+                    <a href="{% url 'petsPerdidos' %}">Animais perdidos</a>
+                {% endif %}
+
                 {% if info.user %}
                     <div class="imgPerfil">
+                        
                         <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
 
                         <div class="dropDown dropPerfil none">

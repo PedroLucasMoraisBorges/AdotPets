@@ -24,7 +24,18 @@ class ProductForm(forms.ModelForm):
         required= True,
         choices=[('', 'Selecione a Categoria')]+categoryChoices
     )
+    discount = forms.FloatField(
+        label= 'Desconto',
+        required=False
+    )
 
     class Meta:
         model = Product
         fields = ['name', 'desc', 'value', 'category']
+
+
+class ProductImgForm(forms.ModelForm):
+    img = forms.ImageField(required=True, label=None)
+    class Meta:
+        model = ProductImage
+        fields = ['img',]
