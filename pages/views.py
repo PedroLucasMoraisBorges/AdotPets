@@ -15,7 +15,6 @@ from django.db.models import Q
 from .utilits import *
 from auth_user.forms import *
 from django.core.mail import send_mail
-from django.conf import settings
 
 # Create your views here.
 
@@ -44,7 +43,7 @@ class landingPage(View):
             if getUserType(request.user) == 'dafaultUser':
                 return redirect('/home/')
             else:
-                return redirect('/home/')
+                return redirect('homeCompany')
         else:
             return render(request, 'homeOficial.html')
 
@@ -124,9 +123,13 @@ class adicionarPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = imgForm_factory()
 
+        if getUserType == 'defaultUser':
+            info = getDefaultUser(request.user)
+        else:
+            info = getCompany(request.user)
 
         context = {
-            'info' : getDefaultUser(request.user),
+            'info' : info,
             'btn':'Cadastrar Pet',
             'User':request.user,
             'form':form,
@@ -161,7 +164,7 @@ class adicionarPet(View):
                 lostPets = LostPets.objects.create(fk_pet=pet)
 
 
-            return redirect('/perfil/')
+            return redirect('/')
         else:
             context = {
                 'form': form,
