@@ -27,6 +27,7 @@ class Requests(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     fk_donor = models.ForeignKey(User, related_name='requests_donor', on_delete= models.CASCADE)
     fk_donee = models.ForeignKey(User, related_name='requests_donee', on_delete= models.CASCADE)
+    requestText = models.TextField(default="Solicitação de adoção!")
     dt_request = models.DateField(auto_now=True)
 
 class Favorites(models.Model):

@@ -43,11 +43,8 @@
         animation-fill-mode: forwards;
     }
 
-    .hidden{
-        display: none;
-    }
-
-
+    
+    
     .carrousel-container{
         width: 52%;
         overflow: hidden;
@@ -65,7 +62,7 @@
         display: flex;
         flex-wrap: nowrap;
     }
-
+    
     .pet-info-container{
         width: 48%;
         box-sizing: border-box;
@@ -77,12 +74,12 @@
         padding: 5px;
         border-radius: 50%;
     }
-
+    
     .exit-modal-button:hover{
         background-color: lightgrey;
 
     }
-
+    
     .modal-top{
         display: flex;
         justify-content: space-between;
@@ -90,16 +87,16 @@
         margin-bottom: 1rem;
         padding: 0 1.2rem;
     }
-
+    
     .modal-top h3{
         font-weight: bolder;
     }
-
+    
     #exit-modal-button{
         width: 13%;
     }
 
-
+    
     .pet-info{
         background-color: var(--greenBackground);
         border-radius: 10px;
@@ -115,29 +112,29 @@
         margin: 0;
         padding: 0;
     }
-
+    
     .pet-info li{
         margin-bottom: 0.8rem;
     }
-
+    
     .pet-info span{
         display: block;
         margin: 0;
         padding: 0;
     }
-
+    
     .info-header{
         line-height: 15px;
         color: grey;
     }
-
+    
     .pet-modal-img{
         width: 100%;
         width: inherit;
         object-fit: cover;
         flex-shrink: 0;
     }
-
+    
     .carrousel-indicators{
         display: flex;
         position: absolute;
@@ -146,7 +143,7 @@
         transform: translateX(-50%);
         z-index: 15;
     }
-
+    
     .carrousel-indicator{
         height: 12px;
         border-radius: 50%;
@@ -158,11 +155,11 @@
     .carrousel-indicator:first-of-type{
         margin-left: 0;
     }
-
+    
     .indicator-active{
         background-color: var(--greenPrincipal);
     }
-
+    
     .ud-options{
         display: block;
         text-align: center;
@@ -171,7 +168,7 @@
         margin: auto;
         margin-top: 0.8rem;
     }
-
+    
     .ud-options button{
         background-color: var(--greenPrincipal);
         color: white;
@@ -182,10 +179,21 @@
         transition: 0.2s;
         cursor: pointer;
     }
-
+    
     .ud-options button:hover{
         background-color: var(--greenSecondary);
         color: white;
+    }
+
+    .adopt-button{
+        background-color: var(--greenPrincipal);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        width: 80%;
+        padding: 0.4rem 1rem;
+        transition: 0.2s;
+        cursor: pointer;
     }
 
     .trigger-before{
@@ -220,7 +228,7 @@
         align-items: center;
         
     }
-
+    
     .trigger-after:hover{
         opacity: 1;
     }
@@ -228,7 +236,7 @@
     .trigger-before, .trigger-after{
         cursor: pointer;
     }
-
+    
     .arrow-right, .arrow-left{
         background-color: var(--greenPrincipal);
         color: white;
@@ -244,13 +252,83 @@
     .arrow-right{
         margin-right: 2rem;
     }
-
+    
     .arrow-left{
         margin-left: 2rem;
     }
-
     
+    .contact-section{
+        display: flex;
+        margin-top: 15px;
+    }
 
+
+    .contact-button{
+        background-color: var(--greenPrincipal);
+        color: white;
+        padding: 5px;
+        border: none;
+        border-radius: 10px;
+        display: block;
+        align-items: center;
+        height: 40px;
+        margin-left: 1.5rem;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+
+    .contact-button:hover{
+        background-color: var(--greenSecondary);
+    }
+
+    .contact-button:active{
+        transition: none;
+        background-color: var(--greenPrincipal);
+        box-shadow: inset 0 0 10px black;
+    }
+
+    .contact-div{
+        display: flex;
+        margin-left: 1rem;
+        opacity: 0;
+        transition: 0.2s;
+        position: relative;
+        bottom: 3px;
+    }
+    
+    .contact-form{
+        background-color: var(--greenPrincipal);
+        border-radius: 50%;
+        height: 45px;
+        box-sizing: border-box;
+        padding: 8px;
+        margin-left: 1rem;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .contact-form:hover{
+        background-color: var(--greenSecondary);
+    }
+
+    .contact-form:active{
+        transition: none;
+        background-color: var(--greenPrincipal);
+        box-shadow: inset 0 0 10px black;
+    }
+    
+    .contact-form img{
+        height: 100%;
+    }
+    
+    .hidden{
+        display: none;
+    }
+
+    .visible{
+        opacity: 1;
+    }
+    
 </style>
 
 <div class="modal-pet-container hidden" id="modal-pet-{{pet.pet.id}}">
@@ -258,7 +336,7 @@
         <div class="carrousel-container">
             <div class="carrousel-content" id="carrousel-{{pet.pet.id}}">
                 {% for img in pet.imgs %}
-                    <img src="{{img.img.url}}" alt="pet image" class="pet-modal-img">
+                <img src="{{img.img.url}}" alt="pet image" class="pet-modal-img">
                 {% endfor %}
             </div>
 
@@ -307,21 +385,35 @@
                     </li>
                 </ul>
             </div>
-                
-                <p>{{pet.contacts.email}}</p>
-                <p>{{pet.contacts.tel}}</p>
                 {% if pet.type == 'adot' %}
                     <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
-                    <a href="{% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %}" class="ud-options">
-                        <button>Adotar</button>
-                    </a>
+                    <button class="ud-options adopt-button" petId="{{pet.pet.id}}" userId="{{pet.pet.fk_user.id}}">Adotar</button>
+                    
+                    <!-- {% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %} -->
                 {% elif pet.type == 'lost' %}
-                    <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Entrar em Contato</button></a>
+                    <div class="contact-section">
+                        <button class="contact-button" id="contactButton-{{pet.pet.id}}">Entrar em Contato</button>
+                        <div class="contact-div" id="contactDiv-{{pet.pet.id}}">
+                            <a href="https://wa.me/55{{pet.contacts.tel}}?text=Opa%20{{pet.pet.fk_user}}%2C%20me%20chamo%20{{request.user}}%2C%20sou%20usu%C3%A1rio%20do%20AdotPets%20tenho%20informa%C3%A7%C3%B5es%20sobre%20seu%20pet%20perdido%20{{pet.pet.name}}!" target="_blank">
+                                <div class="contact-form">
+                                    <img src="{% static 'imgs/whatsappIcon.svg' %}" alt="whatsapp icon">
+                                </div>
+                            </a>
+                            <a href="mailto:{{pet.contacts.email}}?subject=Informa%C3%A7%C3%B5es%20sobre%20Pet%20Perdido%20{{pet.pet.name}}!&body=Opa%20{{pet.pet.fk_user}}%2C%20me%20chamo%20{{request.user}}%2C%20sou%20usu%C3%A1rio%20do%20AdotPets%20tenho%20informa%C3%A7%C3%B5es%20sobre%20seu%20pet%20perdido%20{{pet.pet.name}}!">
+                                <div class="contact-form">
+                                    <img src="{% static 'imgs/emailIcon.svg' %}" alt="email icon">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 {% elif pet.type == 'myLostPets' %}
                     
                     <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
                     <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Encontrado</button></a>
-                {% else %}
+                {% elif pet.type == 'requested' %}
+                    <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
+                    <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
+                {% elif pet.type == 'myPets' %}
                     <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
                     <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
                 {% endif %}
