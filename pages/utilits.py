@@ -1,28 +1,25 @@
 from .models import *
 from auth_user.models import *
 from django.db.models import Q
+from store.models import *
 
 def getUserType(user):
     try:
         defaultUser = DefaultUser.objects.get(fk_user=user)
         return "defaultUser"
-    except DefaultUser.DoesNotExist:
-        pass
-
-    try:
+    except:
         company = Company.objects.get(fk_user=user)
         return "company"
-    except Company.DoesNotExist:
-        pass
+    return "NAD"
 
 # Return pets for adoption
 def getPetsAdot(request, search):
     # To a registered user
     if request.user.is_authenticated:
-        pets = list(reversed(Pet.objects.filter(~Q(fk_user=request.user) and Q(adopted=False)).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
+        pets = list(reversed(Pet.objects.filter(~Q(fk_user=request.user) & Q(adopted=False)).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
     # To an anonymous user
     else:
-        pets = list(reversed(Pet.objects.filter().filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
+        pets = list(reversed(Pet.objects.filter(adopted=False).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
 
     for pet in pets:
         try:
@@ -30,7 +27,6 @@ def getPetsAdot(request, search):
             pets.remove(lostPet.fk_pet)
         except:
             pass
-    print(pets)
     return pets
 
 # Returns user's pets
@@ -38,9 +34,8 @@ def getMyPets(user, search):
     pets = list(Pet.objects.filter(Q(fk_user=user) & Q(adopted=False)).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search)))
 
     for pet in pets:
-        print(pet.fk_user)
         try:
-            lostPet = LostPets.objects.get(Q(fk_pet = pet) and Q(found=True))
+            lostPet = LostPets.objects.get(Q(fk_pet = pet) & Q(found=True))
             pets.remove(lostPet.fk_pet)
         except:
             pass
@@ -49,8 +44,10 @@ def getMyPets(user, search):
 # Returns lost pets
 def getLostPets(request, search):
     # To a registered user
+    
+
     if request.user.is_authenticated:
-        pets = reversed(LostPets.objects.filter(~Q(fk_pet__fk_user=request.user)).filter(Q(fk_pet__name__istartswith=search) and Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
+        pets = reversed(LostPets.objects.filter(~Q(fk_pet__fk_user=request.user) & Q(found=False)).filter(Q(fk_pet__name__istartswith=search) and Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
     # To an anonymous user
     else:
         pets = reversed(LostPets.objects.filter().filter(Q(fk_pet__name__istartswith=search) and Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
@@ -85,22 +82,52 @@ def getDefaultUser(user):
     
     return user_list
 
+def getCompany(user):
+    address = Address.objects.get(fk_user = user)
+    company = Company.objects.get(fk_user = user)
+    profileImage = ProfileImage.objects.filter(fk_user = user).first()
+    notifications = Notification.objects.filter(fk_donor = user)
+
+
+    
+
+    pestCount = Pet.objects.filter(fk_user=user).count()
+    products = Product.objects.filter(fk_company=company).count()
+    adoptedPets = LogExit.objects.filter(fk_donee=user).count()
+    user_list = {
+        'user':user,
+        'company':company,
+        'profileImage':profileImage,
+        'address':address,
+        'petsCount':pestCount,
+        'products':products,
+        'adoptedPets':adoptedPets,
+        'notifications':notifications,
+        }
+    
+    return user_list
+
+def getCompanyProducts(company):
+    products = Product.objects.filter(fk_company = company)
+    return products
+
 
 def getUserContacts(request, pet):
     if getUserType(pet.fk_user) == "defaultUser":
-        defaultUser = DefaultUser.objects.get(fk_user=pet.fk_user)
+        info = DefaultUser.objects.get(fk_user=pet.fk_user)
+        pass
+
         contacts = {
             'email' : pet.fk_user.email,
-            'tel' : defaultUser.telephone 
+            'tel' : info.telephone 
         }
     else:
-        company = DefaultUser.objects.get(fk_user=pet.fk_user)
+        company = Company.objects.get(fk_user=pet.fk_user)
         contacts = {
             'email' : pet.fk_user.email,
             'tel' : company.telephone 
         }
     return contacts
-    
 
 def getTestFavoritePets(pet):
     try:

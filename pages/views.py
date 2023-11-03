@@ -15,7 +15,6 @@ from django.db.models import Q
 from .utilits import *
 from auth_user.forms import *
 from django.core.mail import send_mail
-from django.conf import settings
 
 # Create your views here.
 
@@ -44,7 +43,7 @@ class landingPage(View):
             if getUserType(request.user) == 'dafaultUser':
                 return redirect('/home/')
             else:
-                return redirect('/home/')
+                return redirect('homeCompany')
         else:
             return render(request, 'homeOficial.html')
 
@@ -124,9 +123,13 @@ class adicionarPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = imgForm_factory()
 
+        if getUserType == 'defaultUser':
+            info = getDefaultUser(request.user)
+        else:
+            info = getCompany(request.user)
 
         context = {
-            'info' : getDefaultUser(request.user),
+            'info' : info,
             'btn':'Cadastrar Pet',
             'User':request.user,
             'form':form,
@@ -161,7 +164,7 @@ class adicionarPet(View):
                 lostPets = LostPets.objects.create(fk_pet=pet)
 
 
-            return redirect('/perfil/')
+            return redirect('/')
         else:
             context = {
                 'form': form,
@@ -310,10 +313,8 @@ class petsPerdidos(View):
                     'contacts':contacts,
                     'type': "lost"}
             )
-            
-            
-        
         pag = paginator(request, pets)
+            
         if request.user.is_authenticated:
             context = {
                 'info' : getDefaultUser(request.user),
@@ -337,6 +338,7 @@ class petsPerdidos(View):
             }
         
         return render(request, 'perdidos/petsPerdidos.html', context)
+
 
 
 class adotarPet(View):
@@ -391,6 +393,7 @@ class MarcarAdotado(View):
 
         pet.adopted = True
         pet.save()
+
 
         #Deletando solicitações pelo pet, pois já foi adotado
         solicitacoes = Requests.objects.filter(fk_pet=pet)
@@ -466,3 +469,4 @@ def processos(request):
     context = {'info':getDefaultUser(request.user), 'petsEmAdocao':petsEmAdocao, 'petsSolicitados':petsSolicitados, 'petsAdotados':petsAdotados}
 
     return render(request, 'processos/processos.html', context)
+

@@ -34,8 +34,6 @@ h1{
 }
 
 
-
-
 .perfil-photo{
     width: 200px;
     height: 200px;
@@ -125,7 +123,6 @@ label{
     color: #32292fb4;
 }
 
-
 .card_edit{
     display: flex;
     justify-content: space-between;
@@ -136,6 +133,15 @@ label{
     border-radius: 16px;
     padding: 1rem .5rem;
     transition: .3s;
+}
+
+.card_edit .buttons img{
+    opacity: .5;
+    transition: .2s;
+}
+
+.card_edit .buttons img:hover{
+    opacity: 1;
 }
 
 .card_edit div div{

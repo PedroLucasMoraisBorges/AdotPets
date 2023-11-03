@@ -19,10 +19,14 @@
     {% endblock %}
 </head>
 
-{% block content %}
-{% endblock %}
-
-{% block scripts %}
-{% endblock %}
+<body>
+    {% include 'componentes/nav.html' %}
+    
+    {% block content %}
+    {% endblock %}
+    
+    {% block scripts %}
+    {% endblock %}
+</body>
 
 </html>
