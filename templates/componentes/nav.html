@@ -7,14 +7,16 @@
         <div class="nav-container">
             <nav class="nav-options">
                 {% if info.company %}
-                    <a href="">Meus Pets</a> 
-                    <a href="">Produtos</a>
+                    <a href="{% url 'homeCompany' %}">Meus Pets</a> 
+                    <a href="{% url 'verLoja' request.user.id %}">Produtos</a>
                     <a href="">Serviços</a>
                 {% else %}
                     <a href="{% url 'home' %}">Explorar</a>
                     <a href="{% url 'produtos' %}">Loja</a>
                     <a href="{% url 'petsPerdidos' %}">Animais perdidos</a>
-                    <a href="{% url 'processos' %}">Processos</a>
+                    {% if info.user %}
+                        <a href="{% url 'processos' %}">Processos</a>
+                    {% endif %}
                 {% endif %}
                 {% if info.user %}
                     <div class="imgPerfil">

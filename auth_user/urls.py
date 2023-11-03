@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     # Acesso
-    path('login/', views.Login, name='login'),
+    path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
 
     #Cadastro

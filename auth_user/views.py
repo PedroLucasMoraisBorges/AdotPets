@@ -19,22 +19,19 @@ class Logout(View):
         return HttpResponseRedirect('/')
     
 
-def Login(request):
-    if request.method == 'GET':
+class Login(View):
+    def get(self, request):
         return render(request, 'login/login.html')
-    else:
+    def post(self, request):
         if request.POST.get('cad') == None:
             email = request.POST.get('email')
             password = request.POST.get('senha')
             user = authenticate(username=email, password=password)
+            
 
             if user:
                 login(request, user)
-
-                if getUserType(request.user) == 'defaultUser':
-                    return redirect('/home/')
-                else:
-                    return redirect('homeCompany')
+                return redirecionar_usuario(request.user)
             else:
                 context = {'backErrorMessage':"<div class='errors-header'>Erro de Login encontrado: </div><li>Informações de login incorretas!</li>"}
                 return render(request, 'login/login.html', context)
@@ -61,6 +58,9 @@ def Login(request):
                         return redirect('/cadastro/company/')
                     else:
                         return redirect('/cadastro/cliente/')
+            else:
+                return render(request, 'login/login.html', context)
+        
 
 class registerCliente(View):
     def get(self, request):
