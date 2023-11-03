@@ -81,8 +81,6 @@ class InsertProduct(View):
         return redirect(produtos)
 
 
-    return render(request, 'cadastros/cadastroProduto.html', {'form' : productForm})
-
 def editarProduto(request, id):
     product = Product.objects.get(id=id)
     form = ProductForm(request.POST or None, instance=product)
