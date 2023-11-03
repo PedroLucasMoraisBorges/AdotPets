@@ -246,4 +246,6 @@ label{
     width: 35%;
 }
 
-
+.hidden{
+    display: none;
+}

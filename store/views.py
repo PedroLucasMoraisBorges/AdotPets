@@ -105,3 +105,6 @@ def editarProduto(request, id):
         return redirect(produtos)
 
     return render(request, 'editarProduto.html', {'produto' : product, 'form' : form})
+
+
+    
