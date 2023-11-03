@@ -1,0 +1,29 @@
+{% load static %}
+
+<style>
+
+</style>
+
+<article>
+    
+    <img src="{{item.productImg.img.url}}" alt="">
+    <p class="name">{{item.product.name}}</p>
+    <div class="value">
+        <p class="value"><strong>{{item.product.value}}</strong></p>
+        <p class="divided"></p>
+    </div>
+
+    <div class="discount">
+        <img src="" alt="">
+        <div>
+            <p class="value">{{item.product.discount}}</p>
+            <p class="subscriber">Para assinantes</p>
+        </div>
+    </div>
+
+    {% if info.company %}
+        <a href="">Editar Produto</a>
+    {% else %}
+        <a href="">Adiciona ao Carrinho</a>
+    {% endif %}
+</article>

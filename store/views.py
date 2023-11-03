@@ -27,9 +27,24 @@ def verProduto(request, id):
         return HttpResponse("Esse produto não existe! Var = %s" %var)
 
 def verLoja(request, id):
-    company = Company.objects.get(pk=id)
-    products = Product.objects.filter(empresa=company)
-    return render(request, 'produtos/loja.html', {'produto' : products, 'empresa' : company})
+    company = Company.objects.get(fk_user=request.user)
+    products = Product.objects.filter(fk_company=company)
+    
+    productsList = []
+    for product in products:
+        img = ProductImage.objects.get(fk_product = product)
+        print(img.img.url)
+        productsList.append({
+            'product' : product,
+            'productImg' : img
+        })
+    
+    context = {
+        'info' : getCompany(request.user),
+        'productsList' : productsList,
+        'company' : company
+    }
+    return render(request, 'loja/loja.html', context)
 
 class HomeCompany(View):
     @method_decorator(login_required)

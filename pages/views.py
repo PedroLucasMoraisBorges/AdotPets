@@ -39,13 +39,11 @@ def paginator(request, pets):
 
 class landingPage(View):
     def get(self, request):
-        if request.user.is_authenticated:
-            if getUserType(request.user) == 'dafaultUser':
-                return redirect('/home/')
-            else:
-                return redirect('homeCompany')
-        else:
+        if request.user.is_authenticated == False:
             return render(request, 'homeOficial.html')
+        else:
+            return redirecionar_usuario(request.user)
+            
 
 class homePage(View):
     def get(self, request):
@@ -56,7 +54,7 @@ class homePage(View):
         for pet in getPetsAdot(request, search):
             imgs = ImagePet.objects.filter(fk_pet = pet)
             contacts = getUserContacts(request, pet)
-            favoritePet = getTestFavoritePets(pet)
+            favoritePet = getTestFavoritePets(pet, request.user)
             pets.append(
                 {
                     'pet' : pet,

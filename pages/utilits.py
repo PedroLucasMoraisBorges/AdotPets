@@ -2,15 +2,18 @@ from .models import *
 from auth_user.models import *
 from django.db.models import Q
 from store.models import *
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.shortcuts import redirect
+
 
 def getUserType(user):
-    try:
-        defaultUser = DefaultUser.objects.get(fk_user=user)
-        return "defaultUser"
-    except:
-        company = Company.objects.get(fk_user=user)
-        return "company"
-    return "NAD"
+    if DefaultUser.objects.filter(fk_user=user).exists():
+        return 'defaultUser'
+    elif Company.objects.filter(fk_user=user).exists():
+        return 'company'
+    else:
+        return 'otherUser'
 
 # Return pets for adoption
 def getPetsAdot(request, search):
@@ -129,9 +132,9 @@ def getUserContacts(request, pet):
         }
     return contacts
 
-def getTestFavoritePets(pet):
+def getTestFavoritePets(pet, user):
     try:
-        test = Favorites.objects.get(fk_pet = pet)
+        test = Favorites.objects.get(Q(fk_pet = pet) & Q(fk_donee=user))
         result = True
     except:
         result = False
@@ -144,3 +147,11 @@ def getTestLostPets(pet):
     except:
         result = False
     return result
+
+
+def redirecionar_usuario(user):
+    user_type = getUserType(user)
+    if user_type == 'defaultUser':
+        return redirect('home')
+    elif user_type == 'company':
+        return redirect('homeCompany')
