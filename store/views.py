@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from auth_user import *
 from .models import *
 from .forms import *
+
 from pages.decorator import *
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -30,6 +31,7 @@ def verLoja(request, id):
     company = Company.objects.get(pk=id)
     products = Product.objects.filter(empresa=company)
     return render(request, 'produtos/loja.html', {'produto' : products, 'empresa' : company})
+
 
 class HomeCompany(View):
     @method_decorator(login_required)
@@ -78,6 +80,8 @@ class InsertProduct(View):
             print("É válido e foi salvo.")
         return redirect(produtos)
 
+
+    return render(request, 'cadastros/cadastroProduto.html', {'form' : productForm})
 
 def editarProduto(request, id):
     product = Product.objects.get(id=id)

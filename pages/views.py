@@ -404,28 +404,18 @@ class MarcarAdotado(View):
     
 def processos(request):
     pets = Pet.objects.filter(fk_user=request.user)
+    petsFormatados = []
     petsEmAdocao = []
     petsSolicitados = []
     petsAdotados = []
 
     for pet in pets:
-        #Pegar pets que ainda não foram adotados
-        if pet.adopted == False:
-            imgs = ImagePet.objects.filter(fk_pet=pet)
-            contacts = getUserContacts(request, pet)
-            petsEmAdocao.append(
-                {
-                    'pet':pet,
-                    'imgs': imgs,
-                    'contacts':contacts,
-                    'type': "myPets"
-                }
-            )
 
 
         #Pegar pets solicitados!
         solicitado = Requests.objects.filter(fk_pet=pet)
         if solicitado.count() > 0:
+            requests = Requests.objects.filter(fk_pet=pet)
             imgs = ImagePet.objects.filter(fk_pet=pet)
             contacts = getUserContacts(request, pet)
             petsSolicitados.append(
@@ -433,7 +423,22 @@ def processos(request):
                     'pet':pet,
                     'imgs': imgs,
                     'contacts':contacts,
-                    'type': "requested"
+                    'type': "requested",
+                    'requests': requests,
+                }
+            )
+        
+        #Pegar pets que ainda não foram adotados
+        elif pet.adopted == False:
+            imgs = ImagePet.objects.filter(fk_pet=pet)
+            contacts = getUserContacts(request, pet)
+            petsEmAdocao.append(
+                {
+                    'pet':pet,
+                    'imgs': imgs,
+                    'contacts':contacts,
+                    'type': "myPets",
+                    'requests': False,
                 }
             )
 
@@ -447,9 +452,11 @@ def processos(request):
                     'pet':pet,
                     'imgs': imgs,
                     'contacts':contacts,
-                    'type': "adopted"
+                    'type': "adopted",
+                    'requests': False,
                 }
             )
+        
 
 
     if len(petsEmAdocao) == 0:

@@ -141,6 +141,23 @@
     }
     
     let requestText = document.querySelector('#requestTextContainer')
+    let request = document.querySelector('#requestText')
+    let exitRequestTextButton = document.querySelector("#exitRequestText")
+    requestText.addEventListener('click', modalClose)
+    exitRequestTextButton.addEventListener('click', hideRequestText)
+
+    function hideRequestText(){
+        requestText.classList.add('hidden')
+        request.value = ""
+    }
+
+    function modalClose(e){
+        target = e.target
+        id = target.getAttribute('id')
+        if(id == 'requestTextContainer'){
+            hideRequestText()
+        }
+    }
 
     function toggleRequestText(e){
         petId = e.target.getAttribute('petId')
