@@ -17,13 +17,16 @@
 <div id="requestTextContainer" class="request-text hidden">
     
     <div class="request-text-around">
+        <h3>Por que você deseja adotar esse pet?</h3>
         <form action="" method="POST">
             {% csrf_token %}
             <input type="text" class="hidden" name="id_pet" id="requestIdPet">
             <input type="text" class="hidden" name="id_user" id="requestIdUser">
-            <textarea id="requestText" cols="30" rows="10" name="requestText">
-            </textarea>
-            <button name="sendRequestButton" class="ud-options">Enviar Solicitação</button>
+            <textarea id="requestText" rows="7" name="requestText"></textarea>
+            <div class="request-text-buttons">
+                <button name="sendRequestButton" id="sendRequestText">Enviar Solicitação</button>
+                <button id="exitRequestText" type="button">Cancelar</button>
+            </div>
         </form>
     </div>
 

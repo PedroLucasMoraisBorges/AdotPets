@@ -178,6 +178,17 @@ label{
     margin-bottom: 2rem;
 }
 
+#requestText{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 1rem;
+    resize: none;
+    font-size: 20px;
+}
+
 #requestTextContainer{
     box-sizing: border-box;
     top: 0;
@@ -197,5 +208,36 @@ label{
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    min-width: 600px;
 }
+
+.request-text-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+#sendRequestText, #exitRequestText{
+    background-color: var(--greenPrincipal);
+    color: white;
+    padding: 7px 0;
+    border: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
+
+#sendRequestText:hover, #exitRequestText:hover{
+    background-color: var(--greenSecondary);
+    color: white;
+}
+
+#sendRequestText{
+    width: 55%;
+}
+
+#exitRequestText{
+    width: 35%;
+}
+
 

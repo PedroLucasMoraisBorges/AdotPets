@@ -43,8 +43,6 @@
         animation-fill-mode: forwards;
     }
 
-    
-    
     .carrousel-container{
         width: 52%;
         overflow: hidden;
@@ -321,15 +319,141 @@
         height: 100%;
     }
     
-    .hidden{
-        display: none;
-    }
-
+    
     .visible{
         opacity: 1;
     }
     
+    .requests-button{
+        background-color: var(--greenPrincipal);
+        color: white;
+        padding: 7px;
+        border: none;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+    
+    .requests-button:hover{
+        background-color: var(--greenSecondary);
+    }
+    
+    .modal-request{
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        background-color: rgba(46, 46, 46, 0.801);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-request > div{
+        background-color: white;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        width: 400px;
+        border-radius: 20px;
+    }
+
+    .requests-top-bar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .exit-request-button{
+        position: relative;
+        bottom: 4px;
+        width: 35px;
+        height: 35px;
+        padding: 5px;
+        box-sizing: border-box;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .exit-request-button:hover{
+        background-color: lightgray;
+    }
+
+    .request-container{
+        margin-top: 1rem;
+        background-color: var(--greenSecondary);
+        border-radius: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    
+    .request-container h6{
+        margin-bottom: 5px;
+        font-weight: bolder;
+    }
+    
+    .request-container p{
+        margin-bottom: 0;
+    }
+
+    .request-buttons{
+        display: flex;
+        justify-content: end;
+    }
+
+    .request-buttons button{
+        border: none;
+        padding: 3px 5px;
+        border-radius: 10px;
+        transition: 0.2s;
+    }
+
+    .request-buttons .accept{
+        background-color: var(--greenPrincipal);
+        color: white;
+        margin-right: 0.5rem;
+    }
+
+    .request-buttons .accept:hover{
+        background-color: rgb(20, 102, 61);
+    }
+
+    .request-buttons .refuse{
+        background-color: rgb(255, 105, 105);
+        color: white;
+    }
+
+    .request-buttons .refuse:hover{
+        background-color: red;
+    }
+    
+    .hidden{
+        display: none;
+    }
+    
 </style>
+
+{% if pet.requests %}
+<div class="modal-request hidden" id="modal-request-{{pet.pet.id}}">
+    <div>
+        <div class="requests-top-bar">
+            <h4>Solicitações desse pet:</h4>
+            <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" class="exit-request-button">
+        </div>
+        {% for request in pet.requests %}
+                <div class="request-container">
+                    <h6>De: {{request.fk_donee}}</h6>
+                    <p>{{request.requestText}}</p>
+                    <div class="request-buttons">
+                        <a href="{% url 'marcarAdotado' pet.pet.id %}"><button class="accept">Aceitar</button></a>
+                        <button class="refuse">Recusar</button>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+{% endif %}
 
 <div class="modal-pet-container hidden" id="modal-pet-{{pet.pet.id}}">
     <div class="modal-pet">
@@ -412,7 +536,7 @@
                     <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Encontrado</button></a>
                 {% elif pet.type == 'requested' %}
                     <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
-                    <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
+                    <button class="ud-options requests-button" type="button" petId="{{pet.pet.id}}">Ver solicitações</button>
                 {% elif pet.type == 'myPets' %}
                     <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
                     <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
