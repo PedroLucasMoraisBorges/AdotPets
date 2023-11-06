@@ -510,7 +510,11 @@
                 </ul>
             </div>
                 {% if pet.type == 'adot' %}
-                    <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
+                    {% if pet.favoritePet %}
+                        <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Remover Interesse</button></a>
+                    {% else %}
+                        <a href="{% url 'favoritarPet' pet.pet.id %}" class="ud-options"><button>Tenho Interesse</button></a>
+                    {% endif %}
                     <button class="ud-options adopt-button" petId="{{pet.pet.id}}" userId="{{pet.pet.fk_user.id}}">Adotar</button>
                     
                     <!-- {% url 'adotarPet' pet.pet.id pet.pet.fk_user.id %} -->

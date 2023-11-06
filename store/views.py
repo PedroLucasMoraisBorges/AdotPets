@@ -10,14 +10,29 @@ from pages.utilits import *
 from django.views import View
 
 
-def produtos(request):
-    produtos = Product.objects.all()
+class Loja(View):
+    def get(self, request):
+        search = request.GET.get('Search') if request.GET.get('Search') != None else ''
 
-    context = {
-        'produtos' : produtos,
-        'info' : getDefaultUser(request.user)
-    }
-    return render(request, 'loja/produtos.html', context)
+        products = getAllProcuts(search)
+
+        productsList = []
+        for product in products:
+            img = ProductImage.objects.get(fk_product = product)
+            print(img.img.url)
+            productsList.append({
+                'product' : product,
+                'productImg' : img
+            })
+
+        context = {
+            'productsList' : productsList,
+            'info' : getDefaultUser(request.user),
+            'search' : search
+        }
+
+        return render(request, 'loja/produtos.html', context)
+    
 
 
 def verProduto(request, id):

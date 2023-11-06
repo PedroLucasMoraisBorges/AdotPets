@@ -1,29 +1,110 @@
 {% load static %}
 
 <style>
+    .productCard{
+        border: 1px solid #649C80;
+        border-radius: 15px;
+        padding: 1rem 1.5rem;
+        background-color: white;
+        width: 300px;
+    }
 
+    .productCard .productImg{
+        width: 100%;
+        height: 175px;
+        margin-bottom: 1rem;
+    }
+
+    .productCard .name{
+        height: 12.5%;
+    }
+
+    .productCard .values{
+        flex-direction: column;
+        margin-bottom: .6rem;
+        margin-top: .3rem;
+    }
+
+    .productCard .fullValue{
+        color: #649C80;
+        font-size: 1.2rem;
+    }
+
+    .productCard .divided{
+        font-size: .8rem;
+    }
+
+
+    .discount{
+        align-items: center;
+        margin-bottom: .6rem;
+    }
+
+    .discount img{
+        width: 27.5px;
+    }
+
+    .discount div{
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .discount p{
+        color: #649C80;
+        line-height: .95em;
+    }
+
+    .discount .subscriber{
+        font-size: .8rem;
+    }
+
+
+    .addProduct{
+        width: 100%;
+        justify-content: center;
+    }
+
+    .addProduct a{
+        padding: .6rem 0rem;
+        text-align: center;
+        border-radius: 10px;
+        width: 100%;
+        background-color: #A5EBC8;
+        border: 1px solid #649C80;
+        color: black;
+        box-shadow: 1px 2.5px 4px rgba(0, 0, 0, 0.462);
+        transition: .2s;
+    }
+
+    .addProduct a:hover{
+        background-color: #649C80;
+        font-weight: bold;
+    }
+    
 </style>
 
-<article>
+<article class="productCard">
     
-    <img src="{{item.productImg.img.url}}" alt="">
+    <img class="productImg" src="{{item.productImg.img.url}}" alt="">
     <p class="name">{{item.product.name}}</p>
-    <div class="value">
-        <p class="value"><strong>{{item.product.value}}</strong></p>
-        <p class="divided"></p>
+    <div class="values">
+        <p class="fullValue"><strong>R$ {{item.product.value}}</strong></p>
+        <p class="divided">ou <span>5</span>x de R$<span>96,00</span></p>
     </div>
 
     <div class="discount">
-        <img src="" alt="">
+        <img src="{% static 'imgs/loja/discount.svg' %}" alt="">
         <div>
-            <p class="value">{{item.product.discount}}</p>
+            <p class="value"><strong>R$ {{item.product.discount}}</strong></p>
             <p class="subscriber">Para assinantes</p>
         </div>
     </div>
 
-    {% if info.company %}
-        <a href="">Editar Produto</a>
-    {% else %}
-        <a href="">Adiciona ao Carrinho</a>
-    {% endif %}
+    <div class="addProduct">
+        {% if info.company %}
+            <a href="">Editar Produto</a>
+        {% else %}
+            <a href="">Adiciona ao Carrinho</a>
+        {% endif %}
+    </div>
 </article>

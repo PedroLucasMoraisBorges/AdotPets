@@ -121,7 +121,7 @@ class adicionarPet(View):
         imgForm_factory = inlineformset_factory(Pet, ImagePet, form=RegisterImgPet, extra=1, max_num=4, min_num=0, validate_min=True) 
         imgForm = imgForm_factory()
 
-        if getUserType == 'defaultUser':
+        if getUserType(request.user) == 'defaultUser':
             info = getDefaultUser(request.user)
         else:
             info = getCompany(request.user)
