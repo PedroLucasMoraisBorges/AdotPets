@@ -8,6 +8,7 @@ h1{
 
 h2{
     font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 p{
@@ -23,7 +24,7 @@ main{
 
 section{
     width: 100%;
-    margin-top: 4rem;
+    margin-top: 6rem;
 }
 
 
@@ -84,3 +85,100 @@ section{
 
 
 /* Benefits */
+
+
+/* Products */
+
+.products div{
+    display: flex;
+}
+
+.products .productsList{
+    display: grid;
+    grid-template-columns: 21% 21% 21% 21%; /* Configurando o tamanho do Pet para 21% */ 
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Products */
+
+
+
+/* Circular Links */
+
+.circularLinks{
+    width: 100%;
+    font-size: 20px;
+}
+
+.circularLinks div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.circularLinks button{
+    background-color: transparent;
+    border: 0;
+}
+
+/* Circular Links */
+
+
+
+/* SearchPromo */
+
+.searchPromo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchPromo article{
+    width: 45%;
+}
+
+.searchPromo h2{
+    margin: 0;
+}
+
+.searchPromo p{
+    font-size: .85rem;
+    color: #649C80;
+}
+
+.searchPromo span{
+    text-decoration: underline;
+}
+
+.searchPromo form{
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.searchPromo form input, select{
+    width: 45%;
+    height: 3.5rem;
+    padding: 0rem 1rem;
+    margin-right: .5rem;
+    border-radius: 10px;
+    border: 1px solid #649C80;
+}
+
+.searchPromo form select{
+    width: 30%;
+}
+
+.searchPromo button{
+    display: inline-block;
+    height: 3.5rem;
+    padding: 0 1rem;
+    background-color: #A5EBC8;
+    border: 0;
+    border-radius: 10px;
+}
+
+/* SearchPromo */

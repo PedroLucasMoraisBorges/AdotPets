@@ -151,7 +151,14 @@ def getTestLostPets(pet):
 
 def redirecionar_usuario(user):
     user_type = getUserType(user)
+    print(user_type)
     if user_type == 'defaultUser':
         return redirect('home')
     elif user_type == 'company':
         return redirect('homeCompany')
+    
+
+def getAllProcuts(search):
+    products = Product.objects.filter(Q(name__istartswith = search) | Q(category__istartswith = search))
+
+    return products
