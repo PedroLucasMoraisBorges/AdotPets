@@ -17,3 +17,21 @@ class ProductImage(models.Model):
     fk_product = models.ForeignKey(Product, related_name='image', on_delete=models.CASCADE)
     img = models.ImageField(upload_to='product_image')
 
+class ShoppingCart(models.Model):
+    fk_product = models.ForeignKey(Product, related_name='shoppingCartProduct', on_delete=models.CASCADE)
+    fk_user = models.ForeignKey(User, related_name='shoppingCartUser', on_delete=models.CASCADE)
+    ammount = models.IntegerField()
+
+class ProductOrder(models.Model):
+    fk_user = models.ForeignKey(User, related_name='productOrderClient', on_delete=models.CASCADE)
+    fk_company = models.ForeignKey(User, related_name='productOrderCompany', on_delete=models.CASCADE)
+    city = models.CharField(max_length=90)
+    road = models.CharField(max_length=125)
+    number = models.IntegerField()
+    complement = models.CharField(max_length=120)
+    sent = models.BooleanField(default=False)
+
+class OrderIten(models.Model):
+    fk_product = models.ForeignKey(Product, related_name='orderItemProduct', on_delete=models.CASCADE)
+    fk_order = models.ForeignKey(ProductOrder, related_name='order', on_delete=models.CASCADE)
+    ammount = models.IntegerField()
