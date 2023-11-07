@@ -9,7 +9,12 @@
 
 
 <main class="pets-section">
+  <a href="" class="cart">
+    <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
+  </a>
+
   <h1>Loja</h1>
+
   {% include '../componentes/searchProduct.html' %}
 
   <section class="services">
@@ -117,6 +122,21 @@
     </form>
   </section>
 </main>
+
+<script>
+  var cardList = document.querySelectorAll('.productCard')
+
+  cardList.forEach(card => {
+    card.addEventListener("click", function(e){
+    if(e.target.classList.contains('carrinho') == false){
+      var productCard = e.currentTarget
+      var id = productCard.getAttribute('prodID')
+      window.location.href = "http://127.0.0.1:8000/produto/"+id;
+    }
+  })
+  })
+  
+</script>
 {% endblock %}
 
 

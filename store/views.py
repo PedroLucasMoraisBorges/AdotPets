@@ -19,21 +19,39 @@ class Loja(View):
         productsList = []
         for product in products:
             img = ProductImage.objects.get(fk_product = product)
-            print(img.img.url)
             productsList.append({
                 'product' : product,
                 'productImg' : img
             })
 
+        info = getDefaultUser(request.user) if getDefaultUser(request.user) != None else ''
         context = {
             'productsList' : productsList,
-            'info' : getDefaultUser(request.user),
+            'info' : info,
             'search' : search
         }
 
         return render(request, 'loja/produtos.html', context)
     
-
+class VerProduto(View):
+    def get(self, request, id):
+        product = Product.objects.get(id=id)
+        productImg = ProductImage.objects.get(fk_product = product)
+        context = {
+            'produto' : product,
+            'productImg' : productImg,
+            'info' : getDefaultUser(request.user)
+        }
+        return render(request, 'loja/product.html', context)
+    
+    def post(self, request, id):
+        if request.user.is_authenticated:
+            product = Product.objects.get(id = id)
+            quantity = request.POST.get('quantity')
+            ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=quantity)
+            return redirect('produtos')
+        else:
+            return redirect('login')
 
 def verProduto(request, id):
     var = Product.objects.filter(id=id)
@@ -97,29 +115,29 @@ class HomeCompany(View):
         return render(request, 'company/homeCompany.html', context)
 
 
-class InsertProduct(View):
-    @method_decorator(companyRequired)
-    @method_decorator(login_required)
-    def get(self, request):
-        productFrom = ProductForm()
-    def post(self, request):
-        productForm = ProductForm(request.POST)
+# class InsertProduct(View):
+#     @method_decorator(companyRequired)
+#     @method_decorator(login_required)
+#     def get(self, request):
+#         productFrom = ProductForm()
+#     def post(self, request):
+#         productForm = ProductForm(request.POST)
 
-        if productForm.is_valid():
-            productForm.save()
-            print("É válido e foi salvo.")
-        return redirect(produtos)
+#         if productForm.is_valid():
+#             productForm.save()
+#             print("É válido e foi salvo.")
+#         return redirect(produtos)
 
 
-def editarProduto(request, id):
-    product = Product.objects.get(id=id)
-    form = ProductForm(request.POST or None, instance=product)
-    if form.is_valid():
-        form.save()
-        print("É válido e foi salvo.")
-        return redirect(produtos)
+# # def editarProduto(request, id):
+# #     product = Product.objects.get(id=id)
+# #     form = ProductForm(request.POST or None, instance=product)
+# #     if form.is_valid():
+# #         form.save()
+# #         print("É válido e foi salvo.")
+# #         return redirect(produtos)
 
-    return render(request, 'editarProduto.html', {'produto' : product, 'form' : form})
+#     return render(request, 'editarProduto.html', {'produto' : product, 'form' : form})
 
 
     

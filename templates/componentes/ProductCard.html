@@ -7,6 +7,11 @@
         padding: 1rem 1.5rem;
         background-color: white;
         width: 300px;
+        height: 425px;
+    }
+
+    .productCard:hover{
+        cursor: pointer;
     }
 
     .productCard .productImg{
@@ -83,7 +88,7 @@
     
 </style>
 
-<article class="productCard">
+<article class="productCard" prodID="{{item.product.id}}">
     
     <img class="productImg" src="{{item.productImg.img.url}}" alt="">
     <p class="name">{{item.product.name}}</p>
@@ -104,7 +109,7 @@
         {% if info.company %}
             <a href="">Editar Produto</a>
         {% else %}
-            <a href="">Adiciona ao Carrinho</a>
+            <a href="" class="carrinho">Adiciona ao Carrinho</a>
         {% endif %}
     </div>
 </article>

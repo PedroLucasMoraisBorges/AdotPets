@@ -63,25 +63,28 @@ def getFavoritePets(user, search):
 
 # Returns defaultUser information
 def getDefaultUser(user):
-    address = Address.objects.get(fk_user=user)
-    defaultUser = DefaultUser.objects.get(fk_user=user)
-    profileImage = ProfileImage.objects.filter(fk_user=user).first()
-    notifications = Notification.objects.filter(fk_donor=user)
+    if user.is_authenticated:
+        address = Address.objects.get(fk_user=user)
+        defaultUser = DefaultUser.objects.get(fk_user=user)
+        profileImage = ProfileImage.objects.filter(fk_user=user).first()
+        notifications = Notification.objects.filter(fk_donor=user)
 
-    pestCount = Pet.objects.filter(fk_user=user).count()
-    favoritesPets = Favorites.objects.filter(fk_donee=user).count()
-    adoptedPets = LogExit.objects.filter(fk_donee=user).count()
+        pestCount = Pet.objects.filter(fk_user=user).count()
+        favoritesPets = Favorites.objects.filter(fk_donee=user).count()
+        adoptedPets = LogExit.objects.filter(fk_donee=user).count()
 
-    user_list = {
-        'user':user,
-        'defaultUser':defaultUser,
-        'profileImage':profileImage,
-        'address':address,
-        'petsCount':pestCount,
-        'favoritePets':favoritesPets,
-        'adoptedPets':adoptedPets,
-        'notifications':notifications,
-        }
+        user_list = {
+            'user':user,
+            'defaultUser':defaultUser,
+            'profileImage':profileImage,
+            'address':address,
+            'petsCount':pestCount,
+            'favoritePets':favoritesPets,
+            'adoptedPets':adoptedPets,
+            'notifications':notifications,
+            }
+    else:
+        user_list = None
     
     return user_list
 
