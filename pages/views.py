@@ -215,12 +215,16 @@ class meuPerfil(View):
         profileImageForm = ProfileImageForm(instance=profileImage)
 
         search = request.GET.get('Search') if request.GET.get('Search') != None else ''
+
+        
     
         pets = []
         pets_fav = []
 
 
         user = getDefaultUser(request.user)
+
+        
         for pet in getMyPets(request.user, search):
             imgs = ImagePet.objects.filter(fk_pet = pet)
             if getTestLostPets(pet) == False:
@@ -238,11 +242,13 @@ class meuPerfil(View):
                         'type':'myLostPets'}
                     )
             
+        
+        
         for favorite in getFavoritePets(request.user, search):
             pet = favorite.fk_pet
             imgs = ImagePet.objects.filter(fk_pet = favorite.fk_pet)
             contacts = getUserContacts(request, pet)
-            favoritePet = getTestFavoritePets(pet)
+            favoritePet = getTestFavoritePets(pet, request.user)
             pets_fav.append(
                 {
                     'pet' : pet,
@@ -251,6 +257,7 @@ class meuPerfil(View):
                     'type': "adot",
                     'favoritePet':favoritePet}
                 )
+        
         
         pag = paginator(request, pets)  
         pag_fav = paginator(request, pets_fav)   
