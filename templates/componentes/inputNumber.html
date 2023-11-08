@@ -1,0 +1,71 @@
+<style>
+    .quantity-input {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border-radius: 5px;
+    height: 2rem;
+}
+.quantity-input button {
+    color: black;
+    background-color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1.2px solid #00000055;
+    transition: .2s;
+    font-weight: bold;
+    height: 3.5rem;
+}
+
+#quantity{  
+    width: 45px;
+    text-align: center;
+    border: 1.2px solid #00000055;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    padding: 5px 10px;
+    height: 3.5rem;
+}
+
+#decrement{
+    border-radius: 5px 0px 0px 5px;
+    border-right: none;
+}
+
+#decrement:hover{
+    background-color: var(--cancelColor);
+}
+
+#increment{
+    border-radius: 0px 5px 5px 0px;
+    border-left: none;
+}
+
+#increment:hover{
+    background-color: var(--greenSecondary);
+}
+
+
+.listProduct #quantity{  
+    width: 25px;
+    font-size: 1rem;
+    padding: 5px 0px;
+    height: 2.5rem;
+}
+
+.listProduct .quantity-input button{
+    height: 2.5rem;
+}
+</style>
+
+
+<div class="quantity-input">
+    <button type="button" id="decrement">-</button>
+    {% if item.ammount %}
+    <input type="number" class="quantity" name="quantity[{{item.cartItem.id}}]" id="quantity" value="{{item.ammount}}" min="1" step="1">
+    {% else %}
+    <input type="number" class="quantity" name="quantity" id="quantity" value="1" min="1" step="1">
+    {% endif %}
+    <button type="button" id="increment">+</button>
+</div>

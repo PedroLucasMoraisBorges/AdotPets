@@ -75,57 +75,6 @@ section{
     margin-bottom: 2rem;
 }
 
-/* Quantidade */
-
-.quantity-input {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    border-radius: 5px;
-    height: 2rem;
-}
-.quantity-input button {
-    color: black;
-    background-color: white;
-    border: none;
-    padding: 5px 15px;
-    cursor: pointer;
-    border: 1.2px solid #00000055;
-    transition: .2s;
-    font-weight: bold;
-    height: 3.5rem;
-}
-
-#quantity{  
-    width: 45px;
-    text-align: center;
-    border: 1.2px solid #00000055;
-    border-left: 1px solid transparent;
-    border-right: 1px solid transparent;
-    padding: 5px 10px;
-    height: 3.5rem;
-}
-
-#decrement{
-    border-radius: 5px 0px 0px 5px;
-    border-right: none;
-}
-
-#decrement:hover{
-    background-color: var(--cancelColor);
-}
-
-#increment{
-    border-radius: 0px 5px 5px 0px;
-    border-left: none;
-}
-
-#increment:hover{
-    background-color: var(--greenSecondary);
-}
-
-/* Quantidade */
-
 
 /* Botão */
 

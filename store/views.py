@@ -140,4 +140,51 @@ class HomeCompany(View):
 #     return render(request, 'editarProduto.html', {'produto' : product, 'form' : form})
 
 
+class ViewCart(View):
+    def get(self, request):
+        cartItens = ShoppingCart.objects.filter(fk_user=request.user)
+        products = []
+        
+
+        for item in cartItens:
+            productImg = ProductImage.objects.get(fk_product = item.fk_product)
+            ammount = item.ammount
+
+            product = {
+                'product' : item.fk_product,
+                'productImg' : productImg.img.url,
+                'ammount' : ammount,
+                'cartItem' : item
+            }
+            products.append(product)
+
+        context = {
+            'info' : getDefaultUser(request.user),
+            'products' : products
+        }
+        return render(request, 'loja/carrinho.html', context)
+    def post(self, request):
+        cartItens = ShoppingCart.objects.filter(fk_user=request.user)
+        quantity = [request.POST.get(f'quantity[{i.id}]') for i in cartItens]
+
+        city = request.POST.get('city')
+        road = request.POST.get('road')
+        number = request.POST.get('number')
+        complement = request.POST.get('complement') if request.POST.get('complement') != None else ''
+        
+
+        address = OrderAddress.objects.create(city=city, road=road, number=number, complement=complement)
+
+        for i in range(0, len(cartItens), 1):
+            cartItens[i].ammount = quantity[i]
+            cartItens[i].save()
+
+            OrderIten.objects.create(fk_product=cartItens[i].fk_product, fk_user=request.user, ammount=cartItens[i].ammount, fk_address = address)
+            cartItens[i].delete()
+
     
+class DeleteItemCart(View):
+    def get(self, reuquest, id):
+        cartItem = ShoppingCart.objects.get(id=id)
+        cartItem.delete()
+        return redirect('shoppingCart')

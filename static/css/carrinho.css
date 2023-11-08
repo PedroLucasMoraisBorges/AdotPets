@@ -1,0 +1,186 @@
+form{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1.5rem;
+}
+
+.listProduct p{
+    font-weight: bold;
+}
+
+section{
+    margin-top: 0;
+}
+
+
+
+
+/* productCard */
+
+.listProduct{
+    width: 60%;
+    border: 1px solid var(--greenPrincipal);
+    padding: 1.5rem;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.listProduct .productCard{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1.3rem;
+}
+
+.imgProduct{
+    width: 55px;
+    height: 55px;
+    padding: .2rem;
+    border-radius: 50%;
+    border: .6px solid var(--greenPrincipal);
+}
+
+.nome{
+    width: 290px;
+    font-weight: normal !important;
+}
+
+.values{
+    width: 95px;
+}
+
+.productCard .values{
+    text-align: center;
+}
+
+.values::before{
+    content: "R$ ";
+}
+
+
+/* productCard */
+
+
+
+/* Form */
+
+.form{
+    width: 35%;
+}
+
+label{
+    display: block;
+    font-weight: bold;
+    margin-bottom: .5rem;
+}
+
+textarea{
+    resize: none;
+    padding: 0;
+    width: 100%;
+    height: 100px;
+    border: 1px solid #00000030;
+    padding: .5rem 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.form input{
+    border: 1px solid #00000030;
+    width: 75%;
+    height: 2.1rem;
+    padding: 1.2rem 0.8rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.resumo{
+    margin-bottom: 2rem;
+}
+
+.Title{
+    margin-bottom: 1rem;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+
+.subTotal{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.valorTotal{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.valorTotal div{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+.valueDivided{
+    font-size: .9rem;
+}
+
+
+
+/* Form Buttons */
+
+.form button{
+    width: 100%;
+    height: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.form a{
+    width: 100%;
+    height: 3.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+
+form button:hover, a:hover{
+    filter: brightness(.9);
+}
+
+.finalizar{
+    background-color: #A5EBC8;
+    border: 0;
+    padding: 1rem 2rem;
+}
+
+.maisPedidos{
+    border: 1px solid #00000030;
+    background-color: white;
+    text-align: center;
+    color: black;
+    display: block;
+    padding: 1rem 0rem;
+}
+/* Form Buttons */
+
+
+/* payments */
+
+.payments div img{
+    margin-right: 1rem;
+}
+
+/* payments */
+
+/* Form */
