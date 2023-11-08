@@ -12,6 +12,8 @@ class Product(models.Model):
     fk_company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='product')
     category = models.CharField(max_length=50, null=False)
     discount = models.FloatField(null=True, blank=True)
+    divided = models.IntegerField()
+
 
 class ProductImage(models.Model):
     fk_product = models.ForeignKey(Product, related_name='image', on_delete=models.CASCADE)

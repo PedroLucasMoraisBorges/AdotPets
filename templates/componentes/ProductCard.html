@@ -2,12 +2,14 @@
 
 <style>
     .productCard{
-        border: 1px solid #649C80;
+        border: 1.75px solid #00000055;
         border-radius: 15px;
         padding: 1rem 1.5rem;
         background-color: white;
         width: 300px;
-        height: 425px;
+        height: 430px;
+        display: grid;
+        align-items: start;
     }
 
     .productCard:hover{
@@ -21,7 +23,15 @@
     }
 
     .productCard .name{
-        height: 12.5%;
+        height: 55px;
+    }
+
+    .divValues{
+        display: flex;
+        flex-direction: column;
+        height: 90px;
+        margin-bottom: .8rem;
+        justify-content: center;
     }
 
     .productCard .values{
@@ -67,10 +77,11 @@
     .addProduct{
         width: 100%;
         justify-content: center;
+        align-self: end;
     }
 
     .addProduct a{
-        padding: .6rem 0rem;
+        padding: .5rem 0rem;
         text-align: center;
         border-radius: 10px;
         width: 100%;
@@ -92,17 +103,26 @@
     
     <img class="productImg" src="{{item.productImg.img.url}}" alt="">
     <p class="name">{{item.product.name}}</p>
-    <div class="values">
-        <p class="fullValue"><strong>R$ {{item.product.value}}</strong></p>
-        <p class="divided">ou <span>5</span>x de R$<span>96,00</span></p>
-    </div>
 
-    <div class="discount">
-        <img src="{% static 'imgs/loja/discount.svg' %}" alt="">
-        <div>
-            <p class="value"><strong>R$ {{item.product.discount}}</strong></p>
-            <p class="subscriber">Para assinantes</p>
+    <div class="divValues">
+        <div class="values">
+            <p class="fullValue"><strong>R$ {{item.product.value}}</strong></p>
+            {% if item.divided == 0 %}
+                <p class="divided">Não divide</p>
+            {% else %}
+                <p class="divided">ou <span>{{item.product.divided}}</span>x de R$<span>{{item.divided}}</span></p>
+            {% endif %}
         </div>
+
+        {% if item.product.discount %}
+        <div class="discount">
+            <img src="{% static 'imgs/loja/discount.svg' %}" alt="">
+            <div>
+                <p class="value"><strong>R$ {{item.product.discount}}</strong></p>
+                <p class="subscriber">Para assinantes</p>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <div class="addProduct">

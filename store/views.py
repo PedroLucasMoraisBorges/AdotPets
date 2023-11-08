@@ -18,10 +18,12 @@ class Loja(View):
 
         productsList = []
         for product in products:
-            img = ProductImage.objects.get(fk_product = product)
+            productInfo = getProductInfo(product)
+
             productsList.append({
                 'product' : product,
-                'productImg' : img
+                'productImg' : productInfo['img'],
+                'divided' : productInfo['divided']
             })
 
         info = getDefaultUser(request.user) if getDefaultUser(request.user) != None else ''
@@ -60,17 +62,19 @@ def verProduto(request, id):
     else:
         return HttpResponse("Esse produto não existe! Var = %s" %var)
 
-def verLoja(request, id):
+
+def verLoja(request):
     company = Company.objects.get(fk_user=request.user)
     products = Product.objects.filter(fk_company=company)
     
     productsList = []
     for product in products:
-        img = ProductImage.objects.get(fk_product = product)
-        print(img.img.url)
+        productInfo = getProductInfo(product)
+
         productsList.append({
             'product' : product,
-            'productImg' : img
+            'productImg' : productInfo['img'],
+            'divided' : productInfo['divided']
         })
     
     context = {
@@ -115,18 +119,35 @@ class HomeCompany(View):
         return render(request, 'company/homeCompany.html', context)
 
 
-# class InsertProduct(View):
-#     @method_decorator(companyRequired)
-#     @method_decorator(login_required)
-#     def get(self, request):
-#         productFrom = ProductForm()
-#     def post(self, request):
-#         productForm = ProductForm(request.POST)
+class InsertProduct(View):
+    @method_decorator(companyRequired)
+    @method_decorator(login_required)
+    def get(self, request):
+        productForm = ProductForm()
+        imgForm = ProductImgForm()
+        context = {
+            'productForm' : productForm,
+            'btn' : 'Cadastrar produto',
+            'imgForm' : imgForm
+        }
+        return render(request, 'cadastros/cadastroProduto.html', context)
+    
+    def post(self, request):
+        productForm = ProductForm(request.POST)
+        imgForm = ProductImgForm(request.POST, request.FILES)
+        company = Company.objects.get(fk_user = request.user)
 
-#         if productForm.is_valid():
-#             productForm.save()
-#             print("É válido e foi salvo.")
-#         return redirect(produtos)
+        
+
+        if productForm.is_valid() and imgForm.is_valid():
+            product = productForm.save(commit=False)
+            product.fk_company = company
+            product.save()
+
+            img = imgForm.save(commit=False)
+            img.fk_product = product
+            img.save()
+            return redirect('verLoja')
 
 
 # # def editarProduto(request, id):
@@ -188,3 +209,25 @@ class DeleteItemCart(View):
         cartItem = ShoppingCart.objects.get(id=id)
         cartItem.delete()
         return redirect('shoppingCart')
+    
+class Pedidos(View):
+    def get(self, request):
+        requests = OrderIten.objects.filter(fk_user=request.user)
+        itens = []
+        
+        for ItemRequest in requests:
+            valueTotal = ItemRequest.fk_product.value * ItemRequest.ammount
+            valueTotal = "{:.2f}".format(valueTotal)
+            itens.append({
+                'order' : ItemRequest,
+                'product' : ItemRequest.fk_product,
+                'productImg' : ProductImage.objects.get(fk_product=ItemRequest.fk_product).img.url,
+                'addres' : ItemRequest.fk_address,
+                'valueTotal' : valueTotal
+            })
+        context = {
+            'info' : getDefaultUser(request.user),
+            'orderItens' : itens
+        }
+
+        return render(request, 'loja/pedidos.html', context)

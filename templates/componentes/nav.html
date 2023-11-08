@@ -8,17 +8,31 @@
             <nav class="nav-options">
                 {% if info.company %}
                     <a href="{% url 'homeCompany' %}">Meus Pets</a> 
-                    <a href="{% url 'verLoja' request.user.id %}">Produtos</a>
+                    <a href="{% url 'verLoja'%}">Produtos</a>
                     <a href="">Serviços</a>
+                    <a href="">Pedidos</a>
                 {% else %}
                     <a href="{% url 'home' %}">Explorar</a>
                     <a href="{% url 'produtos' %}">Loja</a>
                     <a href="{% url 'petsPerdidos' %}">Animais perdidos</a>
                     {% if info.user %}
+                        <a href="{% url 'pedidos' %}">Meus pedidos</a>
                         <a href="{% url 'processos' %}">Processos</a>
+                        <a href="{% url 'shoppingCart' %}" class="cart">
+                            <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
+                        </a>
                     {% endif %}
                 {% endif %}
                 {% if info.user %}
+                    <div class="notifications">
+                        <img class="buttonNot" src="{% static 'imgs/notifications.svg' %}" alt="">
+
+                        <div class="dropDown dropNot none">
+                            {% for noti in info.notifications %}
+                                <a href="#">{{noti.mensage}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
                     <div class="imgPerfil">
                         
                         <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
@@ -30,18 +44,6 @@
                             <a href="{% url 'logout' %}">Sair</a>
                         </div>
                     </div>
-                    
-                    
-                    <div class="notifications">
-                        <img class="buttonNot" src="{% static 'imgs/notifications.svg' %}" alt="">
-
-                        <div class="dropDown dropNot none">
-                            {% for noti in info.notifications %}
-                                <a href="#">{{noti.mensage}}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-
                 {% else %}
                     <a href="{% url 'login' %}">Acessar Conta</a>
                 {% endif %}
