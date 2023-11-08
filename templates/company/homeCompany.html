@@ -11,17 +11,17 @@
 {% for pet in pets%}
     {% include 'componentes/petModal.html' %}
 {% endfor %}
-<h1>Home Company</h1>
-
-{% include '../componentes/search.html' %}
 
 <main class="pets-section">
+    <h1>Home</h1>
+    {% include '../componentes/search.html' %}
     <h4>Meus Pets</h4>
     <article class="my-pets">
         {% for pet in pets %}
             {% include 'componentes/petCard.html' %}
         {% endfor %}
     </article>
+    
 </main>
 
 <script src="{% static 'js/modalPet.js' %}"></script>

@@ -5,4 +5,7 @@
         <input type="text" id="search" name="Search" placeholder="Digite o nome do produto">
         <button>Busca</button>
     </div>
+    {% if info.company %}
+    <a href="{% url 'cadastroProduto' %}">Adiconar produto</a>
+    {% endif %}
 </form>

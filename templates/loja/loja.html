@@ -3,7 +3,7 @@
 
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/produtos.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -13,12 +13,15 @@
   <h1>Loja</h1>
   {% include '../componentes/searchProduct.html' %}
 
-  <article class="products">
-    {% for item in productsList %}
-      {% include '../componentes/productCard.html' %}
-    {% endfor %}
-  </article>
-  
+  <section class="products">
+    <h2>Meus produtos</h2>
+
+    <div class="productsList">
+      {% for item in productsList %}
+        {% include '../componentes/ProductCard.html' %}
+      {% endfor %}
+    </div>
+  </section>
 </main>
 {% endblock %}
 

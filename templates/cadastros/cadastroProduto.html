@@ -1,5 +1,45 @@
-<form method="POST" action="{% url 'cadastroProduto' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Submit</button>
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/cadastroPet.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="form-section">
+    <form method="POST" enctype="multipart/form-data" id="petForm">
+        {% csrf_token %}
+
+        <div>
+            
+                <h1>Cadastro de produto</h1>
+                    <div class="first-part-container">
+                    {% for field in productForm %}
+                        <label>{{field.label_tag}}</label>
+                        {{field}}
+                        {% if field.errors %}
+                            <p class="error">{{ field.errors }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            <button type="submit" class="submitButton">{{btn}}</button>
+        </div>
+    
+        <div class="media-form-container">
+            <div class="images-forms">
+                {{imgForm}}
+                <!-- <div class="ImagemFormset">
+                    <div class="img-preview-container">
+                            <img src="" alt="" id="image-0" class="preview-image">
+                    </div>
+                    <button type="button" class="selectImageButton" id="0">+</button>
+                    <div class="hidden">{{imgForm}}</div>
+                </div> -->
+            </div>
+        </div>
     </form>
+</div>
+{% endblock %}
