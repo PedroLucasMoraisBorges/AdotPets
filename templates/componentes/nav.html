@@ -10,7 +10,7 @@
                     <a href="{% url 'homeCompany' %}">Meus Pets</a> 
                     <a href="{% url 'verLoja'%}">Produtos</a>
                     <a href="">Serviços</a>
-                    <a href="">Pedidos</a>
+                    <a href="{% url 'pedidosEmpresa' %}">Pedidos</a>
                 {% else %}
                     <a href="{% url 'home' %}">Explorar</a>
                     <a href="{% url 'produtos' %}">Loja</a>

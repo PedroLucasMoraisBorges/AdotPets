@@ -215,6 +215,7 @@ class Pedidos(View):
         requests = OrderIten.objects.filter(fk_user=request.user)
         itens = []
         
+        
         for ItemRequest in requests:
             valueTotal = ItemRequest.fk_product.value * ItemRequest.ammount
             valueTotal = "{:.2f}".format(valueTotal)
@@ -230,4 +231,47 @@ class Pedidos(View):
             'orderItens' : itens
         }
 
-        return render(request, 'loja/pedidos.html', context)
+        return render(request, 'loja/pedidos.html', context)       
+
+class PedidosEmpresa(View):
+    def get(self, request):
+        company = Company.objects.get(fk_user = request.user)
+        orders = OrderIten.objects.filter(fk_product__fk_company = company)
+
+        clientes = []
+        productsOrders = []
+        
+        for order in orders:
+
+            cliente = order.fk_user
+            if cliente in clientes:
+                pass
+            else:
+                clientes.append(cliente)
+                products = []
+                for teste in orders:
+                    
+                    if teste.fk_user == cliente:
+                        if teste.sent == False:
+                            valueTotal = teste.fk_product.value * teste.ammount
+                            valueTotal = "{:.2f}".format(valueTotal)
+                            products.append({
+                                'order' : teste,
+                                'product' : teste.fk_product,
+                                'productImg' : ProductImage.objects.get(fk_product=teste.fk_product).img.url,
+                                'address' : teste.fk_address,
+                                'valueTotal' : valueTotal,
+                                'telephone' : DefaultUser.objects.get(fk_user=teste.fk_user).telephone,
+                                'clientImg' : ProfileImage.objects.get(fk_user=teste.fk_user).img.url
+                            })
+                productsOrders.append(products)
+
+        # for order in productsOrders:
+        #     for item in order:
+        #         print(item['order'], item['order'].fk_user)
+        
+        context = {
+            'orders' : productsOrders,
+            'info' : getCompany(request.user)
+        }
+        return render(request, 'loja/pedidosEmpresa.html', context)
