@@ -1,0 +1,110 @@
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/chat.css' %}">
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="chat-room-container">
+        <div class="chat-room-div">
+            <div class="chat-top-bar">{{currentChatUser}}</div>
+            <div class="chat-messages-div" actual-user = "{{request.user.id}}">
+                <!-- <div class="chat-message">
+                    Mensagem top
+                </div>
+                <div class="chat-message message-sended">
+                    Mensagem top
+                </div> -->
+                {% for message in room_details %}
+                    {% if message.fk_sender == request.user %}
+                    <div class="chat-message message-sended">{{message.content}}</div>
+                    {% else %}
+                    <div class="chat-message">
+                        {{message.content}}
+                    </div>  
+                    {% endif %}
+                    
+                {% endfor %}
+            </div>
+            <div class="send-message-form-container">
+                <h1>
+                    {{room_details.id}}
+                </h1>
+                <form action="" method="POST" id="post-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="room_id" id="room_id" value="{{room_id}}">
+                    <input type="text" class="send-message-input" name="message" id="message">
+                    <button class="send-button">></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function(){
+        $(".chat-messages-div").scrollTop($('.chat-messages-div')[0].scrollHeight)
+        var messageCount = $(".chat-messages-div").children().length
+
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "http://127.0.0.1:8000/getMessages/{{room_id}}/",
+                success: function(response){
+                    console.log(response);
+                    $(".chat-messages-div").empty();
+                    userId = document.getElementsByClassName("chat-messages-div")[0].getAttribute('actual-user')
+                    for (var key in response.messages)
+                    {
+                        let temp = null
+                        // var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                        if(response.messages[key].fk_sender_id == userId){
+                            temp = '<div class="chat-message message-sended">'+ response.messages[key].content +'<div>'
+                        }
+                        else{
+                            temp = '<div class="chat-message">'+ response.messages[key].content +'<div>'
+                        }
+                        $(".chat-messages-div").append(temp);
+                    }
+                    if(messageCount < response.messages.length){
+                        $(".chat-messages-div").scrollTop($('.chat-messages-div')[0].scrollHeight)
+                        messageCount = response.messages.length
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
+                }
+            });
+        },500);
+        })
+
+
+        </script>
+
+
+    <script>
+
+
+    $(document).on('submit','#post-form',function(e){
+    e.preventDefault();
+
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token }}' } });
+
+    $.ajax({
+      type:'POST',
+      url:'http://127.0.0.1:8000/send/',
+      data:{
+          room_id:$('#room_id').val(),
+          message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function(data){
+         // alert(data)
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+    </script>
+{% endblock content %}
