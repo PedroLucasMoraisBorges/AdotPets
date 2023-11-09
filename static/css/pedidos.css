@@ -42,6 +42,14 @@ article{
     align-items: center;
 }
 
+.infos img{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 3px solid var(--greenPrincipal);
+    margin-right: 1rem;
+}
+
 .infos p{
     margin-right: 1rem;
 }
@@ -72,11 +80,15 @@ a{
 }
 
 .body{
+    width: 100%;
+    padding: 2rem 1rem; 
+}
+
+.body .item{
     display: grid;
     grid-template-columns: 10% 30% 20% 40%;
     align-items: center;
     width: 100%;
-    padding: 2rem 1rem; 
 }
 
 .body img{

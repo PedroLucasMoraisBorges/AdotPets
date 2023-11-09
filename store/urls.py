@@ -11,6 +11,7 @@ urlpatterns = [
     path("produto/<int:id>", views.VerProduto.as_view(), name="verProduto"),
     path('produtos/carrinho', views.ViewCart.as_view(), name='shoppingCart'),
     path('produtos/carrinho/del/<int:id>',views.DeleteItemCart.as_view(), name='deleteItemCart'),
-    path('pedidos/', views.Pedidos.as_view(), name='pedidos')
+    path('pedidos/cliente', views.Pedidos.as_view(), name='pedidos'),
+    path('pedidos/empresa',views.PedidosEmpresa.as_view(), name='pedidosEmpresa')
 
 ]
