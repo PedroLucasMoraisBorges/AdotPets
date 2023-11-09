@@ -173,3 +173,18 @@
     adoptButtons.forEach(button => {
         button.addEventListener("click", toggleRequestText)
     })
+
+    /* Fazendo animação de processo de ações (PROCESSANDO...) */
+
+    let sendRequestText = document.querySelector("#sendRequestText")
+    let requestForm = document.querySelector(".request-text-around")
+    let processingContainer = document.querySelector(".processing-container")
+
+    sendRequestText.addEventListener("click", processingAnimation)
+
+    function processingAnimation(){
+        requestForm.classList.add("hidden")
+        processingContainer.classList.remove("hidden")
+    }
+
+    /* Final dessa seção */
