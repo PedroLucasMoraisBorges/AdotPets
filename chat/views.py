@@ -38,3 +38,5 @@ def getMessages(request, pk):
     messages = Message.objects.filter(fk_room=room)
     return JsonResponse({"messages":list(messages.values())})
 
+def chatsPage(request):
+    return HttpResponse("Massa demais!")
