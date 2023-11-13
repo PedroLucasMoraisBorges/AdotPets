@@ -9,15 +9,14 @@
 
 }
 
-body{
-    background-color: var(--greenBackground);
-}
-
 main{
-    background-color: var(--greenBackground);
     padding: 5rem;
     padding-top: 0;
     min-height: 100vh;
+}
+
+.Mypets{
+    background-color: var(--greenBackground);
 }
 
 h1{
@@ -244,6 +243,53 @@ label{
 
 #exitRequestText{
     width: 35%;
+}
+
+
+@keyframes processing {
+    from{
+        rotate: 0deg;
+    } 
+    to{
+        rotate: 360deg;
+    }
+}
+
+.processing-container{
+    color: var(--greenPrincipal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0 ;
+}
+
+.processing-container h3{
+    margin-left: 2rem;
+}
+
+.load-icon{
+    animation-name: processing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.message{
+    background-color: #649c80c0;
+    color: white;
+    width: 350px;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    position: fixed;
+    top: 5rem;
+    text-align: center;
+    transform: translateX(-100%);
+    transition: 1s;
+    z-index: 1000;
+}
+
+.slided{
+    transform: translateX(0);
 }
 
 .hidden{

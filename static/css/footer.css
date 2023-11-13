@@ -36,6 +36,7 @@ footer {
     display: flex;
     justify-content: space-evenly;
     padding: 90px 80px;
+    background-color: var(--greenBackground);
 }
 
 .copyDown {

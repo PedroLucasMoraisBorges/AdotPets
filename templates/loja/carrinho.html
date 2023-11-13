@@ -1,0 +1,155 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+<link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Carrinho</h1>
+
+    <form method="post">
+        {%csrf_token%}
+        <article class="listProduct">
+            {% for item in products %}
+                <div class="productCard">
+                    <img class="imgProduct" src="{{item.productImg}}" alt="">
+                    
+                    <p class="nome">{{item.product.name}}</p>
+
+                    <p class="values value">{{item.product.value}}</p>
+
+                    {% include '../componentes/inputNumber.html' %}
+
+                    <p class="values total">479.99</p>
+                    <a href="{% url 'deleteItemCart' item.cartItem.id %}"><img src="{% static 'imgs/loja/delete.svg' %}" alt=""></a>
+                </div>
+            {% endfor %}
+            
+        </article>
+
+        <article class="form">
+            <h3 class="bold">Endereço</h3>
+
+            <section>
+                <label for="city">Cidade</label>
+                <input type="text" name="city" value="{{info.address.city}}" required placeholder="Cidade">
+                
+                <label for="road">Rua</label>
+                <input type="text" name="road" value="{{info.address.road}}" required placeholder="Rua">
+
+                <label for="number">Número</label>
+                <input type="number" name="number" value="{{info.address.number}}" required min="1" placeholder="0000">
+
+                <label for="complement">Complemento (Opicional)</label>
+                <textarea name="complemento" name="complement" cols="30" rows="10"></textarea>
+
+
+                <div class="resumo">
+                    <p class="bold resumoTitle">Resumo do pedido:</p>
+                    <div class="subTotal">
+                        <p>Valor dos produtos (3 itens)</p>
+                        <p class="values bold">1439,77</p>
+                    </div>
+
+                    <div class="valorTotal">
+                        <p class=" bold">Total:</p>
+                        <div>
+                            <p class="values bold">1439,77</p>
+                            <p class="valueDivided">ou até <span class="divide">10</span> vezes de <span class="divided">144,00</span> sem juros</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button type="submit" class="finalizar">Finalizar pedido</button>
+                    <a href="{% url 'produtos' %}" class="maisPedidos" >Escolher mais produtos</a>
+                </div>
+
+                <div class="payments">
+                    <p class="Title bold">Formas de pagamentos</p>
+                    <div>
+                        <img src="{% static 'imgs/loja/boleto.svg' %}" alt="">
+                        <img src="{% static 'imgs/loja/cartao.svg' %}" alt="">
+                        <img src="{% static 'imgs/loja/pix.svg' %}" alt="">
+                    </div>
+                </div>
+
+            </section>
+        </article>
+    </form>
+</main>
+
+<script>
+    var fullValue = parseFloat(document.querySelector('.valorTotal .values').textContent)
+    var divisor = parseInt(document.querySelector('.valueDivided .divide').textContent)
+    var result = fullValue / divisor
+    var divided = document.querySelector('.divided')
+
+    divided.textContent = result.toFixed(2)
+
+
+
+    var divInput = document.querySelectorAll('.quantity-input')
+
+    var n = 0
+    divInput.forEach(div => {
+        input = div.querySelector('.quantity')
+        div.addEventListener('click', function(e){
+            if(e.target.classList.contains('quantity') == false){
+                var decreButton = e.currentTarget.querySelector('#decrement')
+                var increButton = e.currentTarget.querySelector('#increment')
+                var quantityInput = e.currentTarget.querySelector('#quantity')
+
+                var currentValue = parseInt(quantityInput.value);
+                
+                if(e.target.id == 'decrement'){
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        mudarValor()
+                    }
+                }
+                else if(e.target.id == 'increment'){
+                    quantityInput.value = currentValue + 1;
+                    mudarValor();
+                }
+            }
+        })
+    })
+
+
+    function mudarValor(){
+        var divProduct = document.querySelectorAll('.productCard')
+
+        divProduct.forEach(div => {
+            var value = parseFloat(div.querySelector('.value').textContent)
+            var quant = parseFloat(div.querySelector('#quantity').value)
+
+            var multi = value * quant
+            div.querySelector('.total').textContent = multi.toFixed(2)
+        })
+        alterarValorTotal()
+    }
+
+    function alterarValorTotal(){
+        valueTotalItem = document.querySelectorAll('.listProduct .productCard .total')
+        subTotal = document.querySelector('.subTotal .values')
+        total = document.querySelector('.valorTotal .values')
+
+        sum = 0
+        valueTotalItem.forEach(item => {
+            sum += parseFloat(item.textContent)
+        })
+        sum = sum.toFixed(2)
+
+        subTotal.textContent = sum
+        total.textContent = sum
+    }
+
+    mudarValor()
+    alterarValorTotal()
+
+  </script>
+{% endblock %}

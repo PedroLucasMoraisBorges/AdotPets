@@ -21,15 +21,11 @@
             </article>
             <article class="values">
                 <p class="fullValue"><strong>R$<span>{{produto.value}}</span></strong></p>
-                <p class="divided">ou <span class="divisor">5</span>x de R$<span class="divValue">96,00</span></p>
+                <p class="divided">ou <span class="divisor">{{produto.divided}}</span>x de R$<span class="divValue">96,00</span></p>
             </article>
             <form method="post">
                 {%csrf_token%}
-                <div class="quantity-input">
-                    <button type="button" id="decrement">-</button>
-                    <input type="number" name="quantity" id="quantity" value="1" min="1" step="1">
-                    <button type="button" id="increment">+</button>
-                </div>
+                {% include '../componentes/inputNumber.html' %}
                 <button type="submit" class="adc">Adicionar ao carrinho</button>
             </form>
         </section>
@@ -42,23 +38,36 @@
     var result = fullValue / divisor
     var divided = document.querySelector('.divValue')
     divided.textContent = result.toFixed(2)
+
+    if(divisor == 0){
+        divided = document.querySelector('.divided').textContent = "Não divide"
+    }
+
+
+
+    var divInput = document.querySelectorAll('.quantity-input')
+
+    divInput.forEach(div => {
+        div.addEventListener('click', function(e){
+            if(e.target.classList.contains('quantity') == false){
+                var decreButton = e.currentTarget.querySelector('#decrement')
+                var increButton = e.currentTarget.querySelector('#increment')
+                var quantityInput = e.currentTarget.querySelector('#quantity')
+
+                var currentValue = parseInt(quantityInput.value);
+                
+                if(e.target.id == 'decrement'){
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        mudarValor()
+                    }
+                }
+                else if(e.target.id == 'increment'){
+                    quantityInput.value = currentValue + 1;
+                    mudarValor();
+                }
+            }
+        })
+    })
 </script>
-
-<script>
-    const decrementButton = document.getElementById('decrement');
-    const incrementButton = document.getElementById('increment');
-    const quantityInput = document.getElementById('quantity');
-
-    decrementButton.addEventListener('click', () => {
-      const currentValue = parseInt(quantityInput.value);
-      if (currentValue > 1) {
-        quantityInput.value = currentValue - 1;
-      }
-    });
-
-    incrementButton.addEventListener('click', () => {
-      const currentValue = parseInt(quantityInput.value);
-      quantityInput.value = currentValue + 1;
-    });
-  </script>
 {% endblock %}

@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('road', models.CharField(max_length=125)),
                 ('number', models.IntegerField()),
                 ('complement', models.CharField(max_length=120)),
-                ('sent', models.BooleanField(default=False)),
+                ('accepted', models.BooleanField(default=False)),
                 ('fk_company', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='productOrderCompany', to=settings.AUTH_USER_MODEL)),
                 ('fk_user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='productOrderClient', to=settings.AUTH_USER_MODEL)),
             ],

@@ -1,0 +1,74 @@
+{% load static %}
+
+
+<article>
+    <div class="header">
+        <div class="infos">
+            <p class="backGreen">Pedido</p>
+            <!-- <img src="{{order.0.clientImg}}" alt=""> -->
+            <p>{{order.0.order.fk_user.username}}</p>
+            <!-- <a href="" class="link chat">Chat</a>
+            <a href="" class="backGreen">Ver página da loja</a> -->
+            <p>{{order.0.order.fk_address.city}}</p>
+            <p>{{order.0.order.fk_address.road}}</p>
+            <p>{{order.0.order.fk_address.number}}</p>
+            <p>{{order.0.order.fk_address.complement}}</p>
+            
+            
+            
+            <a href="https://wa.me/{{order.0.telephone}}" target="_blank" class="link">Entrar em contato</a>
+        </div>
+
+        <div class="status">
+            {% if order.0.order.accepted == False %}
+                <p class="link">Avaliação</p>
+            {% else %}
+                <p class="link">Aceito</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="body">
+        {% for item in order %}
+        <div class="item">
+            <img src="{{item.productImg}}" alt="">
+            <p class="name">{{item.product.name}}</p>
+            <p class="number">{{item.order.ammount}}X</p>
+            <div class="totalOrder">
+                <strong class="title">Total do Pedido</strong>
+                <strong class="value">{{item.valueTotal}}</strong>
+            </div>
+            
+            <div class="options">
+                <a href="{% url 'cancelarPedido' item.order.id %}"><img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt=""></a>
+                <a href="{% url 'aceitarPedido' item.order.id %}"><img src="{% static 'imgs/ok.svg' %}" alt=""></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
+        <div class="obs">
+            {% if order.0.order.accepted == True  %}
+                <p>Os pedidos entregues saem com um dia de duração</p>
+            {% else %}
+                <p>Confirme ou cancele a possibilidade de envio dos produtos</p>
+            {% endif %}
+        </div>
+
+
+        <div class="buttons">
+            {% if order.0.quantidade %}
+                {% if order|length < order.0.quantidade %}
+                    <a class="buy" href="{% url 'pedidosEmpresa' %}">Avaliar mais</a>
+                    <a href="contat">Enviar tudo</a>
+                {% else %}
+                    <a class="buy" href="">Imprimir cupom</a>
+                {% endif %}
+            {% else %}
+                <a class="buy" href="{% url 'aceitarTodosPedidos' order.0.order.id %}">Confirmar tudo</a>
+                <a class="contat" href="{% url 'cancelarTodosPedidos' order.0.order.id %}">Cancelar tudo</a>
+            {% endif %}
+        </div>
+    </div>
+</article>

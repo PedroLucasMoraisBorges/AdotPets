@@ -11,6 +11,14 @@
     {% include 'componentes/petModal.html' %}
 {% endfor %} -->
 
+{% if messages %}
+    {% for message in messages %}
+    <div class="message">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+
 
 <h1>Processos</h1>
 
@@ -64,6 +72,7 @@
 
 <script src="{% static 'js/modalPet.js' %}"></script>
 <script src="{% static 'js/requestModal.js' %}"></script>
+<script src="{% static 'js/messages.js' %}"></script>
 
 {% endblock %}
 

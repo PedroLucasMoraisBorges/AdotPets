@@ -29,6 +29,13 @@ class Requests(models.Model):
     fk_donee = models.ForeignKey(User, related_name='requests_donee', on_delete= models.CASCADE)
     requestText = models.TextField(default="Solicitação de adoção!")
     dt_request = models.DateField(auto_now=True)
+    state_choices = [
+        ('REQUESTED', 'requested'),
+        ('DENIED', 'denied'),
+        ('ACCEPTED', 'accepted')
+    ]    
+    state = models.CharField(max_length=20, choices=state_choices, default="REQUESTED")
+
 
 class Favorites(models.Model):
     fk_pet = models.ForeignKey(Pet, on_delete=models.CASCADE)

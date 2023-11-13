@@ -1,0 +1,20 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+  <h1>Pedidos</h1>
+
+  <section>
+    {% for item in orderItens %}
+        {% include '../componentes/pedidoCard.html' %}
+    {% endfor %}
+  </section>
+</main>
+{% endblock %}

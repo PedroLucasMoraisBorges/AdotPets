@@ -360,6 +360,7 @@
     }
 
     .requests-top-bar{
+        margin-right: 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -381,11 +382,49 @@
     }
 
     .request-container{
-        margin-top: 1rem;
+        margin-right: 1.5rem;
+        margin-top: 0.5rem;
         background-color: var(--greenSecondary);
         border-radius: 10px;
         padding: 10px;
         box-sizing: border-box;
+    }
+
+    .requests-div{
+        height: 470px;
+    }
+
+    .requests-div > div{
+        overflow-y: scroll;
+        height: 100%;
+    }
+
+    .requests-div > div::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    .requests-div > div::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    }
+
+    /* Handle */
+    .requests-div > div::-webkit-scrollbar-thumb {
+    background: var(--greenPrincipal)
+    }
+
+    /* Handle on hover */
+    .requests-div > div::-webkit-scrollbar-thumb:hover {
+    background: var(--greenSecondary)
+    }
+
+    .requests-title{
+        margin-top: 1rem;
+    }
+
+    .request-container.denied{
+        background-color: rgb(255, 76, 76);
+        color: white;
     }
     
     .request-container h6{
@@ -402,7 +441,7 @@
         justify-content: end;
     }
 
-    .request-buttons button{
+    .request-buttons input{
         border: none;
         padding: 3px 5px;
         border-radius: 10px;
@@ -427,30 +466,73 @@
     .request-buttons .refuse:hover{
         background-color: red;
     }
-    
+
+    .adopted-pet-status{
+        border: 1px solid var(--greenPrincipal);
+        border-width: 3px 11px 3px 11px;
+        border-radius: 5px;
+        padding: 8px;
+        width: 85%;
+        margin: auto;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .adopted-pet-status img{
+        width: 10%;
+    }
+    .adopted-pet-status p{
+        width: 85%;
+        margin: 0;
+        padding: 0;
+    }
+
+
     .hidden{
         display: none;
     }
+
     
 </style>
 
 {% if pet.requests %}
 <div class="modal-request hidden" id="modal-request-{{pet.pet.id}}">
-    <div>
-        <div class="requests-top-bar">
-            <h4>Solicitações desse pet:</h4>
-            <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" class="exit-request-button">
-        </div>
-        {% for request in pet.requests %}
+    <div class="requests-div">
+        <div>
+            <div class="requests-top-bar">
+                <h4>Solicitações desse pet:</h4>
+                <img src="{% static 'imgs/iconx.svg' %}" alt="X icon" class="exit-request-button">
+            </div>
+            {% for request in pet.requests %}
+                {% if request.state == "REQUESTED" %}
                 <div class="request-container">
                     <h6>De: {{request.fk_donee}}</h6>
                     <p>{{request.requestText}}</p>
-                    <div class="request-buttons">
-                        <a href="{% url 'marcarAdotado' pet.pet.id %}"><button class="accept">Aceitar</button></a>
-                        <button class="refuse">Recusar</button>
-                    </div>
+                    <form class="request-buttons" method="POST">
+                        {% csrf_token %}
+                        <input type="num" name="request_id" value="{{request.id}}" class="hidden">
+                        <input type="text" class="hidden" name="donee" value="{{request.fk_donee}}">
+                        <input type="submit" name="goToChat" value="Chat" class="chat">
+                        <input type="submit" name="result" value="Aceitar" class="accept">
+                        <input type="submit" name="result" value="Recusar" class="refuse">
+                    </form>
                 </div>
-                {% endfor %}
+                {% endif %}
+            {% endfor %}
+            <div class="requests-top-bar">
+                <h4 class="requests-title">Solicitações Negadas:</h4>
+            </div>
+            {% for request in pet.requests %}
+                {% if request.state == "DENIED" %}
+                <div class="request-container denied">
+                    <h6>De: {{request.fk_donee}}</h6>
+                    <p>{{request.requestText}}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
         </div>
     </div>
 {% endif %}
@@ -544,6 +626,18 @@
                 {% elif pet.type == 'myPets' %}
                     <a href="{% url 'editarPet'  pet.pet.id  %}" class="ud-options"><button>Editar Pet</button></a>
                     <a href="{% url 'marcarAdotado' pet.pet.id %}" class="ud-options"><button>Marcar Como Adotado</button></a>
+                {% elif pet.type == 'adopted' %}
+                    {% if pet.requests == False %}
+                        <div class="adopted-pet-status">
+                            <img src="{% static 'imgs/info-icon.svg'%}" alt="info icon">
+                            <p>Esse pet foi adotado fora de nossa plataforma!</p>
+                        </div>
+                    {% else %}
+                        <div class="adopted-pet-status">
+                            <img src="{% static 'imgs/info-icon.svg'%}" alt="info icon">
+                            <p>Esse pet foi adotado por {{pet.activeRequest.fk_donee.username}}!</p>
+                        </div>
+                    {% endif %}
                 {% endif %}
         </div>
     </div>

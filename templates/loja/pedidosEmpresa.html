@@ -1,0 +1,69 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+
+  <style>
+    .options{
+      display: flex;
+      align-items: center;
+      justify-self: end;
+    }
+
+    .options img{
+      border: 0;
+      width: 35px;
+      padding: 0;
+    }
+
+    .body .item{
+    display: grid;
+    grid-template-columns: 10% 30% 20% 25% 15%;
+    align-items: center;
+    width: 100%;
+    margin-bottom: .5rem;
+    }
+
+    .options img:hover{
+    filter: brightness(1.2);
+    transform: scale(1.1);
+    }
+
+    .h1Title{
+      margin-bottom: 3.5rem;
+    }
+
+    .h1Title h1{
+      margin-bottom: .5rem;
+    }
+
+    .h1Title a{
+      margin-right: 2rem;
+      text-decoration: underline;
+    }
+
+    .pedidos{
+      margin-bottom: 0rem;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+  <div class="h1Title">
+    <h1 class="pedidos">Pedidos</h1>
+    <a href="{% url 'pedidosEmpresa' %}">Aguardando Avaliação</a>
+    <a href="{% url 'pedidosAceitos' %}">Pedidos Aceitos</a>
+  </div>
+
+  <section>
+    {% for order in orders %}
+        {% include '../componentes/pedidoEmpresaCard.html' %}
+    {% endfor %}
+  </section>
+</main>
+
+{% endblock %}

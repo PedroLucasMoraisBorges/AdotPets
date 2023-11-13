@@ -1,12 +1,41 @@
 version: '3.8'
+
+networks:
+  proxy:
+    driver: bridge
+
 services:
-  app:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    networks:
+      - proxy
+
+  app-1:
     build: .
     volumes:
       - .:/django
 
+    networks:
+      - proxy
     ports:
       - 8000:8000
+
     image: app:PI-SB-ANIMAIS
-    container_name: pi-animais
+    container_name: pi-animais-1
     command: python manage.py runserver 0.0.0.0:8000
+
+  app-2:
+    build: .
+    volumes:
+      - .:/django
+
+    networks:
+      - proxy
+    ports:
+      - 9000:9000
+
+    image: app:PI-SB-ANIMAIS
+    container_name: pi-animais-2
+    command: python manage.py runserver 0.0.0.0:9000
