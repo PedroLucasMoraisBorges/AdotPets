@@ -128,3 +128,5 @@ Agora para fazer as migrações no banco de dados:
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Tela-Produtos.jpg" />
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Tela%20Perfil.jpg" />
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Carrinho.jpg" />
+<img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Pedidos-aceitos.jpg" />
+<img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/acompanhar-pedidos.jpg" />
