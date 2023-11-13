@@ -1,5 +1,5 @@
 <p>
- <img width="300" src="https://github.com/SrTorpedro/PI-SB-Animais/blob/main/static/imgs/logo.png?raw=true" />
+ <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/LOGO.jpg" />
  <h2 align="">🐶 AdotPet 🐱</h2>
  <p align="">Uma plataforma facilitadora de adoção de animais!</p>
 
