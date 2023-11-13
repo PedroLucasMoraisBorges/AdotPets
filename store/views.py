@@ -30,7 +30,8 @@ class Loja(View):
         context = {
             'productsList' : productsList,
             'info' : info,
-            'search' : search
+            'search' : search,
+            'nLoja' : 'nLoja'
         }
 
         return render(request, 'loja/produtos.html', context)
@@ -42,7 +43,8 @@ class VerProduto(View):
         context = {
             'produto' : product,
             'productImg' : productImg,
-            'info' : getDefaultUser(request.user)
+            'info' : getDefaultUser(request.user),
+            'nLoja' : 'nLoja'
         }
         return render(request, 'loja/product.html', context)
     
@@ -80,7 +82,8 @@ def verLoja(request):
     context = {
         'info' : getCompany(request.user),
         'productsList' : productsList,
-        'company' : company
+        'company' : company,
+        'nProdutos' : 'nProdutos'
     }
     return render(request, 'loja/loja.html', context)
 
@@ -113,7 +116,8 @@ class HomeCompany(View):
         context = {
             'info' : info,
             'products' : getCompanyProducts(info['company']),
-            'pets' : pets
+            'pets' : pets,
+            'nHomeComp' : 'nHomeComp'
         }
 
         return render(request, 'company/homeCompany.html', context)
@@ -128,7 +132,9 @@ class InsertProduct(View):
         context = {
             'productForm' : productForm,
             'btn' : 'Cadastrar produto',
-            'imgForm' : imgForm
+            'imgForm' : imgForm,
+            'info' : getCompany(request.user),
+            'nProdutos' : 'nProdutos'
         }
         return render(request, 'cadastros/cadastroProduto.html', context)
     
@@ -150,10 +156,13 @@ class InsertProduct(View):
             return redirect('verLoja')
 
 def adcCartInstant(request, id):
-    product = Product.objects.get(id=id)
-    ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=1)
+    if request.user.is_authenticated:
+        product = Product.objects.get(id=id)
+        ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=1)
 
-    return redirect('shoppingCart')
+        return redirect('shoppingCart')
+    else:
+        return redirect('login')
 
 class ViewCart(View):
     def get(self, request):
@@ -175,7 +184,8 @@ class ViewCart(View):
 
         context = {
             'info' : getDefaultUser(request.user),
-            'products' : products
+            'products' : products,
+            'nCart' : 'nCart'
         }
         return render(request, 'loja/carrinho.html', context)
     def post(self, request):
@@ -223,7 +233,8 @@ class Pedidos(View):
             })
         context = {
             'info' : getDefaultUser(request.user),
-            'orderItens' : itens
+            'orderItens' : itens,
+            'nMeusPedidos' : 'nMeusPedidos'
         }
 
         return render(request, 'loja/pedidos.html', context)       
@@ -267,7 +278,9 @@ class PedidosEmpresa(View):
         
         context = {
             'orders' : productsOrders,
-            'info' : getCompany(request.user)
+            'info' : getCompany(request.user),
+            'analise' : 'analise',
+            'nPedidos' : 'nPedidos'
         }
         return render(request, 'loja/pedidosEmpresa.html', context)
     
@@ -311,7 +324,9 @@ class PedidosAceitosEmpresa(View):
         
         context = {
             'orders' : productsOrders,
-            'info' : getCompany(request.user)
+            'info' : getCompany(request.user),
+            'aceito' : 'aceito',
+            'nPedidos' : 'nPedidos'
         }
         return render(request, 'loja/pedidosAceitos.html', context)
     
@@ -345,3 +360,4 @@ def cancelarTodosPedidos(request, id):
         item.delete()
     
     return redirect('pedidosEmpresa')
+

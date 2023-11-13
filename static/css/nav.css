@@ -11,6 +11,11 @@
     --main-font: 'Public Sans'
 }
 
+.nProdutos, .nServs, .nPedidos, .nHomeComp, .nExplorar, .nLoja, .nLost, .nMeusPedidos, .nProcessos, .nCart{
+    background-color: var(--greenSecondary);
+    border-radius: 10px;
+}
+
 * {
     margin: 0;
     padding: 0;

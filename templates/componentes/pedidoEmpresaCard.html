@@ -60,8 +60,8 @@
         <div class="buttons">
             {% if order.0.quantidade %}
                 {% if order|length < order.0.quantidade %}
-                    <a class="buy" href="{% url 'pedidosEmpresa' %}">Avaliar mais</a>
-                    <a href="contat">Enviar tudo</a>
+                    <a class="buy" href="{% url 'pedidosEmpresa' %}">Confirme mais</a>
+                    <a href="contat" class="contat">Imprimir cupom</a>
                 {% else %}
                     <a class="buy" href="">Imprimir cupom</a>
                 {% endif %}
