@@ -10,7 +10,7 @@
         </div>
 
         <div class="status">
-            {% if item.order.sent == False %}
+            {% if item.order.accepted == False %}
                 <p class="link">Avaliando</p>
             {% else %}
                 <p class="link">Aceito</p>
@@ -32,7 +32,7 @@
 
     <div class="footer">
         <div class="obs">
-            {% if order.sent == True  %}
+            {% if order.accepted == True  %}
                 <p>Os pedidos entregues saem com um dia de duração</p>
             {% else %}
                 <p>O seu pedido etá sendo avaliado pela empresa, aguarde, é rápido</p>

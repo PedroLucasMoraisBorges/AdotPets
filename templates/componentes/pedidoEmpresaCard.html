@@ -14,11 +14,13 @@
             <p>{{order.0.order.fk_address.number}}</p>
             <p>{{order.0.order.fk_address.complement}}</p>
             
+            
+            
             <a href="https://wa.me/{{order.0.telephone}}" target="_blank" class="link">Entrar em contato</a>
         </div>
 
         <div class="status">
-            {% if order.0.order.sent == False %}
+            {% if order.0.order.accepted == False %}
                 <p class="link">Avaliação</p>
             {% else %}
                 <p class="link">Aceito</p>
@@ -38,8 +40,8 @@
             </div>
             
             <div class="options">
-                <a href=""><img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt=""></a>
-                <a href=""><img src="{% static 'imgs/ok.svg' %}" alt=""></a>
+                <a href="{% url 'cancelarPedido' item.order.id %}"><img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt=""></a>
+                <a href="{% url 'aceitarPedido' item.order.id %}"><img src="{% static 'imgs/ok.svg' %}" alt=""></a>
             </div>
         </div>
         {% endfor %}
@@ -47,7 +49,7 @@
 
     <div class="footer">
         <div class="obs">
-            {% if order.0.order.sent == True  %}
+            {% if order.0.order.accepted == True  %}
                 <p>Os pedidos entregues saem com um dia de duração</p>
             {% else %}
                 <p>Confirme ou cancele a possibilidade de envio dos produtos</p>
@@ -56,8 +58,17 @@
 
 
         <div class="buttons">
-            <a class="buy" href="">Confirmar tudo</a>
-            <a class="contat" href="">Cancelar tudo</a>
+            {% if order.0.quantidade %}
+                {% if order|length < order.0.quantidade %}
+                    <a class="buy" href="{% url 'pedidosEmpresa' %}">Avaliar mais</a>
+                    <a href="contat">Enviar tudo</a>
+                {% else %}
+                    <a class="buy" href="">Imprimir cupom</a>
+                {% endif %}
+            {% else %}
+                <a class="buy" href="{% url 'aceitarTodosPedidos' order.0.order.id %}">Confirmar tudo</a>
+                <a class="contat" href="{% url 'cancelarTodosPedidos' order.0.order.id %}">Cancelar tudo</a>
+            {% endif %}
         </div>
     </div>
 </article>

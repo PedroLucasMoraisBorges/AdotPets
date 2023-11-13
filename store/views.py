@@ -149,17 +149,11 @@ class InsertProduct(View):
             img.save()
             return redirect('verLoja')
 
+def adcCartInstant(request, id):
+    product = Product.objects.get(id=id)
+    ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=1)
 
-# # def editarProduto(request, id):
-# #     product = Product.objects.get(id=id)
-# #     form = ProductForm(request.POST or None, instance=product)
-# #     if form.is_valid():
-# #         form.save()
-# #         print("É válido e foi salvo.")
-# #         return redirect(produtos)
-
-#     return render(request, 'editarProduto.html', {'produto' : product, 'form' : form})
-
+    return redirect('shoppingCart')
 
 class ViewCart(View):
     def get(self, request):
@@ -202,6 +196,7 @@ class ViewCart(View):
 
             OrderIten.objects.create(fk_product=cartItens[i].fk_product, fk_user=request.user, ammount=cartItens[i].ammount, fk_address = address)
             cartItens[i].delete()
+        return redirect('pedidos')
 
     
 class DeleteItemCart(View):
@@ -252,9 +247,10 @@ class PedidosEmpresa(View):
                 for teste in orders:
                     
                     if teste.fk_user == cliente:
-                        if teste.sent == False:
+                        if teste.accepted == False:
                             valueTotal = teste.fk_product.value * teste.ammount
                             valueTotal = "{:.2f}".format(valueTotal)
+
                             products.append({
                                 'order' : teste,
                                 'product' : teste.fk_product,
@@ -262,16 +258,90 @@ class PedidosEmpresa(View):
                                 'address' : teste.fk_address,
                                 'valueTotal' : valueTotal,
                                 'telephone' : DefaultUser.objects.get(fk_user=teste.fk_user).telephone,
-                                'clientImg' : ProfileImage.objects.get(fk_user=teste.fk_user).img.url
+                                'clientImg' : ProfileImage.objects.get(fk_user=teste.fk_user).img.url,
+                                
                             })
-                productsOrders.append(products)
 
-        # for order in productsOrders:
-        #     for item in order:
-        #         print(item['order'], item['order'].fk_user)
+                if len(products) != 0:
+                    productsOrders.append(products)
         
         context = {
             'orders' : productsOrders,
             'info' : getCompany(request.user)
         }
         return render(request, 'loja/pedidosEmpresa.html', context)
+    
+
+class PedidosAceitosEmpresa(View):
+    def get(self, request):
+        company = Company.objects.get(fk_user = request.user)
+        orders = OrderIten.objects.filter(fk_product__fk_company = company)
+
+        clientes = []
+        productsOrders = []
+        
+        for order in orders:
+
+            cliente = order.fk_user
+            if cliente in clientes:
+                pass
+            else:
+                clientes.append(cliente)
+                products = []
+                for teste in orders:
+                    
+                    if teste.fk_user == cliente:
+                        if teste.accepted == True:
+                            valueTotal = teste.fk_product.value * teste.ammount
+                            valueTotal = "{:.2f}".format(valueTotal)
+                            quantidade = OrderIten.objects.filter(fk_user=teste.fk_user).count()
+                            products.append({
+                                'order' : teste,
+                                'product' : teste.fk_product,
+                                'productImg' : ProductImage.objects.get(fk_product=teste.fk_product).img.url,
+                                'address' : teste.fk_address,
+                                'valueTotal' : valueTotal,
+                                'telephone' : DefaultUser.objects.get(fk_user=teste.fk_user).telephone,
+                                'clientImg' : ProfileImage.objects.get(fk_user=teste.fk_user).img.url,
+                                'quantidade' : quantidade
+                            })
+                if len(products) != 0:
+                    productsOrders.append(products)
+
+        
+        context = {
+            'orders' : productsOrders,
+            'info' : getCompany(request.user)
+        }
+        return render(request, 'loja/pedidosAceitos.html', context)
+    
+def aceitarPedido(request, id):
+    order = OrderIten.objects.get(id=id)
+    order.accepted = True
+    order.save()
+    return redirect('pedidosEmpresa')
+
+def aceitarTodosPedidos(request, id):
+    order = OrderIten.objects.get(id=id)
+
+    orders = OrderIten.objects.filter(fk_user=order.fk_user, fk_product__fk_company__fk_user = request.user)
+
+    for item in orders:
+        item.accepted = True
+        item.save()
+    
+    return redirect('pedidosAceitos')
+
+def cancelarPedido(request, id):
+    order = OrderIten.objects.get(id=id)
+    order.delete()
+    return redirect('pedidosEmpresa')
+
+def cancelarTodosPedidos(request, id):
+    order = OrderIten.objects.get(id=id)
+    orders = OrderIten.objects.filter(fk_user=order.fk_user, fk_product__fk_company__fk_user = request.user,accepted=False)
+
+    for item in orders:
+        item.delete()
+    
+    return redirect('pedidosEmpresa')
