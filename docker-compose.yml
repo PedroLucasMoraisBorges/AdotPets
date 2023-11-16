@@ -11,6 +11,9 @@ services:
       - 80:80
     networks:
       - proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
 
   app-1:
     build: .
