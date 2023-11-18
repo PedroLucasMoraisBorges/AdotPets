@@ -10,7 +10,7 @@ user=mysql
 server-id=1
 log_bin= 1
 binlog_format=ROW
-binlog_do_db=master_db
+binlog_do_db=my_db
 
 pid-file=/var/run/mysqld/mysqld.pid
 [client]
