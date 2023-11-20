@@ -16,9 +16,12 @@
                     <a class="{{nLoja}}" href="{% url 'produtos' %}">Loja</a>
                     <a class="{{nLost}}" href="{% url 'petsPerdidos' %}">Animais perdidos</a>
                     {% if info.user %}
-                        <a class="{{nMeusPedidos}}" href="{% url 'pedidos' %}">Meus pedidos</a>
-                        <a class="{{nProcessos}}" href="{% url 'processos' %}">Processos</a>
-                        <a class="{{nCart}}" href="{% url 'shoppingCart' %}" class="cart">
+
+                        <a href="{% url 'pedidos' %}">Meus pedidos</a>
+                        <a href="{% url 'processos' %}">Processos</a>
+                        <a href="{% url 'chatsPage' %}">Chats</a>
+                        <a href="{% url 'shoppingCart' %}" class="cart">
+
                             <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
                         </a>
                     {% endif %}
