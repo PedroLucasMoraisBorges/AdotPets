@@ -1,6 +1,6 @@
 <p>
- <img width="300" src="https://github.com/SrTorpedro/PI-SB-Animais/blob/main/static/imgs/logo.png?raw=true" />
- <h2 align="">🐶 AdotPet 🐱</h2>
+ <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/LOGO.jpg" />
+ <h2 align="">🐶 AdotePet 🐱</h2>
  <p align="">Uma plataforma facilitadora de adoção de animais!</p>
 
 # PI-SB-Animais
@@ -128,3 +128,5 @@ Agora para fazer as migrações no banco de dados:
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Tela-Produtos.jpg" />
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Tela%20Perfil.jpg" />
 <img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Carrinho.jpg" />
+<img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/Pedidos-aceitos.jpg" />
+<img width="300" src="https://github.com/SrTorpedro/AdotPets/blob/main/static/design/acompanhar-pedidos.jpg" />

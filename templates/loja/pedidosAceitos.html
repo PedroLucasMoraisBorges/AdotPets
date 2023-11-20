@@ -9,11 +9,11 @@
 
 
 <main>
-  <div class="h1Title">
-    <h1 class="pedidos">Pedidos</h1>
-    <a href="{% url 'pedidosEmpresa' %}" class="linkTop">Aguardando Avaliação</a>
-    <a href="{% url 'pedidosAceitos' %}">Pedidos Aceitos</a>
-  </div>
+    <div class="h1Title">
+        <h1 class="pedidos">Pedidos</h1>
+        <a href="{% url 'pedidosEmpresa' %}">Aguardando Avaliação</a>
+        <a href="{% url 'pedidosAceitos' %}" class="linkTop">Pedidos Aceitos</a>
+      </div>
 
   <section>
     {% for order in orders %}

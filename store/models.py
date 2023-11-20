@@ -34,6 +34,7 @@ class OrderIten(models.Model):
     fk_product = models.ForeignKey(Product, related_name='orderItemProduct', on_delete=models.CASCADE)
     fk_address = models.ForeignKey(OrderAddress, related_name='orderAddress', on_delete=models.CASCADE, default=None)
     fk_user = models.ForeignKey(User, related_name='productOrderClient', on_delete=models.CASCADE, default=None)
+    accepted = models.BooleanField(default=False)
     sent = models.BooleanField(default=False)
     ammount = models.IntegerField()
 

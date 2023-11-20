@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='orderiten',
-            name='sent',
+            name='accepted',
             field=models.BooleanField(default=False),
         ),
     ]

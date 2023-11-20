@@ -80,6 +80,8 @@ class homePage(View):
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
+            'nExplorar' : 'nExplorar'
+
         }
         else:
             context = {
@@ -89,6 +91,7 @@ class homePage(View):
             'prevPage' : pag['prevPage'],
             'pages': pag['pages'],
             'petName' : search,
+            'nExplorar' : 'nExplorar'
         }
             
         return render(request, 'adocao/animais.html', context)
@@ -336,7 +339,8 @@ class petsPerdidos(View):
                 'prevPage' : pag['prevPage'],
                 'pages': pag['pages'],
                 'petName' : search,
-                'type': 'Perdidos'
+                'type': 'Perdidos',
+                'nLost': 'nLost'
             }
         else:
             context = {
@@ -346,7 +350,8 @@ class petsPerdidos(View):
                 'prevPage' : pag['prevPage'],
                 'pages': pag['pages'],
                 'petName' : search,
-                'type': 'Perdidos'
+                'type': 'Perdidos',
+                'nLost': 'nLost'
             }
         
         return render(request, 'perdidos/petsPerdidos.html', context)
@@ -380,17 +385,20 @@ class adotarPet(View):
     
 class favoritePet(View):
     def get(self, request, petId):
-        pet = Pet.objects.get(id=petId)
-        donee = request.user
-        mensage = "O usuário " + donee.username + " está interessado no seu Pet " + pet.name
-        testePet = Favorites.objects.filter(fk_pet=pet, fk_donee=donee)
-        
-        if len(testePet) == 0:
-            Notification.objects.create(fk_pet=pet, fk_donee=donee, fk_donor=pet.fk_user, mensage=mensage)
-            Favorites.objects.create(fk_pet=pet, fk_donee=donee)
+        if request.user.is_authenticated:
+            pet = Pet.objects.get(id=petId)
+            donee = request.user
+            mensage = "O usuário " + donee.username + " está interessado no seu Pet " + pet.name
+            testePet = Favorites.objects.filter(fk_pet=pet, fk_donee=donee)
+            
+            if len(testePet) == 0:
+                Notification.objects.create(fk_pet=pet, fk_donee=donee, fk_donor=pet.fk_user, mensage=mensage)
+                Favorites.objects.create(fk_pet=pet, fk_donee=donee)
+            else:
+                testePet[0].delete()
+            return redirect('/home/')
         else:
-            testePet[0].delete()
-        return redirect('/home/')
+            return redirect('login')
     
 
 class MarcarAdotado(View):
@@ -545,7 +553,10 @@ def processos(request):
 
         return redirect("chat", pk=room.id)
 
-    context = {'info':getDefaultUser(request.user), 'petsEmAdocao':petsEmAdocao, 'petsSolicitados':petsSolicitados, 'petsAdotados':petsAdotados}
+    context = {
+        'info':getDefaultUser(request.user), 'petsEmAdocao':petsEmAdocao, 'petsSolicitados':petsSolicitados, 'petsAdotados':petsAdotados,
+        'nProcessos' : 'nProcessos'
+        }
 
     return render(request, 'processos/processos.html', context)
 

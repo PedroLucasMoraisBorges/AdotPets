@@ -7,19 +7,21 @@
         <div class="nav-container">
             <nav class="nav-options">
                 {% if info.company %}
-                    <a href="{% url 'homeCompany' %}">Meus Pets</a> 
-                    <a href="{% url 'verLoja'%}">Produtos</a>
-                    <a href="">Serviços</a>
-                    <a href="{% url 'pedidosEmpresa' %}">Pedidos</a>
+                    <a class="{{nHomeComp}}" href="{% url 'homeCompany'%}">Home</a>
+                    <a class="{{nProdutos}}" href="{% url 'verLoja'%}">Produtos</a>
+                    <a class="{{nServs}}" href="">Serviços</a>
+                    <a class="{{nPedidos}}" href="{% url 'pedidosEmpresa' %}">Pedidos</a>
                 {% else %}
-                    <a href="{% url 'home' %}">Explorar</a>
-                    <a href="{% url 'produtos' %}">Loja</a>
-                    <a href="{% url 'petsPerdidos' %}">Animais perdidos</a>
+                    <a class="{{nExplorar}}" href="{% url 'home' %}">Explorar</a>
+                    <a class="{{nLoja}}" href="{% url 'produtos' %}">Loja</a>
+                    <a class="{{nLost}}" href="{% url 'petsPerdidos' %}">Animais perdidos</a>
                     {% if info.user %}
+
                         <a href="{% url 'pedidos' %}">Meus pedidos</a>
                         <a href="{% url 'processos' %}">Processos</a>
                         <a href="{% url 'chatsPage' %}">Chats</a>
                         <a href="{% url 'shoppingCart' %}" class="cart">
+
                             <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
                         </a>
                     {% endif %}

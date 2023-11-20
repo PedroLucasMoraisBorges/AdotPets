@@ -1,17 +1,40 @@
-<form action="" method="post"> enctype="multipart/form-data"
-    {% csrf_token %}
+{% load static %}
 
-    {{profileImageForm}}
-    
-    {% for field in companyForm %}
-        <label>{{ field.label_tag }}</label>
-        <p>{{ field }}</p>
-    {% endfor %}
 
-    {% for field in addressForm %}
-        <label>{{ field.label_tag }}</label>
-        <p>{{ field }}</p>
-    {% endfor %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/Cadastro-company.css' %}">
+{% endblock head %}
 
-    <button type="submit">Cadastrar</button>
-</form>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <h1> Formulário de cadastro empresa </h1>
+                <div class="form-conteudo">
+                    {% for field in companyForm %}
+                    <div class="form-company">
+                        <label>{{ field.label_tag }}</label>
+                        <p>{{ field }}</p>
+                    </div>
+                    {% endfor %}
+                    {% for field in addressForm %}
+                    <div class="form-address">
+                        <label>{{ field.label_tag }}</label>
+                        <p>{{ field }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button type="submit">Cadastrar empresa</button>
+            </div>
+        </form>
+    </div>
+    <div class="form-img">
+        <img src="/static/imgs/unsplash_bGumsbeRD0s.jpg" alt="">
+        <div class="submit-img">
+            {{profileImageForm}}
+        </div>
+    </div>
+</div>
+{% endblock content %}

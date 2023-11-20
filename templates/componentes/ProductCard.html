@@ -129,7 +129,7 @@
         {% if info.company %}
             <a href="">Editar Produto</a>
         {% else %}
-            <a href="" class="carrinho">Adiciona ao Carrinho</a>
+            <a href="{% url 'adicionarCarrinho' item.product.id %}" class="carrinho">Adiciona ao Carrinho</a>
         {% endif %}
     </div>
 </article>

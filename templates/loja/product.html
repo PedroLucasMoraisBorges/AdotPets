@@ -21,7 +21,7 @@
             </article>
             <article class="values">
                 <p class="fullValue"><strong>R$<span>{{produto.value}}</span></strong></p>
-                <p class="divided">ou <span class="divisor">5</span>x de R$<span class="divValue">96,00</span></p>
+                <p class="divided">ou <span class="divisor">{{produto.divided}}</span>x de R$<span class="divValue">96,00</span></p>
             </article>
             <form method="post">
                 {%csrf_token%}
@@ -38,6 +38,10 @@
     var result = fullValue / divisor
     var divided = document.querySelector('.divValue')
     divided.textContent = result.toFixed(2)
+
+    if(divisor == 0){
+        divided = document.querySelector('.divided').textContent = "Não divide"
+    }
 
 
 
