@@ -16,3 +16,10 @@ class Message(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    message_status = [
+        ('UNREAD', 'unread'),
+        ('READ', 'read')
+    ]
+
+    status = models.CharField(max_length=10, choices=message_status, default="UNREAD")
+
