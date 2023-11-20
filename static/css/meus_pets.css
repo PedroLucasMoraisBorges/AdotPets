@@ -292,6 +292,22 @@ label{
     transform: translateX(0);
 }
 
+.button-add-pet{
+    color: white;
+    background-color: var(--greenPrincipal);
+    padding: 8px 8px;
+    margin-left: 2rem;
+    border-radius: 15px;
+    transition: 0.2s;
+    cursor: pointer;    
+}
+
+.button-add-pet:hover{
+    color: white;
+    background-color: var(--greenSecondary);
+}
+
 .hidden{
     display: none;
 }
+
