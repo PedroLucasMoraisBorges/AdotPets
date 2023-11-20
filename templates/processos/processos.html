@@ -35,7 +35,7 @@
     <h1>Processos</h1>
     <h2>Pets anunciados sem solicitação</h2>
     {% if petsEmAdocao == "Empty" %}
-        <img src="{% static 'imgs/naoexistem.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
     {% else %}
     <article class="my-pets">
         {% for pet in petsEmAdocao %}
@@ -46,7 +46,7 @@
 
     <h2>Pets com solicitação de adoção</h2>
     {% if petsSolicitados == "Empty" %}
-        <img src="{% static 'imgs/naoexistem.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
     {% else %}
     <article class="my-pets">
         {% for pet in petsSolicitados %}
@@ -58,7 +58,7 @@
 
     <h2>Pets adotados</h2>
     {% if petsAdotados == "Empty" %}
-        <img src="{% static 'imgs/naoexistem.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
     {% else %}
         <article class="my-pets">
             {% for pet in petsAdotados %}
