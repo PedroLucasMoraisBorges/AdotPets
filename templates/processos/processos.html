@@ -20,7 +20,6 @@
 {% endif %}
 
 
-<h1>Processos</h1>
 
 {% for pet in petsEmAdocao%}
     {% include 'componentes/petModal.html' %}
@@ -33,6 +32,7 @@
 {% endfor %}
 
 <main class="pets-section">
+    <h1>Processos</h1>
     <h2>Pets anunciados sem solicitação</h2>
     {% if petsEmAdocao == "Empty" %}
         <img src="{% static 'imgs/naoexistem.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
