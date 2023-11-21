@@ -61,9 +61,9 @@
             {% if order.0.quantidade %}
                 {% if order|length < order.0.quantidade %}
                     <a class="buy" href="{% url 'pedidosEmpresa' %}">Confirme mais</a>
-                    <a href="contat" class="contat">Imprimir cupom</a>
+                    <a href="{% url 'confirmarEnvio' order.0.order.id %}" class="contat">Imprimir cupom</a>
                 {% else %}
-                    <a class="buy" href="">Imprimir cupom</a>
+                    <a class="buy" href="{% url 'confirmarEnvio' order.0.order.id %}">Imprimir cupom</a>
                 {% endif %}
             {% else %}
                 <a class="buy" href="{% url 'aceitarTodosPedidos' order.0.order.id %}">Confirmar tudo</a>

@@ -8,6 +8,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from pages.utilits import *
 from django.views import View
+import datetime
+from django.db.models.functions import TruncDate
 
 
 class Loja(View):
@@ -52,7 +54,15 @@ class VerProduto(View):
         if request.user.is_authenticated:
             product = Product.objects.get(id = id)
             quantity = request.POST.get('quantity')
-            ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=quantity)
+
+            productCart = ShoppingCart.objects.filter(fk_product=product, fk_user=request.user).first()
+
+
+            if productCart:
+                productCart.ammount += int(quantity)
+                productCart.save()
+            else:
+                ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=quantity)
             return redirect('produtos')
         else:
             return redirect('login')
@@ -158,7 +168,13 @@ class InsertProduct(View):
 def adcCartInstant(request, id):
     if request.user.is_authenticated:
         product = Product.objects.get(id=id)
-        ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=1)
+        productCart = ShoppingCart.objects.filter(fk_product=product, fk_user=request.user).first()
+        if productCart:
+            productCart.ammount += 1
+            productCart.save()
+        else:
+            ShoppingCart.objects.create(fk_product=product, fk_user=request.user, ammount=1)
+
 
         return redirect('shoppingCart')
     else:
@@ -288,10 +304,12 @@ class PedidosEmpresa(View):
 class PedidosAceitosEmpresa(View):
     def get(self, request):
         company = Company.objects.get(fk_user = request.user)
-        orders = OrderIten.objects.filter(fk_product__fk_company = company)
+        orders = OrderIten.objects.filter(fk_product__fk_company = company, sent=False)
 
         clientes = []
         productsOrders = []
+
+
         
         for order in orders:
 
@@ -361,3 +379,65 @@ def cancelarTodosPedidos(request, id):
     
     return redirect('pedidosEmpresa')
 
+def ConfirmarEnvio(request, id):
+    order = OrderIten.objects.get(id=id)
+
+    orders = OrderIten.objects.filter(fk_user=order.fk_user, fk_product__fk_company__fk_user = request.user, accepted = True, sent = False)
+
+    print(orders)
+    date = datetime.datetime.now()
+
+    for item in orders:
+        item.sent = True
+        item.dt_sent = date
+        item.save()
+    
+    return redirect('verCupom', id)
+
+
+
+class Cupons(View):
+    def get(self, request):
+        cupons = []
+        pedidos = OrderIten.objects.filter(sent = True, fk_product__fk_company__fk_user = request.user).order_by('-dt_sent', 'fk_user')
+
+        totalValue = 0
+        for item in pedidos:
+            dt_sent = item.dt_sent
+            cupomList = []
+            for item2 in pedidos:
+                if item2.dt_sent == dt_sent:
+                    if item2 not in cupomList:
+                        infoCupom = {
+                            'pedido' : item2,
+                            'client' : DefaultUser.objects.get(fk_user = item2.fk_user)
+                        }
+                        cupomList.append(infoCupom)
+            if cupomList not in cupons:
+                cupons.append(cupomList)
+
+        context = {
+            'info' : getCompany(request.user),
+            'cupons' : cupons
+        }
+
+        return render(request, 'loja/cupons.html', context)
+
+class VerCupom(View):
+    def get(self, request, id):
+        pedido = OrderIten.objects.get(id=id)
+        # address = OrderAddress.objects.get(id = pedido.fk_address.id)
+        pedidos = OrderIten.objects.filter(sent = True, fk_product__fk_company__fk_user = request.user, fk_user = pedido.fk_user, dt_sent = pedido.dt_sent)
+        totalValue = 0
+
+        for item in pedidos:
+            totalValue += item.fk_product.value
+
+        context = {
+            'info' : getCompany(request.user),
+            'pedidos' : pedidos,
+            'address' : pedido.fk_address,
+            'client' : DefaultUser.objects.get(fk_user = pedido.fk_user),
+            'totalValue' : totalValue
+        }
+        return render(request, 'loja/verCupom.html', context)

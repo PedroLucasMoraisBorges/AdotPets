@@ -37,4 +37,5 @@ class OrderIten(models.Model):
     accepted = models.BooleanField(default=False)
     sent = models.BooleanField(default=False)
     ammount = models.IntegerField()
+    dt_sent = models.DateTimeField(default=None, null=True, blank=True)
 

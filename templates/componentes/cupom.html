@@ -1,0 +1,51 @@
+{% load static %}
+<article class="cupom" id="{{cupom.0.pedido.id}}">
+    <div class="header">
+        <img src="{% static 'imgs/icon-home-page.svg' %}" alt="">
+        <p>Comprovante de Pedido AdotePet</p>
+    </div>
+
+    <div class="main">
+        <div class="dt">
+            <p>-   Via site AdotePet   -</p>
+        </div>
+        
+        <div class="infoPessoal">
+            <p class="emp">
+                Empresa: {{info.company.social_name}} - {{info.company.cnpj}}
+            </p>
+            <p class="client">
+                Cliente: {{cupom.0.pedido.fk_user}} - {{cupom.0.client.telephone}}
+            </p>
+        </div>
+
+        <div class="address">
+            <p><strong>Detalhes da entrega:</strong> {{cupom.0.pedido.fk_address.city}}, {{cupom.0.pedido.fk_address.road}}, {{cupom.0.pedido.fk_address.number}}</p>
+            <p><strong>Complemento:</strong> {{address.complement}}</p>
+        </div>
+
+        <div class="values">
+            <div class="descriptions">
+                <p><strong>Área de detalhe da venda:</strong></p>
+                <p>Total</p>
+            </div>
+
+            {% for item in cupom %}
+                <div class="itens {{cupom.0.pedido.id}}" idOrder="{{cupom.0.pedido.id}}">
+                    <p><strong class="quant">{{item.pedido.ammount}} unidade(s):</strong> {{item.pedido.fk_product.name}}</p>
+                    <p><strong class="value">{{item.pedido.fk_product.value}}</strong></p>
+                </div>
+            {% endfor %}
+
+            <div class="total">
+                <p><strong>Total do pedido:</strong></p>
+                <p class="valorTot"><strong class="value" id="value{{cupom.0.pedido.id}}" ></strong></p>
+            </div>
+
+        </div>
+
+        <div class="buttons" >
+            <button buttonId="{{cupom.0.pedido.id}}">Imprimir</button>
+        </div>
+    </div>
+</article>

@@ -18,6 +18,11 @@ urlpatterns = [
     path('pedidos/aceitarTodos/<int:id>', views.aceitarTodosPedidos, name='aceitarTodosPedidos'),
     path('pedidos/cancelarPedido/<int:id>', views.cancelarPedido, name='cancelarPedido'),
     path('pedidos/cancelarTodosPedidos/<int:id>', views.cancelarTodosPedidos, name='cancelarTodosPedidos'),
-    path('produtos/adicionarCarrinho/<int:id>', views.adcCartInstant, name='adicionarCarrinho')
+    path('produtos/adicionarCarrinho/<int:id>', views.adcCartInstant, name='adicionarCarrinho'),
+    path('pedidos/confirmarEnvio/<int:id>', views.ConfirmarEnvio, name='confirmarEnvio'),
+    path('pedidos/cupom/<int:id>', views.VerCupom.as_view(), name='verCupom'),
+    path('pedidos/cupons', views.Cupons.as_view(), name='cupons'),
+
+
 
 ]
