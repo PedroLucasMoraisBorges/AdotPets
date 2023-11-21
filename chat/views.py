@@ -28,7 +28,7 @@ def chatRoom(request, pk):
 
     receiverImg = ProfileImage.objects.filter(fk_user=currentChatUser).first()
 
-    context = {"room_details":room_details, 'username':username, 'currentChatUser':currentChatUser, 'room_id':room_id, "info":getDefaultUser(request.user), "receiverImg":receiverImg}
+    context = {"room_details":room_details, 'username':username, 'currentChatUser':currentChatUser, 'room_id':room_id, "info":getDefaultUser(request.user), "receiverImg":receiverImg, 'nChat' : 'nChat'}
     return render(request, "chat/room.html", context)
 
 def Send(request):
@@ -85,13 +85,13 @@ def chatsPage(request):
                     'lastMessageDate': lastMessageDate,
                     'roomDate': roomDate,
                     'unreadMessages': unreadMessages,
-                    'receiverImg': ProfileImage.objects.filter(fk_user=receiver).first()
+                    'receiverImg': ProfileImage.objects.filter(fk_user=receiver).first(),
                 }
             )
 
             print(rooms[0]['receiverImg'].img.url)
     
 
-    context = {"info":getDefaultUser(request.user), 'hasChats':hasChats, 'rooms':rooms}
+    context = {"info":getDefaultUser(request.user), 'hasChats':hasChats, 'rooms':rooms, 'nChat' : 'nChat'}
     
     return render(request, "chat/chats.html", context);

@@ -32,8 +32,8 @@
 
     <div class="footer">
         <div class="obs">
-            {% if order.accepted == True  %}
-                <p>Os pedidos entregues saem com um dia de duração</p>
+            {% if item.order.accepted == True  %}
+                <p>O seu pedido foi aceito, aguarde um momento para o envio</p>
             {% else %}
                 <p>O seu pedido etá sendo avaliado pela empresa, aguarde, é rápido</p>
             {% endif %}
