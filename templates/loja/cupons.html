@@ -1,0 +1,183 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+  <style>
+
+    .cupom{
+        width: 550px;
+        margin: auto;
+    }
+
+
+    .header, .main{
+        border: 1px solid black;
+        padding: 2rem;
+    }
+
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 10px 10px 0px 0px;
+        border-bottom: 0;
+    }
+
+    .main{
+        border-radius: 0px 0px 10px 10px;
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        line-height: 1.5rem;
+        align-items: center;
+    }
+
+    .dt{
+        margin: auto;
+        padding: .4rem;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.504);
+        text-align: center;
+        margin-bottom: 1.1rem;
+        width: 100%;
+    }
+
+    .infoPessoal{
+        margin-bottom: 1rem;
+        padding: 0.4rem 0rem 0.4rem 0rem;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        width: 100%;
+    }
+
+    .address{
+        background-color: #A5EBC8;
+        padding: .4rem;
+        margin-bottom: 1rem;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        width: 100%;
+    }
+
+    .descriptions{
+        background-color: #A5EBC8;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: .4rem;
+        border-top: 1px solid black;
+    }
+
+    .values{
+        width: 100%;
+    }
+
+    .itens{
+        display: flex;
+        justify-content: space-between;
+        padding: .6rem .4rem;
+    }
+
+    .total{
+        display: flex;
+        justify-content: space-between;
+        padding: .4rem;
+        background-color: #A5EBC8;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid black;
+    }
+
+    .buttons{
+        width: 100%;
+    }
+    button{
+        width: 100%;
+        padding: 1rem;
+        border: 0;
+        background-color: #A5EBC8;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: .2s;
+    }
+
+    button:hover{
+        filter: brightness(.9);
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+    <div class="h1Title">
+        <h1 class="pedidos">Pedidos</h1>
+        <a href="{% url 'pedidosEmpresa' %}">Aguardando Avaliação</a>
+        <a href="{% url 'pedidosAceitos' %}">Pedidos Aceitos</a>
+        <a href="{% url 'cupons' %}" class="linkTop">Cupons</a>
+      </div>
+
+
+  <section>
+    {% for cupom in cupons %}
+        {% include '../componentes/cupom.html' %}
+    {% endfor %}
+  </section>
+</main>
+
+<script>
+    var buttons = document.querySelectorAll('.buttons button')
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function(event){
+            var id = event.target.getAttribute('buttonId')
+            var cupom = document.getElementById(id).innerHTML
+
+            estilo = document.querySelector('style').innerHTML;
+
+            
+            const win = window.open('', '', 'height=700,width=700');
+
+            win.document.write('<html><head>')
+            win.document.write('<title>CFB Cursos</title><style>')
+            win.document.write(estilo)
+            win.document.write('.buttons{display : none;}')
+            win.document.write('</style></head>')
+            win.document.write('<body>')
+            win.document.write(cupom)
+            win.document.write('</body></html>')
+
+            win.print()
+        })
+    })
+</script>
+
+
+<script>
+    var itens = document.querySelectorAll('.itens')
+    var id = 'teste'
+    var valor = 0
+
+    itens.forEach(item => {
+        var value = item.querySelector('.value')
+        var quant = item.querySelector('.quant')
+        var valuesTotal = []
+        var quantsTotal = []
+
+        if(item.classList.contains(id) == false){
+            valor = 0
+            id = item.getAttribute('idOrder')
+        }
+
+        valor += parseFloat(value.textContent) * parseInt(quant.textContent)
+
+
+        idComp = 'value'+id
+        var divTotal = document.getElementById(idComp)
+        divTotal.textContent = valor.toFixed(2)
+    })
+</script>
+
+{% endblock %}

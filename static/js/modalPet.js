@@ -124,3 +124,67 @@
             iterator = 0
         }
     }
+
+    // Contact options for lost pets
+    
+    let contactButtons = document.querySelectorAll(".contact-button")
+    contactButtons.forEach(button => {
+        button.addEventListener("click", toggleContactDiv)
+    })
+
+    function toggleContactDiv(e){
+        button = e.target
+        id = button.getAttribute('id').replace("contactButton-", "")
+        referenceForContactDiv = "#contactDiv-" + id
+        div = document.querySelector(referenceForContactDiv)
+        div.classList.toggle("visible");
+    }
+    
+    let requestText = document.querySelector('#requestTextContainer')
+    let request = document.querySelector('#requestText')
+    let exitRequestTextButton = document.querySelector("#exitRequestText")
+    requestText.addEventListener('click', modalClose)
+    exitRequestTextButton.addEventListener('click', hideRequestText)
+
+    function hideRequestText(){
+        requestText.classList.add('hidden')
+        request.value = ""
+    }
+
+    function modalClose(e){
+        target = e.target
+        id = target.getAttribute('id')
+        if(id == 'requestTextContainer'){
+            hideRequestText()
+        }
+    }
+
+    function toggleRequestText(e){
+        petId = e.target.getAttribute('petId')
+        document.querySelector("#requestIdPet").setAttribute('value', petId)
+
+        userId = e.target.getAttribute('userId')
+        document.querySelector("#requestIdUser").setAttribute('value', userId)
+    
+        requestText.classList.toggle('hidden')
+    }
+
+    let adoptButtons = document.querySelectorAll('.adopt-button')
+    adoptButtons.forEach(button => {
+        button.addEventListener("click", toggleRequestText)
+    })
+
+    /* Fazendo animação de processo de ações (PROCESSANDO...) */
+
+    let sendRequestText = document.querySelector("#sendRequestText")
+    let requestForm = document.querySelector(".request-text-around")
+    let processingContainer = document.querySelector(".processing-container")
+
+    sendRequestText.addEventListener("click", processingAnimation)
+
+    function processingAnimation(){
+        requestForm.classList.add("hidden")
+        processingContainer.classList.remove("hidden")
+    }
+
+    /* Final dessa seção */

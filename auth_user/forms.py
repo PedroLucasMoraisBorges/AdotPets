@@ -47,7 +47,7 @@ class DefaultUserForm(forms.ModelForm):
 
 class ProfileImageForm(forms.ModelForm):
     img = forms.ImageField(
-        label='Imagem de perfil',
+        label='',
         widget= FileInput(attrs={'accept':'.jpg, .png','class':'none'}),
         help_text='Tipos de documentos aceitos: .jpg, .png',
         required=False
@@ -60,12 +60,12 @@ class ProfileImageForm(forms.ModelForm):
 
 class AddressForm(forms.ModelForm):
     cep = forms.IntegerField(
-        label = 'Cep',
-        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000000'})
+        label = 'CEP',
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00000-000'})
     )
     city = forms.CharField(
-        label= 'city',
-        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'city'})
+        label= 'Cidade',
+        widget = forms.TextInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Digite o nome da sua cidade'})
     )
     road = forms.CharField(
         label= 'Rua',
@@ -73,7 +73,7 @@ class AddressForm(forms.ModelForm):
     )
     number = forms.IntegerField(
         label='Número',
-        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '1000'})
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '0000'})
     )
 
     class Meta:
@@ -91,8 +91,8 @@ class CompanyForm(forms.ModelForm):
         widget = forms.TextInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': 'Nome Fantasia'})
     )
     cnpj = forms.IntegerField(
-        label='Cnpj',
-        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '0000000000000'})
+        label='CNPJ',
+        widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00.000.000/0000-00'})
     )
     class Meta:
         model = Company

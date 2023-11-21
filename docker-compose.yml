@@ -1,12 +1,85 @@
 version: '3.8'
+
+networks:
+  proxy:
+    driver: bridge
+  mynetwork:
+    
+volumes:
+  mysqldata_master:
+  mysqldata_slave:
+
 services:
-  app:
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    networks:
+      - proxy
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+
+  app-1:
     build: .
     volumes:
       - .:/django
 
+    networks:
+      - proxy
     ports:
       - 8000:8000
+
     image: app:PI-SB-ANIMAIS
-    container_name: pi-animais
+    container_name: pi-animais-1
     command: python manage.py runserver 0.0.0.0:8000
+
+  app-2:
+    build: .
+    volumes:
+      - .:/django
+
+    networks:
+      - proxy
+    ports:
+      - 9000:9000
+
+    image: app:PI-SB-ANIMAIS
+    container_name: pi-animais-2
+    command: python manage.py runserver 0.0.0.0:9000
+
+  database_master:
+    image: mysql:8.0.30
+    container_name: "database_master"
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqldata_master:/var/lib/mysql
+      - ./master.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD= root
+      - MYSQL_USER= my_db_user
+      - MYSQL_DATABASE= my_db
+      - MYSQL_PASSWORD= S3cret
+    networks:
+      - mynetwork
+
+  database_slave:
+    image: mysql:8.0.30
+    container_name: "database_slave"
+    restart: unless-stopped
+    depends_on:
+      - database_master
+    ports:
+      - 3307:3306
+    volumes:
+      - mysqldata_slave:/var/lib/mysql
+      - ./slave.cnf:/etc/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD= root
+      - MYSQL_USER= my_db_user
+      - MYSQL_DATABASE= my_db
+      - MYSQL_PASSWORD= S3cret
+    networks:
+      - mynetwork

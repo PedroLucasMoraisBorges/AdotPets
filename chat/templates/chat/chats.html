@@ -1,0 +1,48 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/chatsPage.css' %}">
+{% endblock  %}
+
+{% block content %}
+    <main class="chats-section">
+        <h1>Chats Ativos</h1>
+        {% if hasChats == False %}
+            Não tem chat chapa
+        {% else %}
+
+            {% for room in rooms %}
+                <div class="room-div">
+                    <div class="room-div-top">
+                        <div class="receiver-show">
+                            <div class="receiver-photo">
+                                <img src="{{room.receiverImg.img.url}}" alt="imagem do perfil" class="receiver-img">
+                            </div>
+                            <span class="receiver-name">{{room.receiver}}</span>
+                        </div>
+                        <div class="unread-messages">
+                            {% if room.unreadMessages != 0 %}
+                                {{room.unreadMessages}}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="room-div-middle">
+                        <div class="room-last-message">
+                            <span class="message-content">{{room.lastMessage.fk_sender}} diz: {{room.lastMessage.content}}</span>
+                            <span class="message-time">{{room.lastMessageDate}}</span>
+                        </div>  
+                    </div>
+                    <div class="room-div-bottom">
+                        <span>Data de inicio: {{room.roomDate}}</span>
+                        <div class="room-option-buttons">
+                            <a href="{% url 'chat' room.details.id %}" class="room-option-button open">Abrir</a>
+                            <button class="room-option-button close">Deletar</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% endif %}
+    </main>
+{% endblock content %}

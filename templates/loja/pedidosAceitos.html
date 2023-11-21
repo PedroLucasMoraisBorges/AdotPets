@@ -1,0 +1,26 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/pedidos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<main>
+    <div class="h1Title">
+        <h1 class="pedidos">Pedidos</h1>
+        <a href="{% url 'pedidosEmpresa' %}">Aguardando Avaliação</a>
+        <a href="{% url 'pedidosAceitos' %}" class="linkTop">Pedidos Aceitos</a>
+        <a href="{% url 'cupons' %}">Cupons</a>
+      </div>
+
+  <section>
+    {% for order in orders %}
+        {% include '../componentes/pedidoEmpresaCard.html' %}
+    {% endfor %}
+  </section>
+</main>
+
+{% endblock %}

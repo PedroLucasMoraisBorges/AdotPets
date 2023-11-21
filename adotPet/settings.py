@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure---hea#veb8496htv)x1mo0s1nn!x$2d=lbgo3z=(96#40e9j7r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['adotpet']
+CSRF_TRUSTED_ORIGINS = ['http://localhost','http://127.0.0.1']
 
 # Application definition
 
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_user',
     'pages',
-
+    'chat',
+    'store',
     'PIL'
 ]
 

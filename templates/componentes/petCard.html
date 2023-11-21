@@ -1,7 +1,7 @@
 <style>
     .pet-card{
         position: relative;
-        border-radius: 20px;
+        border-radius: 10px;
         overflow: hidden;
         margin-bottom: 3rem;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.129);
@@ -53,7 +53,7 @@
 
     .heart {
         margin: 0px;
-        background-color: red;
+        background-color: #FF9292;
         height: 20px;
         transform: rotate(-45deg);
         width: 20px;
@@ -63,7 +63,7 @@
     .heart:before,
     .heart:after {
         content: "";
-        background-color: red;
+        background-color: #FF9292;
         border-radius: 50%;
         height: 20px;
         position: absolute;
@@ -77,6 +77,14 @@
     .heart:after {
         left: 10px;
     }
+
+    .false{
+        background-color: #D6D6D6;
+    }
+
+    .false:before, .false::after{
+        background-color: #D6D6D6;
+    }
 </style>
 
 <!-- Você que tá usando esse componente, pelo amor de Deus, configura o tamanho dele, no momento o width dele pega a página toda, não seta aqui, seta no css da página que você tá desenvolvendo -->
@@ -88,8 +96,12 @@
         <p><strong>{{pet.pet.name}}</strong></p>
         <div class="CardButtons">
             <button>Conferir</button>
-            {% if type == 'Adoção' %}
-                <div class="heart"></div>
+            {% if pet.type == 'adot' %}
+                {% if pet.favoritePet == True %}
+                    <div class="heart"></div>
+                {% else %}
+                    <div class="heart false"></div>
+                {% endif %}
             {% endif %}
         </div>
     </div>

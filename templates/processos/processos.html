@@ -1,0 +1,100 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- {% for pet in pets%}
+    {% include 'componentes/petModal.html' %}
+{% endfor %} -->
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="message">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+
+
+
+{% for pet in petsEmAdocao%}
+    {% include 'componentes/petModal.html' %}
+{% endfor %}
+{% for pet in petsSolicitados %}
+    {% include 'componentes/petModal.html' %}
+{% endfor %}
+{% for pet in petsAdotados%}
+    {% include 'componentes/petModal.html' %}
+{% endfor %}
+
+<main class="pets-section">
+    <h1>Processos</h1>
+    <h2>Pets anunciados sem solicitação</h2>
+    {% if petsEmAdocao == "Empty" %}
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+    {% else %}
+    <article class="my-pets">
+        {% for pet in petsEmAdocao %}
+            {% include 'componentes/petCard.html' %}
+        {% endfor %}
+    </article>
+    {% endif %}
+
+    <h2>Pets com solicitação de adoção</h2>
+    {% if petsSolicitados == "Empty" %}
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+    {% else %}
+    <article class="my-pets">
+        {% for pet in petsSolicitados %}
+            {% include 'componentes/petCard.html' %}
+        {% endfor %}
+
+    </article>
+    {% endif %}
+
+    <h2>Pets adotados</h2>
+    {% if petsAdotados == "Empty" %}
+        <img src="{% static 'imgs/sempets.jpg' %}" alt="Imagem que indica que pets não existem" class="not-found-image">
+    {% else %}
+        <article class="my-pets">
+            {% for pet in petsAdotados %}
+                {% include 'componentes/petCard.html' %}
+            {% endfor %}
+        </article>
+    {% endif %}
+
+</main>
+
+
+<script src="{% static 'js/modalPet.js' %}"></script>
+<script src="{% static 'js/requestModal.js' %}"></script>
+<script src="{% static 'js/messages.js' %}"></script>
+
+{% endblock %}
+
+<!-- 
+<h1>Processos</h1>
+
+<h2>Adoção</h2>
+<h3>Adoção em aberto</h3>
+{% for pet in petsEmAdocao %}
+    <li>{{pet.id}} - {{pet.name}}</li>
+{% endfor %}
+
+<h3>Solicitados para adoção</h3>
+{% for pet in petsSolicitados %}
+    <li>{{pet.id}} - {{pet.name}}</li>
+{% endfor %}
+<h3>Adotados</h3>
+{% for pet in petsAdotados %}
+    <li>{{pet.id}} - {{pet.name}}</li>
+{% endfor %}
+
+<h2>Perdidos</h2>
+<h3>Atualmente perdidos</h3>
+<h3>Encontrados</h3> -->
+

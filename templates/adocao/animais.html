@@ -3,7 +3,7 @@
 
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meus_pets.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -12,15 +12,41 @@
     {% include 'componentes/petModal.html' %}
 {% endfor %}
 
-{% include '../componentes/nav.html' %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="message">
+        {{message}}
+    </div>
+    {% endfor %}
+{% endif %}
+
+<div id="requestTextContainer" class="request-text hidden">
+    
+    <div class="request-text-around">
+        <h3>Por que você deseja adotar esse pet?</h3>
+        <form action="" method="POST" class="requestForm">
+            {% csrf_token %}
+            <input type="text" class="hidden" name="id_pet" id="requestIdPet">
+            <input type="text" class="hidden" name="id_user" id="requestIdUser">
+            <textarea id="requestText" rows="7" name="requestText"></textarea>
+            <div class="request-text-buttons">
+                <button name="sendRequestButton" id="sendRequestText">Enviar Solicitação</button>
+                <button id="exitRequestText" type="button">Cancelar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="request-text-around hidden processing-container">
+        <img src="{% static 'imgs/load-icon.svg' %}" alt="load icon" class="load-icon">
+        <h3>Enviando Solicitação!</h3>
+    </div>
+
+</div>
 
 <main class="pets-section">
     <h1>Adoção</h1>
 
-    <form action="" class="search-pet-form">
-        <input type="text" name="Search" placeholder="Digite o nome do Pet">
-        <button>Search</button>
-    </form>
+    {% include '../componentes/search.html' %}
 
     <article class="my-pets">
         {% for pet in pets %}
@@ -40,8 +66,7 @@
     </div>
 </section>
 
-{% include '../componentes/footer.html' %}
-
 <script src="{% static 'js/modalPet.js' %}"></script>
+<script src="{% static 'js/messages.js' %}"></script>
 
 {% endblock %}

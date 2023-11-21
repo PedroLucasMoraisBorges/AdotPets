@@ -6,22 +6,27 @@
     <div class="object">
         <div class="nav-container">
             <nav class="nav-options">
-                <a href="{% url 'home' %}">Explorar</a>
-                <a href="#">Loja</a>
-                <a href="{% url 'petsPerdidos' %}">Animais perdidos</a> 
-                {% if User %}
-                    <div class="imgPerfil">
-                        <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
+                {% if info.company %}
+                    <a class="{{nHomeComp}}" href="{% url 'homeCompany'%}">Home</a>
+                    <a class="{{nProdutos}}" href="{% url 'verLoja'%}">Produtos</a>
+                    <a class="{{nServs}}" href="">Serviços</a>
+                    <a class="{{nPedidos}}" href="{% url 'pedidosEmpresa' %}">Pedidos</a>
+                {% else %}
+                    <a class="{{nExplorar}}" href="{% url 'home' %}">Explorar</a>
+                    <a class="{{nLoja}}" href="{% url 'produtos' %}">Loja</a>
+                    <a class="{{nLost}}" href="{% url 'petsPerdidos' %}">Animais perdidos</a>
+                    {% if info.user %}
 
-                        <div class="dropDown dropPerfil none">
-                            <a href="{% url 'perfil' %}">
-                                {{User}}
-                            </a>
-                            <a href="{% url 'logout' %}">Sair</a>
-                        </div>
-                    </div>
-                    
-                    
+                        <a href="{% url 'pedidos' %}">Meus pedidos</a>
+                        <a href="{% url 'processos' %}">Processos</a>
+                        <a href="{% url 'chatsPage' %}">Chats</a>
+                        <a href="{% url 'shoppingCart' %}" class="cart">
+
+                            <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
+                        </a>
+                    {% endif %}
+                {% endif %}
+                {% if info.user %}
                     <div class="notifications">
                         <img class="buttonNot" src="{% static 'imgs/notifications.svg' %}" alt="">
 
@@ -31,7 +36,17 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <div class="imgPerfil">
+                        
+                        <img class="buttonPerfil" src="{{info.profileImage.img.url}}" alt="">
 
+                        <div class="dropDown dropPerfil none">
+                            <a href="{% url 'perfil' %}">
+                                {{info.user}}
+                            </a>
+                            <a href="{% url 'logout' %}">Sair</a>
+                        </div>
+                    </div>
                 {% else %}
                     <a href="{% url 'login' %}">Acessar Conta</a>
                 {% endif %}

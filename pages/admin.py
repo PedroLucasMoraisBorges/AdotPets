@@ -5,6 +5,5 @@ from .models import *
 admin.site.register(Pet)
 admin.site.register(ImagePet)
 admin.site.register(LostPets)
-admin.site.register(PetsFound)
 admin.site.register(Favorites)
 admin.site.register(Requests)

@@ -1,0 +1,19 @@
+
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<h1>Produto:</h1>
+<br>
+{% for p in produto %}
+<ul>
+    <li>Nome: {{ p.nome }}</li>
+    <li>Valor: {{ p.valor }}</li>    
+    <li>Descricao: {{ p.desc }}</li>
+    <li>Empresa: {{ p.empresa.nome }}</li>
+</ul>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/produto.css' %}">
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="main">
+        <section class="image">
+            <article>
+                <img src="{{productImg.img.url}}" alt="">
+            </article>
+        </section>
+        <section class="text">
+            <article class="name">
+                <h2>{{produto.name}}</h2>
+                <p><span class="desc">Ver descrição completa</span>    |    <span>{{produto.fk_company.fk_user}}</span></p>
+            </article>
+            <article class="values">
+                <p class="fullValue"><strong>R$<span>{{produto.value}}</span></strong></p>
+                <p class="divided">ou <span class="divisor">{{produto.divided}}</span>x de R$<span class="divValue">96,00</span></p>
+            </article>
+            <form method="post">
+                {%csrf_token%}
+                {% include '../componentes/inputNumber.html' %}
+                <button type="submit" class="adc">Adicionar ao carrinho</button>
+            </form>
+        </section>
+    </section>
+</main>
+
+<script>
+    var fullValue = parseFloat(document.querySelector('.fullValue strong span').textContent)
+    var divisor = parseInt(document.querySelector('.divided .divisor').textContent)
+    var result = fullValue / divisor
+    var divided = document.querySelector('.divValue')
+    divided.textContent = result.toFixed(2)
+
+    if(divisor == 0){
+        divided = document.querySelector('.divided').textContent = "Não divide"
+    }
+
+
+
+    var divInput = document.querySelectorAll('.quantity-input')
+
+    divInput.forEach(div => {
+        div.addEventListener('click', function(e){
+            if(e.target.classList.contains('quantity') == false){
+                var decreButton = e.currentTarget.querySelector('#decrement')
+                var increButton = e.currentTarget.querySelector('#increment')
+                var quantityInput = e.currentTarget.querySelector('#quantity')
+
+                var currentValue = parseInt(quantityInput.value);
+                
+                if(e.target.id == 'decrement'){
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        mudarValor()
+                    }
+                }
+                else if(e.target.id == 'increment'){
+                    quantityInput.value = currentValue + 1;
+                    mudarValor();
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

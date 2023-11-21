@@ -1,0 +1,48 @@
+{% load static %}
+
+<article>
+    <div class="header">
+        <div class="infos">
+            <p class="backGreen">Indicado</p>
+            <p>{{item.product.fk_company.fantasy_name}}</p>
+            <a href="" class="link chat">Chat</a>
+            <a href="" class="backGreen">Ver página da loja</a>
+        </div>
+
+        <div class="status">
+            {% if item.order.accepted == False %}
+                <p class="link">Avaliando</p>
+            {% else %}
+                <p class="link">Aceito</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="item">
+            <img src="{{item.productImg}}" alt="">
+            <p class="name">{{item.product.name}}</p>
+            <p class="number">{{item.order.ammount}}X</p>
+            <div class="totalOrder">
+                <strong class="title">Total do Pedido</strong>
+                <strong class="value">{{item.valueTotal}}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="obs">
+            {% if order.accepted == True  %}
+                <p>Os pedidos entregues saem com um dia de duração</p>
+            {% else %}
+                <p>O seu pedido etá sendo avaliado pela empresa, aguarde, é rápido</p>
+            {% endif %}
+        </div>
+
+
+        <div class="buttons">
+            <a class="buy" href="{% url 'verProduto' item.product.id %}">Comprar novamente</a>
+            <a class="contat" href="">Falar com vendedor</a>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,139 @@
+{% extends '../componentes/base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/produtos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<main class="pets-section">
+  <h1>Loja</h1>
+
+  {% include '../componentes/searchProduct.html' %}
+
+  <section class="services">
+    <a href="">Banho & Tosa</a>
+    <a href="">Adestramento</a>
+    <a href="">Veterinário</a>
+    <a href="">Blog AdotPet</a>
+  </section>
+
+  {% if not search %}
+  <section class="prop">
+    <img src="{% static 'imgs/prop.png' %}" alt="">
+  </section>
+
+
+  <section class="benefits">
+    <h2>Vantagens de comprar com AdotePet</h2>
+
+    <aricle class="options">
+      <div>
+        <img src="{% static 'imgs/loja/icon _clock_.svg' %}" alt="">
+        <p>Receber em Poucas Horas</p>
+      </div>
+
+      <div>
+        <img src="{% static 'imgs/loja/truck.svg' %}" alt="">
+        <p>Frete Grátis Brasil</p>
+      </div>
+
+      <div>
+        <img src="{% static 'imgs/loja/cartao.svg' %}" alt="">
+        <p>Descontos Exclusivos</p>
+      </div>
+
+      <div>
+        <img src="{% static 'imgs/loja/market.svg' %}" alt="">
+        <p>Retire e Troque na Loja</p>
+      </div>
+
+    </aricle>
+  </section>
+  {% endif %}
+
+
+  <section class="products">
+    <h2>Produtos Recomendados</h2>
+
+    <div class="productsList">
+      {% for item in productsList %}
+        {% include '../componentes/ProductCard.html' %}
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="circularLinks">
+    <h2>Confira Nossos Serviços e Produtos </h2>
+    <div>
+      <form>
+        <button type="submit" name="lojas">
+          <img src="{% static 'imgs/loja/lojasParceiras.png' %}">
+          <p>Lojas Parceiras</p>
+        </button>
+      </form>
+
+      <form>
+        <button type="submit" name="banhoTosa">
+          <img src="{% static 'imgs/loja/banhoTosa.png' %}">
+          <p>Banho & Tosa</p>
+        </button>
+      </form>
+
+      <form>
+        <button type="submit" name="promo">
+          <img src="{% static 'imgs/loja/promo.png' %}">
+          <p>Promoções</p>
+        </button>
+      </form>
+
+      <form>
+        <button type="submit">
+          <img src="{% static 'imgs/loja/LOGO.png' %}">
+          <p>AdotePet</p>
+        </button>
+      </form>
+    </div>
+  </section>
+
+
+  <section class="searchPromo">
+    <article>
+      <h2>Cadastre-se e receba nossas promoções e novidades antes de todo mundo.</h2>
+      <p>Ao se cadastrar você concorda com a nossa <span>política de privacidade.</span></p>
+    </article>
+
+    <form>
+      <input type="text" name="email" placeholder="Seu Email">
+      <select name="" id="">
+        <option value="">Seu Pet</option>
+        <option value="Gato">Gato</option>
+        <option value="Cachorro">Cachorro</option>
+        <option value="Ave">Ave</option>
+        <option value="Réptil">Réptil</option>
+      </select>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </section>
+</main>
+
+<script>
+  var cardList = document.querySelectorAll('.productCard')
+
+  cardList.forEach(card => {
+    card.addEventListener("click", function(e){
+    if(e.target.classList.contains('carrinho') == false){
+      var productCard = e.currentTarget
+      var id = productCard.getAttribute('prodID')
+      window.location.href = "http://127.0.0.1:8000/produto/"+id;
+    }
+  })
+  })
+  
+</script>
+{% endblock %}
+
+
+
