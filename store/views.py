@@ -233,7 +233,7 @@ class DeleteItemCart(View):
     
 class Pedidos(View):
     def get(self, request):
-        requests = OrderIten.objects.filter(fk_user=request.user)
+        requests = OrderIten.objects.filter(fk_user=request.user, sent = False)
         itens = []
         
         
@@ -250,7 +250,7 @@ class Pedidos(View):
         context = {
             'info' : getDefaultUser(request.user),
             'orderItens' : itens,
-            'nMeusPedidos' : 'nMeusPedidos'
+            'nPedidos' : 'nPedidos'
         }
 
         return render(request, 'loja/pedidos.html', context)       
@@ -401,7 +401,6 @@ class Cupons(View):
         cupons = []
         pedidos = OrderIten.objects.filter(sent = True, fk_product__fk_company__fk_user = request.user).order_by('-dt_sent', 'fk_user')
 
-        totalValue = 0
         for item in pedidos:
             dt_sent = item.dt_sent
             cupomList = []
@@ -418,7 +417,8 @@ class Cupons(View):
 
         context = {
             'info' : getCompany(request.user),
-            'cupons' : cupons
+            'cupons' : cupons,
+            'nPedidos' : 'nPedidos'
         }
 
         return render(request, 'loja/cupons.html', context)
@@ -438,6 +438,7 @@ class VerCupom(View):
             'pedidos' : pedidos,
             'address' : pedido.fk_address,
             'client' : DefaultUser.objects.get(fk_user = pedido.fk_user),
-            'totalValue' : totalValue
+            'totalValue' : totalValue,
+            'nPedidos' : 'nPedidos'
         }
         return render(request, 'loja/verCupom.html', context)

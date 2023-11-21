@@ -11,7 +11,7 @@
     --main-font: 'Public Sans'
 }
 
-.nProdutos, .nServs, .nPedidos, .nHomeComp, .nExplorar, .nLoja, .nLost, .nMeusPedidos, .nProcessos, .nCart{
+.nProdutos, .nServs, .nPedidos, .nHomeComp, .nExplorar, .nLoja, .nLost, .nMeusPedidos, .nProcessos, .nCart, .nChat{
     background-color: var(--greenSecondary);
     border-radius: 10px;
 }
@@ -111,6 +111,10 @@ h1{
     font-weight: bold;
 }
 
+.imgPerfil{
+    position: relative;
+}
+
 .imgPerfil img{
     width: 50px;
     height: 50px;
@@ -136,11 +140,12 @@ img:hover{
 .dropDown{
     position: absolute;
     font-size: .8rem;
-    width: 250px;
+    width: 150px;
     background-color: white;
     display: flex;
     flex-direction: column;
     z-index: 10;
+    left: 0;
 }
 
 .dropDown a:hover{

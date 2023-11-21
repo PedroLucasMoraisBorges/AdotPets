@@ -39,10 +39,12 @@
                 <strong class="value">{{item.valueTotal}}</strong>
             </div>
             
-            <div class="options">
-                <a href="{% url 'cancelarPedido' item.order.id %}"><img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt=""></a>
-                <a href="{% url 'aceitarPedido' item.order.id %}"><img src="{% static 'imgs/ok.svg' %}" alt=""></a>
-            </div>
+            {% if not order.0.quantidade %}
+                <div class="options">
+                    <a href="{% url 'cancelarPedido' item.order.id %}"><img class="fechar" onclick="fechar()" src="{% static 'imgs/x.svg' %}" alt=""></a>
+                    <a href="{% url 'aceitarPedido' item.order.id %}"><img src="{% static 'imgs/ok.svg' %}" alt=""></a>
+                </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
@@ -59,12 +61,7 @@
 
         <div class="buttons">
             {% if order.0.quantidade %}
-                {% if order|length < order.0.quantidade %}
-                    <a class="buy" href="{% url 'pedidosEmpresa' %}">Confirme mais</a>
-                    <a href="{% url 'confirmarEnvio' order.0.order.id %}" class="contat">Imprimir cupom</a>
-                {% else %}
-                    <a class="buy" href="{% url 'confirmarEnvio' order.0.order.id %}">Imprimir cupom</a>
-                {% endif %}
+                <a class="buy" href="{% url 'confirmarEnvio' order.0.order.id %}">Imprimir cupom</a>
             {% else %}
                 <a class="buy" href="{% url 'aceitarTodosPedidos' order.0.order.id %}">Confirmar tudo</a>
                 <a class="contat" href="{% url 'cancelarTodosPedidos' order.0.order.id %}">Cancelar tudo</a>
