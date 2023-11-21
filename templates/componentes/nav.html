@@ -9,7 +9,6 @@
                 {% if info.company %}
                     <a class="{{nHomeComp}}" href="{% url 'homeCompany'%}">Home</a>
                     <a class="{{nProdutos}}" href="{% url 'verLoja'%}">Produtos</a>
-                    <a class="{{nServs}}" href="">Serviços</a>
                     <a class="{{nPedidos}}" href="{% url 'pedidosEmpresa' %}">Pedidos</a>
                 {% else %}
                     <a class="{{nExplorar}}" href="{% url 'home' %}">Explorar</a>
@@ -17,9 +16,9 @@
                     <a class="{{nLost}}" href="{% url 'petsPerdidos' %}">Animais perdidos</a>
                     {% if info.user %}
 
-                        <a href="{% url 'pedidos' %}">Meus pedidos</a>
-                        <a href="{% url 'processos' %}">Processos</a>
-                        <a href="{% url 'chatsPage' %}">Chats</a>
+                        <a class="{{nPedidos}}" href="{% url 'pedidos' %}">Meus pedidos</a>
+                        <a class="{{nProcessos}}" href="{% url 'processos' %}">Processos</a>
+                        <a class="{{nChat}}" href="{% url 'chatsPage' %}">Chats</a>
                         <a href="{% url 'shoppingCart' %}" class="cart">
 
                             <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
@@ -42,7 +41,7 @@
 
                         <div class="dropDown dropPerfil none">
                             <a href="{% url 'perfil' %}">
-                                {{info.user}}
+                                Perfil
                             </a>
                             <a href="{% url 'logout' %}">Sair</a>
                         </div>
