@@ -1,3 +1,4 @@
+{% extends 'componentes/base.html' %}
 {% load static %}
 
 {% block head %}
@@ -8,8 +9,9 @@
 
 {% block content %}
     <div class="chat-room-container">
+        <a class="go-back-button" href="{% url 'chatsPage' %}"><</a>
         <div class="chat-room-div">
-            <div class="chat-top-bar">{{currentChatUser}}</div>
+            <div class="chat-top-bar"> <img class="receiver-img" src="{{receiverImg.img.url}}" alt="Imagem do destinatário">{{currentChatUser}} </div>
             <div class="chat-messages-div" actual-user = "{{request.user.id}}">
                 <!-- <div class="chat-message">
                     Mensagem top
@@ -19,10 +21,11 @@
                 </div> -->
                 {% for message in room_details %}
                     {% if message.fk_sender == request.user %}
-                    <div class="chat-message message-sended">{{message.content}}</div>
+                    <div class="chat-message message-sended">{{message.content}} <span class="message-time">{{message.created.time}}</span></div>
                     {% else %}
                     <div class="chat-message">
                         {{message.content}}
+                        <span class="message-time">{{message.created.time}}</span>
                     </div>  
                     {% endif %}
                     
@@ -61,10 +64,18 @@
                         let temp = null
                         // var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
                         if(response.messages[key].fk_sender_id == userId){
-                            temp = '<div class="chat-message message-sended">'+ response.messages[key].content +'<div>'
+                            date = new Date(response.messages[key].created)
+                            temp = '<div class="chat-message message-sended">'+ response.messages[key].content +  '<span class="message-time">'+ date.toLocaleTimeString(undefined,{
+                                hour: "2-digit",
+                                minute: '2-digit',
+                            }) +'</span>'+'<div>'
                         }
                         else{
-                            temp = '<div class="chat-message">'+ response.messages[key].content +'<div>'
+                            date = new Date(response.messages[key].created)
+                            temp = '<div class="chat-message">'+ response.messages[key].content +  '<span class="message-time">'+ date.toLocaleTimeString(undefined,{
+                                hour: "2-digit",
+                                minute: '2-digit',
+                            }) +'</span>'+'<div>'
                         }
                         $(".chat-messages-div").append(temp);
                     }

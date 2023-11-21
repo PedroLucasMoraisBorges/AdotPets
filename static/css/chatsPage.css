@@ -1,0 +1,118 @@
+:root {
+
+    --greenPrincipal: #649C80;
+    --greenSecondary: #A5EBC8;
+    --greenBackground: #EBF8F1;
+    --alternativeColor: #698778;
+
+}
+
+main{
+    padding: 5rem;
+    padding-top: 0;
+}
+
+.room-div{
+    width: 100%;
+    border: 1px solid rgba(128, 123, 123, 0.349);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.room-div-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.1rem;
+    border-bottom: 1px solid rgba(128, 123, 123, 0.349);
+
+}
+
+.receiver-show{
+    display: flex;
+    align-items: center;
+}
+
+.receiver-photo{
+    height: 45px;
+    width: 45px;
+    padding: 2px;
+    background-color: var(--greenSecondary);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.receiver-name{
+    margin-left: 1rem;
+}
+
+.unread-messages{
+    background-color: var(--greenSecondary);
+    text-align: center;
+    width: 4rem;
+    border-radius: 5px;
+}
+
+.room-div-middle{
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid rgba(128, 123, 123, 0.349);
+}
+
+.room-last-message{
+    padding: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--greenSecondary);
+}
+
+.room-div-bottom{
+    padding: 0.5rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.room-option-buttons{
+    display: flex;
+    align-items: center;
+}
+
+.room-option-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(211, 211, 211, 0.336);
+    color: black;
+    height: 40px;
+    width: 100px;
+    margin-left: 1rem;
+}
+
+.room-option-button:hover{
+    color: black;
+}
+
+.room-option-button.open{
+    background-color: var(--greenSecondary);
+    transition: 0.1s;
+}
+
+.room-option-button.open:hover{
+    background-color: var(--greenPrincipal);
+    color: white;
+}
+
+.room-option-button.close:hover{
+    background-color: red;
+    transition: 0.2s;
+    color: white;
+}
+
+.room-div{
+    margin-top: 1.5rem;
+}
+.receiver-img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}

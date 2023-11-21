@@ -8,6 +8,7 @@
 }
 
 .chat-room-container{
+    position: relative;
     height: 100vh;
     background-color: #c2e5d4;
     display: flex;
@@ -76,16 +77,60 @@
 }
 
 .chat-message{
-    background-color: var(--greenSecondary);
+    background-color: rgb(233, 233, 233);
+    color: black;
     max-width: 360px;
     width: fit-content;
     margin-bottom: 0.2rem;
-    color: white;
-    padding: 15px 25px;
+    padding: 15px 25px 20px 15px;
     border-radius: 20px 20px 20px 0;
+    position:relative;
 }
 
 .message-sended{
     margin-left: auto;
     border-radius: 20px 20px 0 20px;
+    background-color: var(--greenSecondary);
+    color: white;
+}
+
+
+
+.receiver-img{
+    height: 50px;
+    width: 50px;
+    margin-right: 1rem;
+    border-radius: 50%;
+}
+
+.go-back-button{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--greenPrincipal);
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.go-back-button:hover{
+    background-color: var(--greenSecondary);
+    color: white;
+}
+
+.message-time{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 3px;
 }
