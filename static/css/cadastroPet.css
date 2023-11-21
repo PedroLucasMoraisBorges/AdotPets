@@ -227,12 +227,15 @@ body{
 }
 
 .add-row > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: 0.15s;
     background-color: #4cc789;
     color: white;
     width: 70px;
     height: 70px;
-    line-height: 55px;
+    line-height: 0px;
     text-align: center;
     font-size: 4rem;
     border-radius: 50%;

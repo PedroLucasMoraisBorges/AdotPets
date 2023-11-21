@@ -293,13 +293,30 @@ label{
 }
 
 .button-add-pet{
-    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;   
     background-color: var(--greenPrincipal);
-    padding: 8px 8px;
+    padding: 9px 12px;
+    height: 100%;
     margin-left: 2rem;
-    border-radius: 15px;
+    border-radius: 40px;
     transition: 0.2s;
     cursor: pointer;    
+}
+
+.button-add-pet .sum-symbol{
+    height: 30px;
+    width: 30px;
+    line-height: 0;
+    font-size: 1.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    margin-right: 0.5rem;
 }
 
 .button-add-pet:hover{

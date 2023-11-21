@@ -6,10 +6,21 @@
 {% endblock  %}
 
 {% block content %}
+    <div class="delete-modal-screen" id="deleteModal">
+        <div class="delete-modal-container">
+            <h3>Deletar Chat</h3>
+            <p>Deseja realmente deletar o chat com |NomeDoUsuario|?</p>
+            <form action="" class="delete-form">
+                <input type="submit" value="Deletar" class="delete-chat-button">
+                <button type="button" id="closeDeleteModalButton">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
     <main class="chats-section">
         <h1>Chats Ativos</h1>
         {% if hasChats == False %}
-            Não tem chat chapa
+            <p>No momento, você não possui nenhum chat iniciado!</p>
         {% else %}
 
             {% for room in rooms %}
@@ -45,4 +56,25 @@
 
         {% endif %}
     </main>
+    
+    <script>
+        deleteModal = document.querySelector("#deleteModal")
+
+        closeDeleteModalButton = document.querySelector("#closeDeleteModalButton")
+        closeDeleteModalButton.addEventListener("click", closeDeleteModal)
+
+        openDeleteModalButtons = document.querySelectorAll(".close")
+        openDeleteModalButtons.forEach(button => {
+            button.addEventListener("click", openDeleteModal)
+        });        
+
+        function closeDeleteModal(){
+            deleteModal.classList.add("hidden")
+        }
+
+        function openDeleteModal(){
+            deleteModal.classList.remove("hidden")
+        }
+
+    </script>
 {% endblock content %}
