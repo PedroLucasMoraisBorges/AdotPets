@@ -48,7 +48,7 @@
                         <span>Data de inicio: {{room.roomDate}}</span>
                         <div class="room-option-buttons">
                             <a href="{% url 'chat' room.details.id %}" class="room-option-button open">Abrir</a>
-                            <button class="room-option-button close">Deletar</button>
+                            <button class="room-option-button close" receiverID="{{room.receiver.id}}" receiverName="{{room.receiver}}">Deletar</button>
                         </div>
                     </div>
                 </div>
