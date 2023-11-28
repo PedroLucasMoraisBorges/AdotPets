@@ -1,32 +1,53 @@
 {% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+{% endblock %}
 <footer>
     <div class="logo">
         <img src="{% static 'imgs/icon-home-page.svg' %}" alt="logo">
     </div>
     <div class="footer-information">
         <div class="info-section">
-            <h4><span class="colorized-text">
-                    Lorem ipsum
-                </span></h4>
-            <p>Lorem ipsum</p>
-            <p>Mi</p>
-            <p>Lorem</p>
-            <p>Lorem ipsum</p>
+            <h4>
+                <span class="colorized-text">
+                    Mapa do Site
+                </span>
+            </h4>
+            {% if info.company %}
+                <a class="{{nHomeComp}}" href="{% url 'homeCompany'%}">Home</a>
+                <a class="{{nProdutos}}" href="{% url 'verLoja'%}">Produtos</a>
+                <a class="{{nPedidos}}" href="{% url 'pedidosEmpresa' %}">Pedidos</a>
+            {% else %}
+                <a class="{{nExplorar}}" href="{% url 'home' %}">Explorar</a>
+                <a class="{{nLoja}}" href="{% url 'produtos' %}">Loja</a>
+                <a class="{{nLost}}" href="{% url 'petsPerdidos' %}">Animais perdidos</a>
+                {% if info.user %}
+
+                    <a class="{{nPedidos}}" href="{% url 'pedidos' %}">Meus pedidos</a>
+                    <a class="{{nProcessos}}" href="{% url 'processos' %}">Processos</a>
+                    <a class="{{nChat}}" href="{% url 'chatsPage' %}">Chats</a>
+                    <a href="{% url 'shoppingCart' %}" class="cart">
+
+                        <img src="{% static 'imgs/loja/cart.svg' %}" alt="">
+                    </a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
     <div class="footer-information">
         <div class="info-section">
             <h4><span class="colorized-text">
-                    Lorem ipsum
+                    Suporte
                 </span></h4>
-            <p>Lorem ipsum dolor sit</p>
-            <p>Lorem Ipsum dolor sit armet</p>
+            <a>Email</a>
+            <a>Fale Conosco</a>
+            <a>Chat Online</a>
         </div>
     </div>
     <div class="footer-information">
         <div class="info-section">
             <h4><span class="colorized-text">
-                    Lorem
+                    Siga-nos
                 </span></h4>
             <img src="{% static 'imgs/facebookIcon.svg' %}" alt="facebook logo">
             <img src="{% static 'imgs/instagramIcon.svg' %}" alt="facebook logo">

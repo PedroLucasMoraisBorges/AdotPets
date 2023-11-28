@@ -37,7 +37,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class DefaultUserForm(forms.ModelForm):
     telephone = forms.CharField(
-        label = 'telephone',
+        label = 'Telefone',
         widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     
     class Meta:
@@ -49,7 +49,6 @@ class ProfileImageForm(forms.ModelForm):
     img = forms.ImageField(
         label='',
         widget= FileInput(attrs={'accept':'.jpg, .png','class':'none'}),
-        help_text='Tipos de documentos aceitos: .jpg, .png',
         required=False
     )
 
@@ -94,6 +93,9 @@ class CompanyForm(forms.ModelForm):
         label='CNPJ',
         widget = forms.NumberInput(attrs={'class': 'px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '00.000.000/0000-00'})
     )
+    telephone = forms.CharField(
+        label = 'Telefone',
+        widget = forms.NumberInput(attrs={'class': 'none px-3 py-2 w-100 border-radius-inputs border fs-inputs shadow-sm', 'placeholder': '88999999999'}))
     class Meta:
         model = Company
         fields = '__all__'
