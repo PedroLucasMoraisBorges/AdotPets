@@ -1,0 +1,65 @@
+
+/* error */
+@keyframes surgir {
+    from{
+        left: -50%;
+    }
+
+    to{
+        left: 1%;
+    }
+}
+
+@keyframes voltar {
+    from{
+        left:1%
+    }
+    to{
+        left: -50%
+    }
+}
+
+.alert{
+    z-index: 1;
+    top: 2%;
+    left: 1%;
+    position: absolute;
+    width: 35%;
+    animation: surgir 1s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fa7f72;
+    border-color: #fa7f72;
+    padding: .4rem;
+}
+
+.alert button{
+    background-color: transparent;
+    border: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: black;
+    width: 10%;
+    margin: auto;
+    transition: .2s;
+}
+
+.alert button:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.sumir{
+    animation: voltar 1s;
+    transition: 1s;
+    opacity: 0;
+}
+
+
+.input-container .campError::placeholder{
+    font-weight: bold;
+    color: #1a3962;
+}
+
+/* error */

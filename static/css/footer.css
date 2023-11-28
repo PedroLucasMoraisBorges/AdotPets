@@ -44,6 +44,19 @@ footer {
     justify-content: space-around;
 }
 
+.info-section a{
+    display: block;
+    color: #000000;
+    transition: .2s;
+    margin-bottom: 1rem;
+}
+
+.info-section a:hover{
+    transform: scale(1.1);
+    color: #00000093;
+    cursor: pointer;
+}
+
 
 
 

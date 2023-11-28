@@ -1,22 +1,60 @@
+{% load static %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/Cadastro-company.css' %}">
+<link rel="stylesheet" href="{% static 'css/error.css' %}">
+<script src="{% static 'js/error.js' %}"></script>
+{% endblock head %}
+
+{% block content %}
+
+
+{% if errors %}
+      <div class="alert alert-danger campError alert-dismissible">
+          <div>
+              {% for error in errors %}
+                  <span>{{ error }}</span><br>
+              {% endfor %}
+          </div>
+          
+          <button class="close" onclick="fechar()">x</button>
+      </div>
+{% endif %}
+
+
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    {{profileImageForm}}
-    
-    {% for field in clienteForm %}
-        <div>
-            <p>{{ field.label_tag }}</p>
-            <p>{{ field }}</p>
-            <p>{{field.help_text}}</p>
-        </div>
-    {% endfor %}
-    
-    {% for field in addressForm %}
-        <div>
-            <p>{{ field.label_tag }}</p>
-            <p>{{ field }}</p>
-        </div>
-    {% endfor %}
+    <h1>Cadastro Cliente </h1>
 
-    <button type="submit">cadastrar</button>
+    <label for="id_img" class="submit-img">
+        <img src="{% static 'imgs/addFoto.svg' %}" alt="">
+        {{profileImageForm}}
+    </label>
+
+    <article class="info">
+        <div class="form-conteudo">
+            <div class="form-company">
+                {% for field in clienteForm %}
+                    <div class="campo">
+                        <label>{{ field.label_tag }}</label>
+                        <p>{{ field }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div class="inlineForm">
+                {% for field in addressForm %}
+                    <div class="campo">
+                        <label>{{ field.label_tag }}</label>
+                        <p>{{ field }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button type="submit">Cadastrar Cliente</button>
+    </article>
+
 </form>
+{% endblock content %}

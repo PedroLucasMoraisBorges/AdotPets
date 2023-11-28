@@ -182,3 +182,12 @@ def getProductInfo(product):
         'img' : img,
         'divided' : divided
     }
+
+
+def getErrors(Forms):
+       errors = []
+       for form in Forms:
+             for field, field_errors in form.errors.items():
+                for error in field_errors:
+                    errors.append(f"{field.title()}: {error}")
+       return errors

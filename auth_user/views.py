@@ -80,6 +80,8 @@ class registerCliente(View):
         profileImageForm = ProfileImageForm(request.POST, request.FILES)
         normalForms = [clientForm, addressForm, profileImageForm]
 
+        errors = getErrors(normalForms)
+
         if all(form.is_valid() for form in normalForms):
             for item in normalForms:
                 form = item.save(commit=False)
@@ -88,6 +90,7 @@ class registerCliente(View):
             return redirect('/home/')
         else:
             context = {
+            'errors' : errors,
             'clienteForm' : clientForm,
             'addressForm' : addressForm,
             'profileImageForm':profileImageForm
@@ -114,6 +117,8 @@ class registerCompany(View):
         profileImageForm = ProfileImageForm(request.POST, request.FILES)
         normalForms = [companyForm, addressForm, profileImageForm]
 
+        errors = getErrors(normalForms)
+
         if all(form.is_valid() for form in normalForms):
             for item in normalForms:
                 form = item.save(commit=False)
@@ -122,6 +127,7 @@ class registerCompany(View):
             return redirect('/')
         else:
             context = {
+            'errors' : errors,
             'companyForm' : companyForm,
             'addressForm' : addressForm,
             'profileImageForm':profileImageForm
