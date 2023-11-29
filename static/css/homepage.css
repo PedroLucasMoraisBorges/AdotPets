@@ -22,6 +22,10 @@ a {
     text-decoration: none;
 }
 
+p{
+    max-width: 575px;
+}
+
 @media only screen and (min-width: 1360px) {
 
 
@@ -116,23 +120,27 @@ a {
 
     .form-home-pg {
         border-radius: 15px;
-        border: 3px solid #14452C;
+        border: 1px solid #14452C;
         position: absolute;
         background-color: #FFFFFF;
         width: 80%;
-        height: 250px;
+        height: 200px;
         padding: 30px 110px;
     }
 
-    .form-home-pg h2 {
+    .form-home-pg h3 {
         color: #649C80;
     }
 
     .form-home-pg-pets {
         display: flex;
-        flex-direction: column;
         justify-content: center;
-        margin-top: 40px;
+        margin-top: 20px;
+        align-items: center;
+    }
+
+    .text{
+        width: 100%;
     }
 
     .form-home-pg-pets p {
@@ -142,9 +150,13 @@ a {
 
     .form-home-pg-pets select {
         width: 100%;
-        padding: 4px;
+        padding: 1rem .5rem;
         opacity: 0.5;
         border-radius: 7px;
+    }
+
+    select:hover{
+        cursor: pointer;
     }
 
     .send-pet {
@@ -153,11 +165,17 @@ a {
     }
 
     .send-pet button {
-        border-radius: 15px;
-        width: 70%;
+        border-radius: 10px;
+        padding: .7rem 2rem;
         background-color: #649C80;
         color: #FFFFFF;
         border: solid 0px;
+        transition: .2s;
+    }
+
+    button:hover{
+        filter: brightness(1.1);
+        transform: scale(1.1);
     }
 
     .mid-1 {
@@ -187,7 +205,7 @@ a {
         justify-content: space-around;
     }
 
-    .description-mid h2 {
+    .description-mid h3 {
         font-size: 40px;
         font-weight: bold;
     }
@@ -200,22 +218,20 @@ a {
         color: #649C80;
     }
 
-    .description-mid-2-1 {
-        margin: 100px;
-        font-size: 40px;
-        font-weight: bold;
-    }
-
     .container-carrousel {
         display: flex;
         justify-content: space-around;
-        align-items: center;
+        align-items: start;
         margin: 0 60px;
     }
 
     .information {
         width: 40%;
-        font-size: 24px;
+        font-size: 20px;
+    }
+
+    .information p{
+        font-size: 16px;
     }
 
     .carrousel {
@@ -247,13 +263,21 @@ a {
         font-size: 40px;
     }
 
-    .description-mid-3-1 button {
+    .description-mid-3-1 a {
         color: #000000;
-        border-radius: 15px;
+        border-radius: 10px;
         background-color: #A5EBC8;
         margin: 30px 0;
         width: 30%;
         border: 0px;
+        text-align: center;
+        transition: .2s;
+        padding: .4rem 0rem .4rem 0rem;
+    }
+
+    .description-mid-3-1 a:hover{
+        filter: brightness(1.1);
+        transform: scale(1.1);
     }
 
     footer {
@@ -349,7 +373,7 @@ a {
         margin-bottom: 2rem;
     }
 
-    .mid-form h2 {
+    .mid-form h3 {
         text-align: center;
         margin-bottom: 1.5rem;
         color: var(--greenPrincipal);
@@ -394,7 +418,7 @@ a {
         width: 100%;
     }
 
-    .description-mid-1 h2 {
+    .description-mid-1 h3 {
         position: relative;
         margin-top: -50px;
         font-size: 25px;
@@ -437,6 +461,10 @@ a {
     .description-mid-2 p {
         width: 85%;
         background-color: #FFFFFF;
+    }
+
+    .mid-2-1{
+        margin: 100px ;
     }
 
     .description-mid-2-1 h3 {

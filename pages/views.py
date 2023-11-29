@@ -47,6 +47,10 @@ class landingPage(View):
             return render(request, 'homeOficial.html')
         else:
             return redirecionar_usuario(request.user)
+    def post(self, request):
+        teste = request.POST.get('breed')
+        url = 'http://127.0.0.1:8000/home/?Search=' + teste
+        return redirect(url)
             
 
 class homePage(View):

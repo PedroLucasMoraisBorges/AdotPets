@@ -172,13 +172,6 @@
 
 
     itens.forEach(item => {
-        var value = item.querySelector('.value')
-        var quant = item.querySelector('.quant')
-        var valuesTotal = []
-        var quantsTotal = []
-
-        console.log(quant.textContent)
-
         if(item.classList.contains(id) == false){
             valor = 0
             id = item.getAttribute('idOrder')
@@ -189,7 +182,7 @@
 
         idComp = 'value'+id
         var divTotal = document.getElementById(idComp)
-        divTotal.textContent = valor.toFixed(2)
+        divTotal.textContent = parseFloat(divTotal.textContent).toFixed(2)
     })
 </script>
 

@@ -19,10 +19,10 @@ def getUserType(user):
 def getPetsAdot(request, search):
     # To a registered user
     if request.user.is_authenticated:
-        pets = list(reversed(Pet.objects.filter(~Q(fk_user=request.user) & Q(adopted=False)).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
+        pets = list(reversed(Pet.objects.filter(~Q(fk_user=request.user) & Q(adopted=False)).filter(Q(name__istartswith=search) | Q(breed__istartswith=search) | Q(sex__istartswith=search))))
     # To an anonymous user
     else:
-        pets = list(reversed(Pet.objects.filter(adopted=False).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search))))
+        pets = list(reversed(Pet.objects.filter(adopted=False).filter(Q(name__istartswith=search) | Q(breed__istartswith=search) | Q(sex__istartswith=search))))
 
     for pet in pets:
         try:
@@ -34,7 +34,7 @@ def getPetsAdot(request, search):
 
 # Returns user's pets
 def getMyPets(user, search):
-    pets = list(Pet.objects.filter(Q(fk_user=user) & Q(adopted=False)).filter(Q(name__istartswith=search) or Q(breed__istartswith=search) or Q(sex__istartswith=search)))
+    pets = list(Pet.objects.filter(Q(fk_user=user) & Q(adopted=False)).filter(Q(name__istartswith=search) | Q(breed__istartswith=search) | Q(sex__istartswith=search)))
 
     for pet in pets:
         try:
@@ -50,15 +50,15 @@ def getLostPets(request, search):
     
 
     if request.user.is_authenticated:
-        pets = reversed(LostPets.objects.filter(~Q(fk_pet__fk_user=request.user) & Q(found=False)).filter(Q(fk_pet__name__istartswith=search) and Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
+        pets = reversed(LostPets.objects.filter(~Q(fk_pet__fk_user=request.user) & Q(found=False)).filter(Q(fk_pet__name__istartswith=search) & Q(fk_pet__breed__istartswith=search) & Q(fk_pet__sex__istartswith=search)))
     # To an anonymous user
     else:
-        pets = reversed(LostPets.objects.filter().filter(Q(fk_pet__name__istartswith=search) and Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
+        pets = reversed(LostPets.objects.filter().filter(Q(fk_pet__name__istartswith=search) & Q(fk_pet__breed__istartswith=search) & Q(fk_pet__sex__istartswith=search)))
     return pets
 
 # Returns the user's favorite pets
 def getFavoritePets(user, search):
-    pets = reversed(Favorites.objects.filter(Q(fk_donee=user)).filter(Q(fk_pet__name__istartswith=search) or Q(fk_pet__breed__istartswith=search) and Q(fk_pet__sex__istartswith=search)))
+    pets = reversed(Favorites.objects.filter(Q(fk_donee=user)).filter(Q(fk_pet__name__istartswith=search) | Q(fk_pet__breed__istartswith=search) & Q(fk_pet__sex__istartswith=search)))
     return pets
 
 # Returns defaultUser information
