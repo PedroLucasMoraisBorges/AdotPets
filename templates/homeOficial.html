@@ -11,17 +11,14 @@
 <div>
     <div class="page-container">
         <header>
-
             <section class="header-section">
                 <img src="{% static 'imgs/coelho-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
                 <div class="description-header-section">
-                    <h1>Lorem ipsum dolor sit.
+                    <h1>A melhor plataforma
                         <br>
-                        <span class="colorized-text-1">Nunc Vuputate Liberum.</span>
+                        <span class="colorized-text-1">voltada para pets</span>
                     </h1>
-                    <p>Horem ipsum dolor sit amet, consectetur adipiscing elit.
-                        <br>
-                        <span class="colorized-text-2">Lorem ipsum dolor sit amet.</span>
+                    <p>Venha fazer parte dos apaixonados por pets
                     </p>
                 </div>
             </section>
@@ -29,18 +26,26 @@
         <main>
             <div class="mid-form">
                 <div class="form-home-pg">
-                    <h2>Lorem ipsum dolor</h2>
-                    <div class="form-home-pg-pets">
-                        <p>Lorem ipsum dolor sit</p>
-                        <select name="" id="">
-                            <option value="Cachorro">Cachorro</option>
-                            <option value="Gato">Gato</option>
-                            <option value="William">William</option>
-                        </select>
-                        <div class="send-pet">
-                            <button>Lorem Ipsum</button>
+                    <h3>Busque por raça</h3>
+                    <form method="post" class="form-home-pg-pets">
+                        {%csrf_token%}
+                        <div class="text">
+                            <select name="breed" id="">
+                                <option value="Pug">Pug</option>
+                                <option value="Shih Tzu">Shih Tzu</option>
+                                <option value="Buldogue">Buldogue</option>
+                                <option value="Pastor Alemão">Pastor Alemão</option>
+                                <option value="Poodle">Poodle</option>
+                                <option value="Rottweiler">Rottweiler</option>
+                                <option value="Labrador">Labrador</option>
+                                <option value="Labrador">Labrador</option>
+                                <option value="Golden Retriever">Golden Retriever</option>
+                            </select>
                         </div>
-                    </div>
+                        <div class="send-pet">
+                            <button>Buscar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="mid-sections">
@@ -48,15 +53,12 @@
                     <div class="pg-post-1">
                         <img src="{% static 'imgs/cat-home-page.svg' %}" class="irregular-ball" alt="irregular ball">
                         <div class="description-mid-1">
-                            <h2>Lorem ipsum
+                            <h2>Busque por pets para adoção
                                 <br>
-                                <span class="colorized-text-1">dolor sit.</span>
+                                <span class="colorized-text-1"></span>
                             </h2>
-                            <p>Norem ipsum dolor amet, consectetur elit.
-
-                                <span class="colorized-text-2">Nunc vulputate libero et velinterdum,mattis.</span>
-                                <br>
-                                <span class="colorized-text-2">Nunc vulputate.</span>
+                            <p>Faça o contato com o dono pelo email 
+                                <span class="colorized-text-2"> ou use o chat da plataforma</span>
                             </p>
                         </div>
                     </div>
@@ -65,58 +67,39 @@
                     <div class="pg-post-2">
                         <img src="{% static 'imgs/dog-home-page.svg' %}" alt="irregular ball" class="irregular-ball">
                         <div class="description-mid-2">
-                            <h2>Lorem ipsum
+                            <h2>Perdeu seu Pet?
                                 <br>
-                                <span class="colorized-text-1">dolor sit</span>
+                                <span class="colorized-text-1">Anuncie aqui!</span>
                             </h2>
-                            <p>Lorem ipsum dolor sit amet consectetur. Scelerisque
-                                <span class="colorized-text-2">pulvinar nunc pulvinar erat.</span>
-                                <br>
-                                <span class="colorized-text-2">Lorem ipsum dolor sit</span>
+                            <p>
+                                O AdotPets tem uma página dedicada a pets perdidos, 
+                                <span class="colorized-text-2"> cadastre informações sobre seu pet e qualquer outro usuário pode acabar encontrando-o e entrando em contato com você</span>
                             </p>
                         </div>
                     </div>
-                    <section class="mid-2-1">
-                        <div class="description-mid-2-1">
-                            <h3>Lorem ipsum
-                                <br>
-                                <span class="colorized-text-2">dolor sit amet</span>
-                            </h3>
-                        </div>
+                    <section style="margin: 100px;" class="mid-2-1">
                         <div class="container-carrousel">
                             <img src="{% static 'imgs/woman-and-cat.svg' %}" alt="irregular ball"
                                 class="rectangle-stand">
                             <div class="information">
-                                <p>Lorem ipsum dolor sit amet consectetur. Maecenas nibh et tellus mattis ultricies.
-                                    Tincidunt odio risus magna leo leo. Volutpat quis tortor tempor cursus id ultrices.
-                                    At duis.</p>
-                                <p><strong>Lorem</strong></p>
-                                <p>Lorem</p>
-                                <div class="carrousel">
-                                    <ul class="carrousel-indicators">
-                                        <li class="carrousel-indicator"></li>
-                                        <li class="carrousel-indicator"></li>
-                                        <li class="carrousel-indicator indicator-active "></li>
-                                        <li class="carrousel-indicator"></li>
-                                        <li class="carrousel-indicator"></li>
-                                    </ul>
-                                </div>
+                                <h3>Confira abaixo algumas das vantagens de utilizar nossa plataforma:</h3>
+                                <p>Descontos exclusivos em várias lojas</p>
+                                <p>Chat com empresas e outros usuários</p>
                             </div>
                         </div>
-            </div>
-            </section>
+                    </section>
             </section>
             <section class="mid-3">
                 <div class="mid-3-1">
                     <img src="{% static 'imgs/geometryShapes_background.svg' %}" alt="background shapes"
                         class="background-shapes">
                     <div class="description-mid-3-1">
-                        <h3>Lorem ipsum aolor ait amet consectetur</h3>
-                        <button>Lorem Ipsum Dolor</button>
+                        <h3>Venha fazer parte do AdotPets</h3>
+                        <a href="{% url 'login' %}">Acessar</a>
                     </div>
                 </div>
             </section>
-    </div>
+        </div>
     </main>
 </div>
 
