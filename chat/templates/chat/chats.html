@@ -6,12 +6,23 @@
 {% endblock  %}
 
 {% block content %}
-    <div class="delete-modal-screen" id="deleteModal">
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message" id="activityMessage">
+            {{message}}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="delete-modal-screen hidden" id="deleteModal">
         <div class="delete-modal-container">
             <h3>Deletar Chat</h3>
-            <p>Deseja realmente deletar o chat com |NomeDoUsuario|?</p>
-            <form action="" class="delete-form">
-                <input type="submit" value="Deletar" class="delete-chat-button">
+            <p>Deseja realmente deletar o chat com <span id="usernameOnDeleteModal">|NomeUsuario|</span>?</p>
+            <form action="" class="delete-form" method="POST">
+                {% csrf_token %}
+                <input type="text" value="" class="hidden" name="chatId" id="deleteModalChatId">
+                <input type="submit" value="Deletar" class="delete-chat-button" name="deleteChatButton">
                 <button type="button" id="closeDeleteModalButton">Cancelar</button>
             </form>
         </div>
@@ -40,15 +51,19 @@
                     </div>
                     <div class="room-div-middle">
                         <div class="room-last-message">
-                            <span class="message-content">{{room.lastMessage.fk_sender}} diz: {{room.lastMessage.content}}</span>
-                            <span class="message-time">{{room.lastMessageDate}}</span>
+                            {% if room.lastMessage != None %}
+                                <span class="message-content">{{room.lastMessage.fk_sender}} diz: {{room.lastMessage.content}}</span>
+                                <span class="message-time">{{room.lastMessageDate}}</span>
+                            {% else %}
+                                <span style="display: block; width: 100%; text-align: center;">Ainda não foi mandada nenhuma mensagem nesse chat!</span>
+                            {% endif %}
                         </div>  
                     </div>
                     <div class="room-div-bottom">
                         <span>Data de inicio: {{room.roomDate}}</span>
                         <div class="room-option-buttons">
                             <a href="{% url 'chat' room.details.id %}" class="room-option-button open">Abrir</a>
-                            <button class="room-option-button close" receiverID="{{room.receiver.id}}" receiverName="{{room.receiver}}">Deletar</button>
+                            <button class="room-option-button close" receiverID="{{room.receiver.id}}" receiverName="{{room.receiver}}" roomId="{{room.details.id}}">Deletar</button>
                         </div>
                     </div>
                 </div>
@@ -72,9 +87,14 @@
             deleteModal.classList.add("hidden")
         }
 
-        function openDeleteModal(){
+        function openDeleteModal(e){
             deleteModal.classList.remove("hidden")
+            username = e.target.getAttribute("receiverName")
+            chatId = e.target.getAttribute("roomId")
+            document.querySelector("#usernameOnDeleteModal").innerHTML = username 
+            document.querySelector("#deleteModalChatId").value = chatId
         }
 
     </script>
+    <script src="{% static 'js/messages.js' %}"></script>
 {% endblock content %}

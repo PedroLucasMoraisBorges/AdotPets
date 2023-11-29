@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Room, Message
 from pages.utilits import getDefaultUser
 from django.db.models import Q
 from datetime import date, datetime
 from auth_user.models import ProfileImage
+from django.contrib import messages
 
 # Create your views here.
 
@@ -60,19 +61,21 @@ def chatsPage(request):
                 receiver = chat.fk_donor
 
             unreadMessages = Message.objects.filter(fk_room=chat, status="UNREAD").exclude(fk_sender=request.user).count()
-
-
+            
             lastMessage = Message.objects.filter(fk_room = chat).order_by('created').last()
-            messageDate = lastMessage.created.date()
-            todayDate = date.today()
-            if messageDate == todayDate:
-                lastMessageDate = lastMessage.created.time()
+            if lastMessage != None:
+                messageDate = lastMessage.created.date()
+                todayDate = date.today()
+                if messageDate == todayDate:
+                    lastMessageDate = lastMessage.created.time()
+                else:
+                    dias = (todayDate - messageDate).days
+                    if dias == 1:
+                        lastMessageDate = "Ontem"
+                    elif dias > 1:
+                        lastMessageDate = str(dias) + " dias atrás"
             else:
-                dias = (todayDate - messageDate).days
-                if dias == 1:
-                    lastMessageDate = "Ontem"
-                elif dias > 1:
-                    lastMessageDate = str(dias) + " dias atrás"
+                lastMessageDate = None
 
             roomDate = chat.created.date()
 
@@ -89,8 +92,18 @@ def chatsPage(request):
                 }
             )
 
-            print(rooms[0]['receiverImg'].img.url)
     
+    if request.method == "POST" and "deleteChatButton" in request.POST:
+        roomId = request.POST.get("chatId")
+        try:
+            room = Room.objects.get(id=roomId)
+            room.delete()
+            mensagem = "Chat deletado com sucesso!"
+            messages.success(request, mensagem)
+            return redirect('chatsPage')
+        except:
+            return HttpResponse("Fatal Error, Chat a ser deletado não existe!")
+
 
     context = {"info":getDefaultUser(request.user), 'hasChats':hasChats, 'rooms':rooms, 'nChat' : 'nChat'}
     
