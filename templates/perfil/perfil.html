@@ -16,19 +16,22 @@
     {% include 'componentes/petModal.html' %}
 {% endfor %}
 
-
-
-<!-- {% if info.defaultUser.profile_image %}
-<img src="{{info.defaultUser.profile_image.url}}" alt="">
-{% else %}
-<h3>Coloca um img com um svg de perfil genérico</h3>
-{% endif %} -->
+<form method="post">
+    {% csrf_token %}
+    {{profileImageForm}}
+    <button id="submitImg" type="submit" class="none"></button>
+</form>
 
 <main class="pets-section Mypets">
     <section class="perfil-insight-information">
         <img src="{% static 'imgs/backgroundPerfilPage.jpg' %}" alt="background img" class="background-perfil">
         <div class="photo-container">
-            <img src="{% static 'imgs/dogPhoto.jpg' %}" alt="imagem do perfil do usuário" class="perfil-photo">
+            {% if  info.profileImage.img %}
+                <label for="id_img"><img src="{{info.profileImage.img.url}}" alt="imagem do perfil do usuário" class="perfil-photo"></label>
+                
+            {% else %}
+                <img class="buttonPerfil null" src="{% static 'imgs/perfil.svg' %}" alt="">
+            {% endif %}
             <h1 class="username">{{info.user}}</h1>
             <span class="usertype">Cadastro de Pessoa</span>
         </div>
