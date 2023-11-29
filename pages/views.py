@@ -528,7 +528,7 @@ def processos(request):
             mensagem = "Solicitação aceita, Pet " + pet.name + " adotado por " + donee_username +"!"
             messages.success(request, mensagem)
 
-            return redirect('processos')
+            return redirect('/processos/')
         
 
         elif request.POST.get('result') == "Recusar":
@@ -546,7 +546,7 @@ def processos(request):
 
             mensagem = "Solicitação de " + donee_username + " pelo pet " + pet.name + " recusada!"
             messages.success(request, mensagem)
-            return redirect('processos')
+            return redirect('/processos/')
 
     elif request.method == "POST" and "goToChat" in request.POST:
         donee = User.objects.get(username=request.POST.get("donee"))

@@ -433,8 +433,6 @@ class VerCupom(View):
         for item in pedidos:
             print(totalValue)
             totalValue += item.fk_product.value * item.ammount
-        
-        print(totalValue)
 
         context = {
             'info' : getCompany(request.user),

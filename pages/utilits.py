@@ -71,7 +71,7 @@ def getDefaultUser(user):
 
         pestCount = Pet.objects.filter(fk_user=user).count()
         favoritesPets = Favorites.objects.filter(fk_donee=user).count()
-        adoptedPets = LogExit.objects.filter(fk_donee=user).count()
+        adoptedPets = Requests.objects.filter(fk_donor = user).filter(state="ACCEPTED").count()
 
         user_list = {
             'user':user,
