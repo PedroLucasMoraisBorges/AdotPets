@@ -161,12 +161,28 @@ main{
     background-color: rgb(255, 73, 73);
     color: white;
     transition: 0.2s;
-}
+}   
 
 .delete-chat-button:hover{
     background-color: red;
 }
 
+.message{
+    position: fixed;
+    background-color: var(--greenSecondary);
+    opacity: 0.8;
+    color: white;
+    width: fit-content;
+    padding: 10px;
+    transform: translateX(-100%);
+    transition: 1s;
+}
+
+.slided{
+    transform: translateX(0);
+}
+
 .hidden{
     display: none;
 }
+
