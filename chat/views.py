@@ -61,11 +61,15 @@ def chatsPage(request):
                 receiver = chat.fk_donor
 
             unreadMessages = Message.objects.filter(fk_room=chat, status="UNREAD").exclude(fk_sender=request.user).count()
+            lastMessageDate = None
+            
             
             lastMessage = Message.objects.filter(fk_room = chat).order_by('created').last()
-            if lastMessage != None:
+
+            if lastMessage !=None:
                 messageDate = lastMessage.created.date()
                 todayDate = date.today()
+
                 if messageDate == todayDate:
                     lastMessageDate = lastMessage.created.time()
                 else:
